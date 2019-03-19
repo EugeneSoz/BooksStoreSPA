@@ -1,8 +1,9 @@
-﻿import { Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 
 import { HttpMethod } from "../enums/httpMethods";
+import { QueryOptions } from '../models/dataDTO/queryOptions';
 
 @Injectable({ providedIn: 'root' })
 export class RestDatasource {
@@ -12,6 +13,11 @@ export class RestDatasource {
         let result: T = null;
         switch (method) {
             case HttpMethod.GET:
+                result = response.status == 200
+                    ? response.body
+                    : null;
+                break;
+            case HttpMethod.POSTGET:
                 result = response.status == 200
                     ? response.body
                     : null;
@@ -37,6 +43,13 @@ export class RestDatasource {
     getAll<TReturnValue>(url: string): Observable<HttpResponse<TReturnValue>> {
         let result: Observable<HttpResponse<TReturnValue>> =
             this.sendRequest<TReturnValue, boolean>("get", url);
+
+        return result;
+    }
+
+    receiveAll<TReturnValue>(url: string, options: QueryOptions) {
+        let result: Observable<HttpResponse<TReturnValue>> =
+            this.sendRequest<TReturnValue, QueryOptions>("post", url, options);
 
         return result;
     }

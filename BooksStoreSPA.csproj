@@ -27,38 +27,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\extensions\extensionBase.ts" />
-    <None Remove="ClientApp\src\app\extensions\methods.ts" />
-    <None Remove="ClientApp\src\app\viewModels\adminSidebarSection.ts" />
+    <None Remove="ClientApp\src\app\models\dataDTO\book.ts" />
+    <None Remove="ClientApp\src\app\models\dataDTO\bookResponse.ts" />
+    <None Remove="ClientApp\src\app\models\dataDTO\category.ts" />
+    <None Remove="ClientApp\src\app\models\dataDTO\pagedResponse.ts" />
+    <None Remove="ClientApp\src\app\models\dataDTO\queryOptions.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\extensions\extensionBase.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\extensions\methods.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewModels\adminSidebarSection.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\book.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\bookResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\category.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\pagedResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\queryOptions.ts" />
   </ItemGroup>
-
-<!--  <ItemGroup>
-    <None Remove="ClientApp\src\app\components\admin\dbServices.component.ts" />
-    <None Remove="ClientApp\src\app\components\shared\admin.component.ts" />
-    <None Remove="ClientApp\src\app\enums\httpMethods.ts" />
-    <None Remove="ClientApp\src\app\helpers\dictionary.ts" />
-    <None Remove="ClientApp\src\app\helpers\list.ts" />
-    <None Remove="ClientApp\src\app\helpers\restDatasource.ts" />
-    <None Remove="ClientApp\src\app\helpers\urls.ts" />
-    <None Remove="ClientApp\src\app\services\dataOptions.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\components\admin\dbServices.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\components\shared\admin.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\enums\httpMethods.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\dictionary.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\list.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\restDatasource.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\urls.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\services\dataOptions.service.ts" />
-  </ItemGroup>-->
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
