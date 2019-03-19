@@ -5,10 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DbServicesComponent } from './components/admin/dbServices.component';
-import { AdminComponent } from './components/layouts/admin-layout.component';
-import { RestDatasource } from './helpers/restDatasource';
-import { DataOptionsService } from './services/dataOptions.service';
-import { Urls } from './helpers/urls';
+import { AdminLayoutComponent } from './components/layouts/admin-layout.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { PageButtonComponent } from './components/shared/page-button.component';
 import { RelatedBookTableComponent } from './components/admin/related-book-table.component';
@@ -33,7 +30,7 @@ import { BookCardComponent } from './components/store/book/book-card.component';
     declarations: [
         AppComponent,
         DbServicesComponent,
-        AdminComponent,
+        AdminLayoutComponent,
         PageButtonComponent,
         PaginationComponent,
         RelatedBookTableComponent,
@@ -60,9 +57,7 @@ import { BookCardComponent } from './components/store/book/book-card.component';
         HttpClientModule
     ],
     providers: [
-        Urls,
-        RestDatasource,
-        DataOptionsService,
+
     ],
     bootstrap: [AppComponent]
 })

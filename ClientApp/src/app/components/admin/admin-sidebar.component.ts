@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { AdminSidebarSection } from '../../viewModels/adminSidebarSection';
 
 @Component({
-  selector: 'app-admin-sidebar',
-  templateUrl: './admin-sidebar.component.html',
-  styleUrls: ['./admin-sidebar.component.scss']
+    selector: 'admin-sidebar',
+    templateUrl: './admin-sidebar.component.html',
 })
 export class AdminSidebarComponent implements OnInit {
+    sections: Array<AdminSidebarSection>;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.sections = new Array<AdminSidebarSection>();
+        this.sections.push(new AdminSidebarSection("/", "Работа с бд"));
+        this.sections.push(new AdminSidebarSection("/admin/books", "Книги"));
+        this.sections.push(new AdminSidebarSection("/admin/categories", "Категории"));
+        this.sections.push(new AdminSidebarSection("/admin/publishers", "Издатели"));
+        this.sections.push(new AdminSidebarSection("/store", "Магазин"));
+    }
 
 }

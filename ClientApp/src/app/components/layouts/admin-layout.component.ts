@@ -4,4 +4,4 @@
     selector: 'admin',
     templateUrl: './admin-layout.component.html',
 })
-export class AdminComponent { }
+export class AdminLayoutComponent { }

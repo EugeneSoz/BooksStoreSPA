@@ -29,11 +29,13 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\extensions\extensionBase.ts" />
     <None Remove="ClientApp\src\app\extensions\methods.ts" />
+    <None Remove="ClientApp\src\app\viewModels\adminSidebarSection.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\extensions\extensionBase.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\extensions\methods.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\viewModels\adminSidebarSection.ts" />
   </ItemGroup>
 
 <!--  <ItemGroup>

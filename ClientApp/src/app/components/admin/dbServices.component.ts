@@ -5,6 +5,7 @@ import { MigrationsOptions } from "../../models/dataDTO/migrationsOptions";
 @Component({
     selector: 'services',
     templateUrl: './dbServices.component.html',
+    providers: [DataOptionsService]
 })
 export class DbServicesComponent implements OnInit {
     constructor(
@@ -46,6 +47,5 @@ export class DbServicesComponent implements OnInit {
 
     onSeedDatabase(): void {
         this._dataOptionsService.seedDatabase(false);
-
     }
 }

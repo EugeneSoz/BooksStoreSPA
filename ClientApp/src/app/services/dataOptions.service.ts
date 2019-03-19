@@ -4,7 +4,7 @@ import { MigrationsOptions } from '../models/dataDTO/migrationsOptions';
 import { RestDatasource } from '../helpers/restDatasource';
 import { HttpMethod } from "../enums/httpMethods";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class DataOptionsService {
     constructor(
         private _urls: Urls,
