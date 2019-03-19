@@ -1,0 +1,21 @@
+﻿@import '_shared';
+@import '_customsVars';
+
+#store-main-content {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #ecf0f5;
+    @extend %marging-padding-reset;
+}
+
+/*верхняя панель*/
+#store-toolbar {
+    background-color: #3d54ba;
+}
+
+#store-scrollable-content {
+    overflow-y: auto;
+    height: 100vh;
+}
