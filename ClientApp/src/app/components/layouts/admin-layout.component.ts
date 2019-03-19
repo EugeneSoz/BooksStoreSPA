@@ -2,6 +2,6 @@
 
 @Component({
     selector: 'admin',
-    templateUrl: './admin.component.html',
+    templateUrl: './admin-layout.component.html',
 })
 export class AdminComponent { }
