@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooksStoreSPA.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20190317190256_Initial")]
+    [Migration("20190319222036_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace BooksStoreSPA.Migrations
 
             modelBuilder.Entity("BooksStoreSPA.Data.Book", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -53,7 +53,7 @@ namespace BooksStoreSPA.Migrations
 
                     b.Property<int>("Year");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryID");
 
@@ -64,7 +64,7 @@ namespace BooksStoreSPA.Migrations
 
             modelBuilder.Entity("BooksStoreSPA.Data.Category", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -74,7 +74,7 @@ namespace BooksStoreSPA.Migrations
 
                     b.Property<long?>("ParentCategoryID");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryID");
 
@@ -83,7 +83,7 @@ namespace BooksStoreSPA.Migrations
 
             modelBuilder.Entity("BooksStoreSPA.Data.Publisher", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -93,7 +93,7 @@ namespace BooksStoreSPA.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Publishers");
                 });
@@ -114,7 +114,7 @@ namespace BooksStoreSPA.Migrations
             modelBuilder.Entity("BooksStoreSPA.Data.Category", b =>
                 {
                     b.HasOne("BooksStoreSPA.Data.Category", "ParentCategory")
-                        .WithMany("ChildernCategories")
+                        .WithMany("ChildrenCategories")
                         .HasForeignKey("ParentCategoryID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

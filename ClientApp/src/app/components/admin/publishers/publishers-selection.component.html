@@ -1,3 +1,77 @@
-﻿<p>
-  publishers-selection works!
-</p>
+﻿<!-- <div id="admin-scrollable-content">
+
+    <div class="card m-3">
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-bold">Название издателя</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control w-50" placeholder="Введите значение для поиска">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <TabSet>
+        <Tab Title="Издатели">
+            @if (Publishers != null || Publishers?.Entities?.Count > 0)
+            {
+            <EntitiesTable Entities="Publishers.Entities" Context="publisher">
+                <TableHeader>
+                    <th class="text-center">ID</th>
+                    <th class="w-50">Издательство</th>
+                    <th class="w-50">Страна нахождения издательства</th>
+                    <th>Действия</th>
+                </TableHeader>
+                <RowTemplate>
+                    <td>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="@publisher.ID" name="customRadio" class="custom-control-input"
+                                checked="@SetCheckedValue(publisher)" value="@publisher.ID"
+                                onchange="@OnSelectEntityAsync" />
+                            <label class="custom-control-label" for="@publisher.ID">
+                                @publisher.ID
+                            </label>
+                        </div>
+                    </td>
+                    <td>@publisher.Name</td>
+                    <td>@publisher.Country</td>
+                    <td class="d-flex flex-row">
+                        <button type="button" class="btn btn-sm btn-warning text-white ml-1" onclick="@ShowModal">
+                            <i class='fas fa-pencil-alt fa-lg'></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger ml-1">
+                            <i class='fas fa-trash-alt fa-lg'></i>
+                        </button>
+                    </td>
+                </RowTemplate>
+            </EntitiesTable>
+
+            <Pagination GoToPageAsync="@OnGoToPageAsync" PagedResponse="@Publishers" />
+
+            }
+            else
+            {
+            <h4>Нет данных</h4>
+            }
+        </Tab>
+        <Tab Title="Книги">
+            @if (IsTabContentAvailable)
+            {
+            <RelatedBooksTable Books="@Publisher.Books" />
+            }
+            else
+            {
+            <h4>Выберите издателя</h4>
+            }
+        </Tab>
+    </TabSet>
+
+</div> -->

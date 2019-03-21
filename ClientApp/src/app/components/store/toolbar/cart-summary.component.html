@@ -1,3 +1,11 @@
-﻿<p>
-  cart-summary works!
-</p>
+<div [ngSwitch]="itemsCount" class="p-1">
+    <small *ngSwitchCase="0" class="text-white">
+        (Корзина: пусто)
+    </small>
+    <small *ngSwitchDefault class="text-white">
+        {{getDisplayMessage()}}
+    </small>
+    <button [ngClass]="cartBtnCss" routerLink="/cart-details">
+        <i class="fa fa-shopping-cart"></i>
+    </button>
+</div>

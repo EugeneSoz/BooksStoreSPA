@@ -15,7 +15,7 @@ namespace BooksStoreSPA.Data
             modelBuilder.Entity<Publisher>().HasMany<Book>(p => p.Books).WithOne(p => p.Publisher)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Category>().HasMany<Category>(c => c.ChildernCategories)
+            modelBuilder.Entity<Category>().HasMany<Category>(c => c.ChildrenCategories)
                 .WithOne(cc => cc.ParentCategory).HasForeignKey(cc => cc.ParentCategoryID)
                 .OnDelete(DeleteBehavior.Restrict);
         }

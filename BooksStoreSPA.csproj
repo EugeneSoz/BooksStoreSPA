@@ -27,19 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\models\dataDTO\book.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\bookResponse.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\category.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\pagedResponse.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\queryOptions.ts" />
+    <None Remove="ClientApp\src\app\enums\bookGridType.ts" />
+    <None Remove="ClientApp\src\app\viewModels\dropdown.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\book.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\bookResponse.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\category.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\pagedResponse.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\queryOptions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\enums\bookGridType.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\viewModels\dropdown.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

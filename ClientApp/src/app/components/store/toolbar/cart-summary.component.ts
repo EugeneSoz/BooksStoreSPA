@@ -1,15 +1,23 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
-  selector: 'app-cart-summary',
-  templateUrl: './cart-summary.component.html',
-  styles: []
+    selector: 'cart-summary',
+    templateUrl: './cart-summary.component.html',
+    providers: [StoreService]
 })
-export class CartSummaryComponent implements OnInit {
+export class CartSummaryComponent {
+    constructor(
+        private _storeService: StoreService) { }
 
-  constructor() { }
+    itemsCount: number = 0;
+    totalPrice: number = 0;
+    cartBtnCss: string = `text-white btn btn-sm ml-1'${this.itemsCount == 0 ? ' disabled' : ''}`;
 
-  ngOnInit() {
-  }
+    getDisplayMessage(): string
+    {
+        let item: string = "книг(и)";
 
+        return `Корзина: ${this.itemsCount} ${item} на ${this.totalPrice}`;
+    }
 }

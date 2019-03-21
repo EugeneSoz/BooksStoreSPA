@@ -43,7 +43,7 @@ namespace BooksStoreSPA.Controllers
             {
                 if (category.ParentCategory != null)
                 {
-                    category.ParentCategory.ChildernCategories = null;
+                    category.ParentCategory.ChildrenCategories = null;
                 }
             }
 
@@ -56,13 +56,13 @@ namespace BooksStoreSPA.Controllers
             IQueryable<Category> entities = await _repo.GetAllAsync();
 
             entities = entities.Where(e => e.ParentCategoryID == null)
-                .Include(c => c.ChildernCategories);
+                .Include(c => c.ChildrenCategories);
             List<Category> categories = await entities.ToListAsync();
             foreach (Category category in categories)
             {
-                if (category.ChildernCategories.Count > 0)
+                if (category.ChildrenCategories.Count > 0)
                 {
-                    category.ChildernCategories.ForEach(cc => cc.ParentCategory = null);
+                    category.ChildrenCategories.ForEach(cc => cc.ParentCategory = null);
                 }
             }
 

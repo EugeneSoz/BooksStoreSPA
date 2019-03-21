@@ -1,3 +1,47 @@
-﻿<p>
-  publisher-form works!
-</p>
+﻿<!-- <FormModalTemplate Title="@Title" IsEditMode="@IsEditMode" HideForm="@HideFormAsync" Submit="@SubmitAsync">
+    <ModalBody>
+        @if (Entity != null)
+        {
+        <form method="post">
+            <div class="form-group">
+                <label>Название издательства</label>
+                <input class="@(SetFormCotrolClass(nameof(Entity.Name)))" bind="@Entity.Name" />
+                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Entity.Name)" />
+            </div>
+            <div class="form-group">
+                <label>Страна нахождения издательства</label>
+                <input class="form-control" bind="@Entity.Country" />
+            </div>
+        </form>
+        }
+    </ModalBody>
+</FormModalTemplate>
+
+@functions {
+[Inject] private AppState AppState { get; set; }
+[Inject] private AdminService AdminService { get; set; }
+
+//создать задачу
+protected async Task SubmitAsync()
+{
+await SubmitAsync(AdminService.UpdateAsync<Publisher>, AdminService.CreateAsync<Publisher>);
+        }
+
+        protected override string SetTitle(bool isEditMode, string entity = null)
+        {
+        return base.SetTitle(isEditMode, "издательство");
+        }
+
+        protected override async Task ProcessResponseAsync(ModelValidation validation)
+        {
+        if (validation == null)
+        {
+        OnCreateOrEdit?.Invoke(AppState.QueryOptions, true);
+        await HideFormAsync();
+        }
+        else
+        {
+        StateHasChanged();
+        }
+        }
+        } -->

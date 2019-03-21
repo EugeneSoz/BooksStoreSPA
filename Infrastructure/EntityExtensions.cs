@@ -14,7 +14,7 @@ namespace BooksStoreSPA.Infrastructure
         {
             return new BookResponse
             {
-                ID = book.ID,
+                Id = book.Id,
                 Title = book.Title,
                 Authors = book.Authors,
                 Year = book.Year,

@@ -23,7 +23,7 @@ namespace BooksStoreSPA.Models.Repo
         //получить один объект
         public async Task<T> GetOneAsync(long id, string propName) => await Context.Set<T>()
             .Include(propName)
-            .SingleOrDefaultAsync(e => e.ID == id);
+            .SingleOrDefaultAsync(e => e.Id == id);
 
         //получить все объекты
         public async Task<IQueryable<T>> GetAllAsync(string propName = null)
@@ -57,7 +57,7 @@ namespace BooksStoreSPA.Models.Repo
         //обновить запись в бд
         public async Task<bool> UpdateAsync(T entity)
         {
-            long id = entity.ID;
+            long id = entity.Id;
             bool isExist = EntityExist(id);
             if (!isExist)
             {
@@ -73,7 +73,7 @@ namespace BooksStoreSPA.Models.Repo
         //удалить запись в бд по id
         public async Task<bool> DeleteAsync(T entity)
         {
-            long id = entity.ID;
+            long id = entity.Id;
             bool isExist = EntityExist(id);
             if (!isExist)
             {
@@ -86,6 +86,6 @@ namespace BooksStoreSPA.Models.Repo
             return true;
         }
 
-        private bool EntityExist(long id) => Context.Set<T>().Any(e => e.ID == id);
+        private bool EntityExist(long id) => Context.Set<T>().Any(e => e.Id == id);
     }
 }

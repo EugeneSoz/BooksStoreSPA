@@ -1,3 +1,96 @@
-﻿<p>
-  books-selection works!
-</p>
+﻿<!-- <div id="admin-scrollable-content">
+
+    <div class="card m-3">
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-bold">Название книги</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control w-50" placeholder="Введите значение для поиска">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-bold">Название категории</label>
+                    <div class="col-sm-10">
+                        <select type="text" class="form-control w-50">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-bold">Название издателя</label>
+                    <div class="col-sm-10">
+                        <select type="text" class="form-control w-50">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-primary">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <TabSet>
+        <Tab Title="Книги">
+            @if (Books != null || Books?.Entities?.Count > 0)
+            {
+            <EntitiesTable Entities="@Books.Entities" Context="book">
+                <TableHeader>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Категория</th>
+                    <th>Подкатегория</th>
+                    <th>Издательство</th>
+                    <th>Цена</th>
+                    <th>Действия</th>
+                </TableHeader>
+                <RowTemplate>
+                    <td>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="@book.ID" name="customRadio" class="custom-control-input"
+                                checked="@SetCheckedValue(book)" value="@book.ID" onchange="@OnSelectEntityAsync" />
+                            <label class="custom-control-label" for="@book.ID">
+                                @book.ID
+                            </label>
+                        </div>
+                    </td>
+                    <td>@book.Title</td>
+                    <td>@book.ParentCategoryName</td>
+                    <td>@book.CategoryName</td>
+                    <td>@book.PublisherName</td>
+                    <td>@book.Price.ToString("c")</td>
+                    <td class="d-flex flex-row">
+                        <button type="button" class="btn btn-sm btn-warning text-white ml-1">
+                            <i class='fas fa-pencil-alt fa-lg'></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger ml-1">
+                            <i class='fas fa-trash-alt fa-lg'></i>
+                        </button>
+                    </td>
+                </RowTemplate>
+            </EntitiesTable>
+
+            <Pagination GoToPageAsync="@OnGoToPageAsync" PagedResponse="@Books" />
+            }
+            else
+            {
+            <h4>Нет данных</h4>
+            }
+        </Tab>
+        <Tab Title="Книга">
+            @if (IsTabContentAvailable)
+            {
+            <BookInfo Book="@Book" />
+            }
+            else
+            {
+            <h4>Выберите книгу</h4>
+            }
+        </Tab>
+    </TabSet>
+</div> -->

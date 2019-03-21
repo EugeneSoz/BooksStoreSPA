@@ -33,7 +33,7 @@ namespace BooksStoreSPA.Controllers
                 .ThenInclude(c => c.ParentCategory)
                 .Select(e => e.MapBookResponse());
 
-            return bookResponse.ToList().SingleOrDefault(b => b.ID == id);
+            return bookResponse.ToList().SingleOrDefault(b => b.Id == id);
         }
 
         [HttpPost("books")]

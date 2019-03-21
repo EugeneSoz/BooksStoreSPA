@@ -25,6 +25,7 @@ import { SearchToolbarComponent } from './components/store/toolbar/search-toolba
 import { BooksGridComponent } from './components/store/book/books-grid.component';
 import { BookDetailsComponent } from './components/store/book/book-details.component';
 import { BookCardComponent } from './components/store/book/book-card.component';
+import { MainToolbarComponent } from './components/store/toolbar/main-toolbar.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { BookCardComponent } from './components/store/book/book-card.component';
         SearchToolbarComponent,
         BooksGridComponent,
         BookDetailsComponent,
-        BookCardComponent
+        BookCardComponent,
+        MainToolbarComponent
     ],
     imports: [
         BrowserModule,

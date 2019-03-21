@@ -10,5 +10,5 @@ export class RelatedBookTableComponent implements OnInit {
 
   ngOnInit() {
   }
-
+    // [Parameter] protected List<Book> Books { get; set; }
 }

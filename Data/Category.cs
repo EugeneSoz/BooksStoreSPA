@@ -17,7 +17,7 @@ namespace BooksStoreSPA.Data
         //если свойство не равно null, тогда категория является подкатегорией
         public long? ParentCategoryID { get; set; }
         public Category ParentCategory { get; set; }
-        public List<Category> ChildernCategories { get; set; }
+        public List<Category> ChildrenCategories { get; set; }
         public List<Book> Books { get; set; }
     }
 }

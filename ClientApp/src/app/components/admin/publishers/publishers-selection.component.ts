@@ -10,5 +10,12 @@ export class PublishersSelectionComponent implements OnInit {
 
   ngOnInit() {
   }
+//     [Inject] private ModalService ModalService { get; set; }
+//         protected Publisher Publisher => BaseService.Entity ?? new Publisher();
+//         protected PagedResponse < Publisher > Publishers => BaseService.Entities;
 
+//         protected void ShowModal()
+// {
+//     ModalService.Show("Simple Form", typeof (PublisherForm));
+// }
 }
