@@ -6,10 +6,14 @@ export class Urls {
     dataOptions: string = `${this.baseoptionsUrl}/dbServices`;
     seed: string = `${this.baseoptionsUrl}/seed`;
 
-    private basecategoryUrl: string = `/api/category`;
-    storeCategories: string = `${this.basecategoryUrl}/storecategories`;
+    private baseCategoryUrl: string = `/api/category`;
+    storeCategories: string = `${this.baseCategoryUrl}/storecategories`;
 
-    private basebookUrl: string = `/api/book`;
-    books: string = `${this.basebookUrl}/books`;
-    book: string = `${this.basebookUrl}/book`;
+    private baseBookUrl: string = `/api/book`;
+    books: string = `${this.baseBookUrl}/books`;
+    book: string = `${this.baseBookUrl}/book`;
+
+    private basePublisherUrl: string = `/api/publisher`;
+    publishers: string = `${this.basePublisherUrl}/publishers`;
+    publisher: string = `${this.basePublisherUrl}/publisher`;
 }

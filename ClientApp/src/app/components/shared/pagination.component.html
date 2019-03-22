@@ -1,3 +1,25 @@
-﻿<p>
-  pagination works!
-</p>
+<div *ngIf="pagination" class="btn-group">
+    <button type="button" class="btn btn-info" (click)="onChangePage(first)">
+        <i class="fas fa-angle-double-left"></i>
+    </button>
+    <button type="button" class="btn btn-info" 
+    [class.disabled]="!pagination.hasPreviousPage" 
+    (click)="onChangePage(previous)">
+        <i class="fas fa-angle-left"></i>
+    </button>
+
+    <button type="button" *ngFor="let page of pageNumbers" 
+        (click)="onChangePage(page)" class="btn btn-info"
+        [class.active]="page == selectedPage">
+        {{page}}
+    </button>
+
+    <button type="button" class="btn btn-info" 
+        [class.disabled]="!pagination.hasNextPage" 
+        (click)="onChangePage(next)">
+        <i class="fas fa-angle-right"></i>
+    </button>
+    <button type="button" class="btn btn-info" (click)="onChangePage(last)">
+        <i class="fas fa-angle-double-right"></i>
+    </button>
+</div>

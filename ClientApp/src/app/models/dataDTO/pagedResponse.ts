@@ -1,11 +1,16 @@
-export class PagedResponse<T> {
+import { Pagination } from '../pagination';
+
+export class PagedResponse<T> extends Pagination {
     constructor(
         public entities?: Array<T>,
-        public currentPage?: number,
-        public pageSize?: number,
-        public totalPages?: number,
-        public hasPreviousPage?: boolean,
-        public hasNextPage?: boolean,
-        public leftBoundary?: number,
-        public rightBoundary?: number) { }
+        currentPage?: number,
+        pageSize?: number,
+        totalPages?: number,
+        hasPreviousPage?: boolean,
+        hasNextPage?: boolean,
+        leftBoundary?: number,
+        rightBoundary?: number) {
+
+        super(currentPage, pageSize, totalPages, hasPreviousPage, hasNextPage, leftBoundary, rightBoundary);
+    }
 }
