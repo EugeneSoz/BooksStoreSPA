@@ -1,5 +1,6 @@
 export class BookResponse {
     constructor(
+        public id?: number,
         public title?: string,
         public authors?: string,
         public year?: number,

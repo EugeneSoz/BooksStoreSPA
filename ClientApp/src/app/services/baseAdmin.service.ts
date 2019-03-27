@@ -19,6 +19,10 @@ export class BaseAdminService<TEntity, TEntities> {
     queryOptions: QueryOptions = null;
     entity: TEntity = null;
     pagination: Pagination = null;
+    pageNumbers: Array<number>;
+
+    sortPropertyName: string;
+    searchTerm: string = null;
 
     get entities(): PagedResponse<TEntities> {
         return this._entities;
@@ -27,8 +31,17 @@ export class BaseAdminService<TEntity, TEntities> {
     set entities(value: PagedResponse<TEntities>) {
         if (value != undefined || value != null) {
             this._entities = value;
+            //создать класс Pagination
             this.pagination = new Pagination(value.currentPage, value.pageSize, value.totalPages,
                 value.hasPreviousPage, value.hasNextPage, value.leftBoundary, value.rightBoundary);
+            //создать массив из которого будет строиться компонент Pagination
+            let array: Array<number> = new Array<number>();
+
+            for (let i = this.pagination.leftBoundary; i <= this.pagination.rightBoundary; i++) {
+                array.push(i);
+            }
+
+            this.pageNumbers = array;
         }
     }
 
@@ -44,5 +57,21 @@ export class BaseAdminService<TEntity, TEntities> {
             .subscribe(response => {
                 this.entity = this._rest.getResponseBody(response, HttpMethod.GET);
             });
+    }
+
+    search(options: QueryOptions): void {
+        this.queryOptions.searchPropertyName = options.searchPropertyName;
+        this.queryOptions.searchTerm = options.searchTerm;
+        this.searchTerm = options.searchTerm;
+
+        this.getEntities();
+    }
+
+    sort(options: QueryOptions): void {
+        this.queryOptions.sortPropertyName = options.sortPropertyName;
+        this.queryOptions.descendingOrder = options.descendingOrder;
+        this.sortPropertyName = options.sortPropertyName;
+
+        this.getEntities();
     }
 }

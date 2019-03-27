@@ -1,14 +1,22 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { BaseSelection } from '../../../viewModels/baseSelection';
+import { BookResponse } from '../../../models/dataDTO/bookResponse';
+import { BookService } from '../../../services/book.services';
+import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 
 @Component({
-  selector: 'app-books-selection',
-  templateUrl: './books-selection.component.html',
+    selector: 'app-books-selection',
+    templateUrl: './books-selection.component.html',
 })
-export class BooksSelectionComponent implements OnInit {
+export class BooksSelectionComponent extends BaseSelection<BookResponse, BookResponse>
+    implements OnInit, OnDestroy {
 
-  constructor() { }
+    constructor(
+        bookService: BookService) {
 
-  ngOnInit() {
-  }
-
+        let fprop = (new FilterProperties()).getBooksProp();
+        let sprop = (new SortingProperties()).getBooksProp();
+        super(bookService, fprop, sprop);
+    }
 }

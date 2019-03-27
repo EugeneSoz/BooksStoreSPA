@@ -8,6 +8,8 @@ export class Urls {
 
     private baseCategoryUrl: string = `/api/category`;
     storeCategories: string = `${this.baseCategoryUrl}/storecategories`;
+    categories: string = `${this.baseCategoryUrl}/categories`;
+    category: string = `${this.baseCategoryUrl}/category`;
 
     private baseBookUrl: string = `/api/book`;
     books: string = `${this.baseBookUrl}/books`;

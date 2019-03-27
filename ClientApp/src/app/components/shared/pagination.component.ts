@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Pagination } from '../../models/pagination';
 import { PaginationButtonType } from '../../enums/paginationButtonType';
 
@@ -6,41 +6,23 @@ import { PaginationButtonType } from '../../enums/paginationButtonType';
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnChanges {
 
     @Input() pagination: Pagination;
+    @Input() pageNumbers: Array<number>;
     @Output() pageNumberEvent = new EventEmitter<number>();
 
-    _selectedPage: number;
+    selectedPage: number = 1;
     first: number = PaginationButtonType.First;
     last: number = PaginationButtonType.Last;
     previous: number = PaginationButtonType.Previous;
     next: number = PaginationButtonType.Next;
 
-    get pageNumbers(): Array<number> {
-        let array: Array<number> = new Array<number>();
-
-        for (let i = this.pagination.leftBoundary; i <= this.pagination.rightBoundary; i++) {
-            array.push(i);
+    ngOnChanges(changes: SimpleChanges) {
+        let chng = changes["pagination"];
+        if (chng.currentValue != chng.previousValue) {
+            this.selectedPage = this.pagination.currentPage;
         }
-
-        return array;
-    }
-
-    get selectedPage(): number {
-        if (this.pagination == undefined) {
-            return 1;
-        }
-        else if (this.pagination.currentPage != 1) {
-            return this.pagination.currentPage;
-        }
-        else {
-            this._selectedPage;
-        }
-    }
-
-    set selectedPage(value: number) {
-        this._selectedPage = value;
     }
 
     onChangePage(newPage: number): void {
@@ -73,6 +55,6 @@ export class PaginationComponent {
             this.selectedPage = newPage;
         }
 
-        this.pageNumberEvent.emit(this._selectedPage);
+        this.pageNumberEvent.emit(this.selectedPage);
     }
 }

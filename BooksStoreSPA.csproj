@@ -26,16 +26,6 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\enums\paginationButtonType.ts" />
-    <None Remove="ClientApp\src\app\models\pagination.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\enums\paginationButtonType.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\pagination.ts" />
-  </ItemGroup>
-
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

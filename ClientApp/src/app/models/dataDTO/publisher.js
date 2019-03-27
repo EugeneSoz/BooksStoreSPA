@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Publisher = /** @class */ (function () {
-    function Publisher(name, country, books) {
+    function Publisher(id, name, country, books) {
+        this.id = id;
         this.name = name;
         this.country = country;
         this.books = books;

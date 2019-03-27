@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BookResponse = /** @class */ (function () {
-    function BookResponse(title, authors, year, language, pageCount, description, price, bookCover, categoryID, publisherID, parentCategoryName, categoryName, publisherName) {
+    function BookResponse(id, title, authors, year, language, pageCount, description, price, bookCover, categoryID, publisherID, parentCategoryName, categoryName, publisherName) {
+        this.id = id;
         this.title = title;
         this.authors = authors;
         this.year = year;

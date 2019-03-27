@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import localeRu from "@angular/common/locales/ru";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,10 @@ import { BookDetailsComponent } from './components/store/book/book-details.compo
 import { BookCardComponent } from './components/store/book/book-card.component';
 import { MainToolbarComponent } from './components/store/toolbar/main-toolbar.component';
 import { AdminModule } from './components/admin/admin.module';
+import { registerLocaleData } from '@angular/common';
+import { AdminLayoutComponent } from './components/layouts/admin-layout.component';
+
+registerLocaleData(localeRu, "ru");
 
 @NgModule({
     declarations: [
