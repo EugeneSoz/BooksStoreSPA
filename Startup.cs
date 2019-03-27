@@ -34,8 +34,8 @@ namespace BooksStoreSPA
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddTransient<IBaseRepo<Publisher>, BaseRepo<Publisher>>();
-            services.AddTransient<IBaseRepo<Category>, BaseRepo<Category>>();
+            services.AddTransient<IPublisherRepo, PublisherRepo>();
+            services.AddTransient<ICategoryRepo, CategoryRepo>();
             services.AddTransient<IBaseRepo<Book>, BaseRepo<Book>>();
             services.AddTransient<MigrationsManager>();
 

@@ -1,4 +1,5 @@
 ﻿using BooksStoreSPA.Data;
+using BooksStoreSPA.Data.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,23 @@ namespace BooksStoreSPA.Models.Repo
             await Context.SaveChangesAsync();
 
             return true;
+        }
+
+        protected void SetCapitalLetterInProps(QueryOptions options)
+        {
+            string sortPropertyName = options.SortPropertyName;
+            string searchPropertyName = options.SearchPropertyName;
+            if (!string.IsNullOrEmpty(searchPropertyName))
+            {
+                options.SearchPropertyName = searchPropertyName[0].ToString().ToUpper() +
+                    searchPropertyName.Substring(1);
+            }
+
+            if (!string.IsNullOrEmpty(sortPropertyName))
+            {
+                options.SearchPropertyName = sortPropertyName[0].ToString().ToUpper() +
+                    sortPropertyName.Substring(1);
+            }
         }
 
         private bool EntityExist(long id) => Context.Set<T>().Any(e => e.Id == id);

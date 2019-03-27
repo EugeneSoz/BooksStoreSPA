@@ -43,7 +43,6 @@ import { TableHeadComponent } from '../shared/table-head.component';
     ],
     exports: [AdminToolbarComponent],
     providers: [
-        PublisherService,
         CateogoryService,
         BookService
     ]

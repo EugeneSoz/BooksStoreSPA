@@ -8,6 +8,7 @@ import { FilterProperties, SortingProperties } from '../../../viewModels/filterP
 @Component({
     selector: 'publishers-selection',
     templateUrl: './publishers-selection.component.html',
+    providers: [PublisherService]
 })
 export class PublishersSelectionComponent extends BaseSelection<Publisher, Publisher>
     implements OnInit, OnDestroy {

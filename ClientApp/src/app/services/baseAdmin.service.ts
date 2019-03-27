@@ -60,6 +60,7 @@ export class BaseAdminService<TEntity, TEntities> {
     }
 
     search(options: QueryOptions): void {
+        this.queryOptions.currentPage = 1;
         this.queryOptions.searchPropertyName = options.searchPropertyName;
         this.queryOptions.searchTerm = options.searchTerm;
         this.searchTerm = options.searchTerm;

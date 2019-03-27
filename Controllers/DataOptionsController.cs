@@ -18,13 +18,13 @@ namespace BooksStoreSPA.Controllers
     {
         private readonly MigrationsManager _manager;
         private readonly IBaseRepo<Book> _bookRepo;
-        private readonly IBaseRepo<Category> _categoryRepo;
-        private readonly IBaseRepo<Publisher> _publisherRepo;
+        private readonly ICategoryRepo _categoryRepo;
+        private readonly IPublisherRepo _publisherRepo;
 
         public DataOptionsController(MigrationsManager manager,
             IBaseRepo<Book> bookRepo,
-            IBaseRepo<Category> categoryRepo,
-            IBaseRepo<Publisher> publisherRepo)
+            ICategoryRepo categoryRepo,
+            IPublisherRepo publisherRepo)
         {
             _manager = manager;
             _bookRepo = bookRepo;

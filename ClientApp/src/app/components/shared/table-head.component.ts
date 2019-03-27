@@ -26,6 +26,7 @@ export class TableHeadComponent implements OnChanges {
 
         if (sp != undefined && sp.currentValue != sp.previousValue) {
             this.isActive = sp.currentValue == this.sortPropertyName ? true : false;
+            this.descendingOrder = false;
         }
     }
 

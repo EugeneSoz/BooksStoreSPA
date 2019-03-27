@@ -17,9 +17,9 @@ namespace BooksStoreSPA.Controllers
     [ApiController]
     public class PublisherController : ControllerBase
     {
-        private readonly IBaseRepo<Publisher> _repo;
+        private readonly IPublisherRepo _repo;
 
-        public PublisherController(IBaseRepo<Publisher> repo) => _repo = repo;
+        public PublisherController(IPublisherRepo repo) => _repo = repo;
 
         [HttpGet("publisher/{id}")]
         public async Task<Publisher> GetPublisherAsync(long id)
@@ -32,11 +32,9 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("publishers")]
-        public async Task<PagedResponse<Publisher>> GetPublishersAsync(QueryOptions options)
+        public PagedResponse<Publisher> GetPublishersAsync(QueryOptions options)
         {
-            IQueryable<Publisher> entities = await _repo.GetAllAsync();
-
-            PagedList<Publisher> publishers = new PagedList<Publisher>(entities, options);
+            PagedList<Publisher> publishers = _repo.GetPublishers(options);
 
             return publishers.MapPagedResponse();
         }
