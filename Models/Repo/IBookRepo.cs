@@ -7,9 +7,8 @@ using BooksStoreSPA.Data.DTO;
 
 namespace BooksStoreSPA.Models.Repo
 {
-    public interface ICategoryRepo : IBaseRepo<Category>
+    public interface IBookRepo : IBaseRepo<Book>
     {
-        PagedList<CategoryResponse> GetCategories(QueryOptions options);
-        List<Category> GetStoreCategories();
+        PagedList<BookResponse> GetBooks(QueryOptions options);
     }
 }

@@ -21,27 +21,31 @@ namespace BooksStoreSPA.Models
             if (!string.IsNullOrEmpty(_options.SearchPropertyName)
                 && !string.IsNullOrEmpty(_options.SearchTerm))
             {
-                return Search(query, _options.SearchPropertyName, _options.SearchTerm);
+                query = Search(query, _options.SearchPropertyName, _options.SearchTerm);
             }
-            else if (!string.IsNullOrEmpty(_options.FilterPropertyName)
+
+            if (!string.IsNullOrEmpty(_options.FilterPropertyName)
                 && _options.FilterPropertyValue != null)
             {
-                return Filter(query, _options.FilterPropertyName, _options.FilterPropertyValue);
+                query = Filter(query, _options.FilterPropertyName, _options.FilterPropertyValue);
             }
-            else if (!string.IsNullOrEmpty(_options.SortPropertyName))
+
+            if (!string.IsNullOrEmpty(_options.SortPropertyName))
             {
-                return Order(query, _options.SortPropertyName, _options.DescendingOrder);
+                query = Order(query, _options.SortPropertyName, _options.DescendingOrder);
             }
-            else
-            {
-                return query;
-            }
+
+            return query;
         }
 
         private IQueryable<T> Search(IQueryable<T> query, string propertyName, string searchTerm)
         {
             ParameterExpression pe = Expression.Parameter(typeof(T), "x");
-            MemberExpression source = Expression.Property(pe, propertyName);
+            Expression source = pe;
+            foreach (string member in propertyName.Split("."))
+            {
+                source = Expression.Property(source, member);
+            }
             ConstantExpression constant = Expression.Constant(searchTerm, typeof(string));
 
             MethodCallExpression body = Expression.Call(source, "Contains", Type.EmptyTypes, constant);
@@ -66,7 +70,11 @@ namespace BooksStoreSPA.Models
         private IQueryable<T> Order(IQueryable<T> query, string propertyName, bool desc)
         {
             ParameterExpression pe = Expression.Parameter(typeof(T), "x");
-            MemberExpression source = Expression.Property(pe, propertyName);
+            Expression source = pe;
+            foreach (string member in propertyName.Split("."))
+            {
+                source = Expression.Property(source, member);
+            }
 
             LambdaExpression lambda = Expression.Lambda(typeof(Func<,>).MakeGenericType(typeof(T), source.Type),
                 source, pe);

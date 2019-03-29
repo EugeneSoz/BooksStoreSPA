@@ -31,6 +31,17 @@ namespace BooksStoreSPA.Infrastructure
             };
         }
 
+        public static CategoryResponse MapCategoryResponse(this Category category)
+        {
+            return new CategoryResponse
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentCategoryID = category.ParentCategory.Id,
+                ParentCategoryName = category.ParentCategory.Name
+            };
+        }
+
         public static PagedResponse<T> MapPagedResponse<T>(this PagedList<T> response)
         {
             return new PagedResponse<T>

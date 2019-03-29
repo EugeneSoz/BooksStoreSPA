@@ -36,7 +36,7 @@ namespace BooksStoreSPA
 
             services.AddTransient<IPublisherRepo, PublisherRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
-            services.AddTransient<IBaseRepo<Book>, BaseRepo<Book>>();
+            services.AddTransient<IBookRepo, BookRepo>();
             services.AddTransient<MigrationsManager>();
 
             services.AddDbContext<StoreDbContext>(options =>

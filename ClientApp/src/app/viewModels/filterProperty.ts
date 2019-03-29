@@ -1,6 +1,7 @@
 import { Publisher } from '../models/dataDTO/publisher';
 import { Category } from '../models/dataDTO/category';
 import { BookResponse } from '../models/dataDTO/bookResponse';
+import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 
 export class FilterProperty {
     constructor(
@@ -11,13 +12,14 @@ export class FilterProperty {
 export class FilterProperties {
     getPublishersProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
-            new FilterProperty(this.nameof<Publisher>("name"), "Издательство"));
+            new FilterProperty(this.nameof<Publisher>("name"), "Издательство"),
+            new FilterProperty(this.nameof<Publisher>("country"), "Страна нахождения"));
     }
 
     getCategoriesProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
-            new FilterProperty(this.nameof<Category>("name"), "Категория"),
-            new FilterProperty(`s_${this.nameof<Category>("name")}`, "Подкатегория"));
+            new FilterProperty(this.nameof<CategoryResponse>("parentCategoryName"), "Категория"),
+            new FilterProperty(this.nameof<CategoryResponse>("name"), "Подкатегория"));
     }
 
     getBooksProp(): Array<FilterProperty> {
@@ -44,8 +46,9 @@ export class SortingProperties {
 
     getCategoriesProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
-            new FilterProperty(this.nameof<Category>("id"), "ID"),
-            new FilterProperty(this.nameof<Category>("name"), "Категория/Подкатегория"));
+            new FilterProperty(this.nameof<CategoryResponse>("id"), "ID"),
+            new FilterProperty(this.nameof<CategoryResponse>("parentCategoryName"), "Категория"),
+            new FilterProperty(this.nameof<CategoryResponse>("name"), "Подкатегория"));
     }
 
     getBooksProp(): Array<FilterProperty> {

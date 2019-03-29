@@ -18,9 +18,9 @@ namespace BooksStoreSPA.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBaseRepo<Book> _repo;
+        private readonly IBookRepo _repo;
 
-        public BookController(IBaseRepo<Book> repo) => _repo = repo;
+        public BookController(IBookRepo repo) => _repo = repo;
 
         [HttpGet("book/{id}")]
         public async Task<BookResponse> GetBookAsync(long id)
@@ -37,17 +37,9 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("books")]
-        public async Task<PagedResponse<BookResponse>> GetBooksAsync(QueryOptions options)
+        public PagedResponse<BookResponse> GetBooksAsync(QueryOptions options)
         {
-            IQueryable<Book> entities = await _repo.GetAllAsync();
-
-            IQueryable<BookResponse> bookResponse = entities
-                .Include(p => p.Publisher)
-                .Include(c => c.Category)
-                .ThenInclude(c => c.ParentCategory)
-                .Select(e => e.MapBookResponse());
-
-            PagedList<BookResponse> books = new PagedList<BookResponse>(bookResponse, options);
+            PagedList<BookResponse> books = _repo.GetBooks(options);
 
             return books.MapPagedResponse();
         }

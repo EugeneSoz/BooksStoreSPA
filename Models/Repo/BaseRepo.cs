@@ -99,7 +99,7 @@ namespace BooksStoreSPA.Models.Repo
 
             if (!string.IsNullOrEmpty(sortPropertyName))
             {
-                options.SearchPropertyName = sortPropertyName[0].ToString().ToUpper() +
+                options.SortPropertyName = sortPropertyName[0].ToString().ToUpper() +
                     sortPropertyName.Substring(1);
             }
         }

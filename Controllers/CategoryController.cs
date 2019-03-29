@@ -18,9 +18,9 @@ namespace BooksStoreSPA.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly IBaseRepo<Category> _repo;
+        private readonly ICategoryRepo _repo;
 
-        public CategoryController(IBaseRepo<Category> repo) => _repo = repo;
+        public CategoryController(ICategoryRepo repo) => _repo = repo;
 
         [HttpGet("category/{id}")]
         public async Task<Category> GetCategoryAsync(long id)
@@ -33,40 +33,17 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("categories")]
-        public async Task<PagedResponse<Category>> GetCategoriesAsync(QueryOptions options)
+        public PagedResponse<CategoryResponse> GetCategoriesAsync(QueryOptions options)
         {
-            IQueryable<Category> entities = await _repo.GetAllAsync();
-
-            entities = entities.Include(c => c.ParentCategory);
-            PagedList<Category> categories = new PagedList<Category>(entities, options);
-            foreach (Category category in categories.Entities)
-            {
-                if (category.ParentCategory != null)
-                {
-                    category.ParentCategory.ChildrenCategories = null;
-                }
-            }
+            PagedList<CategoryResponse> categories = _repo.GetCategories(options);
 
             return categories.MapPagedResponse();
         }
 
         [HttpGet("storecategories")]
-        public async Task<List<Category>> GetStoreCategoriesAsync()
+        public List<Category> GetStoreCategoriesAsync()
         {
-            IQueryable<Category> entities = await _repo.GetAllAsync();
-
-            entities = entities.Where(e => e.ParentCategoryID == null)
-                .Include(c => c.ChildrenCategories);
-            List<Category> categories = await entities.ToListAsync();
-            foreach (Category category in categories)
-            {
-                if (category.ChildrenCategories.Count > 0)
-                {
-                    category.ChildrenCategories.ForEach(cc => cc.ParentCategory = null);
-                }
-            }
-
-            return categories;
+            return _repo.GetStoreCategories();
         }
     }
 }
