@@ -1,34 +1,48 @@
 import { Component } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
+import { QueryOptions } from '../../../models/dataDTO/queryOptions';
+import { NameOfHelper } from '../../../helpers/nameofHelper';
+import { BookResponse } from '../../../models/dataDTO/bookResponse';
 
 @Component({
     selector: 'search-toolbar',
     templateUrl: './search-toolbar.component.html',
-    providers: [StoreService]
 })
 export class SearchToolbarComponent {
     constructor(
-        private _storeService: StoreService) { }
+        private _storeService: StoreService,
+        private _nameOfHelper: NameOfHelper) { }
 
-    searchTerm: string = "";
-    isCalcelButtonVisiable: boolean = (this.searchTerm == null || this.searchTerm == "")
-        ? false
-        : true;
+    searchProperyName: string;
+    searchTerm: string = null;
 
-    onSetSearchTerm(value: string): void {
-        this.searchTerm = value.toString();
+    get isClearBtnVisible(): boolean {
+        return this._storeService.searchTerm == null ? false : true;
     }
 
-    onClearSearchTerm(): void
-    {
-        this.searchTerm = "";
-        //StoreService.ResetSearchResult();
+    onInputSearchValue(value: string): void {
+        this.searchTerm = value;
     }
 
-    onSearchByName(): void
-    {
-        //if (eventArgs.Key == "Enter" && SearchTerm.Length > 0) {
-            //StoreService.SearchByName(SearchTerm);
-        //}
+    onSearch(clear: boolean = false): void {
+        let options: QueryOptions = new QueryOptions();
+        if (clear) {
+            options.searchPropertyNames = null;
+            options.searchTerm = null;
+        }
+        else {
+            options.searchPropertyNames = new Array(
+                this._nameOfHelper.nameof<BookResponse>("title"),
+                this._nameOfHelper.nameof<BookResponse>("authors"));
+
+            options.searchTerm = this.searchTerm;
+        }
+
+        this._storeService.search(options);
+    }
+
+    onClear(): void {
+        this.searchTerm = null;
+        this.onSearch(true);
     }
 }

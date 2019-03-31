@@ -41,8 +41,7 @@ export class BaseSelection<TEntity, TEntities> {
     }
 
     onChangePage(newPage: number): void {
-        this._service.queryOptions.currentPage = newPage;
-        this._service.getEntities();
+        this._service.changePage(newPage);
     }
 
     onSearch(options: QueryOptions): void {
@@ -54,6 +53,6 @@ export class BaseSelection<TEntity, TEntities> {
     }
 
     ngOnDestroy(): void {
-        this._service.queryOptions.resetToDefault();
+        this._service.resetQueryOptionsToDefault();
     }
 }

@@ -25,8 +25,8 @@ namespace BooksStoreSPA.Infrastructure
                 BookCover = book.BookCover,
                 CategoryID = book.CategoryID,
                 PublisherID = book.PublisherID,
-                ParentCategoryName = book.Category.ParentCategory.Name,
-                CategoryName = book.Category.Name,
+                CategoryName = book.Category.ParentCategory.Name,
+                SubcategoryName = book.Category.Name,
                 PublisherName = book.Publisher.Name
             };
         }

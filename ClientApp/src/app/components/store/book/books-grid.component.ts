@@ -1,12 +1,12 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 import { PagedResponse } from 'src/app/models/dataDTO/pagedResponse';
 import { BookResponse } from 'src/app/models/dataDTO/bookResponse';
+import { Pagination } from '../../../models/pagination';
 
 @Component({
-    selector: 'books-grid',
+    selector: '[id=store-main-content]',
     templateUrl: './books-grid.component.html',
-    providers: [StoreService]
 })
 export class BooksGridComponent implements OnInit
 {
@@ -35,6 +35,14 @@ export class BooksGridComponent implements OnInit
         return this._storeService.cols;
     }
 
+    get pagination(): Pagination {
+        return this._storeService.pagination;
+    }
+
+    get pageNumbers(): Array<number> {
+        return this._storeService.pageNumbers;
+    }
+
     ngOnInit(): void {
         this._storeService.getBooks();
     }
@@ -48,6 +56,10 @@ export class BooksGridComponent implements OnInit
         return this.getBookIndex(row, column) < this.displayedBooksCount
             ? false
             : true;
+    }
+
+    onChangePage(newPage: number): void {
+        this._storeService.changePage(newPage);
     }
 
     // protected async Task OnGoToPageAsync(int buttonNumber)

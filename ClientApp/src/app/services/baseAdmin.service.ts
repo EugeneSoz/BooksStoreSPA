@@ -8,15 +8,15 @@ export class BaseAdminService<TEntity, TEntities> {
     constructor(
         private _rest: RestDatasource) {
 
-        this.queryOptions = new QueryOptions();
-        this.queryOptions.resetToDefault();
+        this._queryOptions = new QueryOptions();
+        this._queryOptions.resetToDefault();
     }
 
     protected getOneUrl: string;
     protected getAllUrl: string;
 
     private _entities: PagedResponse<TEntities> = null;
-    queryOptions: QueryOptions = null;
+    protected _queryOptions: QueryOptions = null;
     entity: TEntity = null;
     pagination: Pagination = null;
     pageNumbers: Array<number>;
@@ -46,7 +46,7 @@ export class BaseAdminService<TEntity, TEntities> {
     }
 
     getEntities(): void {
-        this._rest.receiveAll<PagedResponse<TEntities>>(this.getAllUrl, this.queryOptions)
+        this._rest.receiveAll<PagedResponse<TEntities>>(this.getAllUrl, this._queryOptions)
             .subscribe(response => {
                 this.entities = this._rest.getResponseBody(response, HttpMethod.POSTGET);
             });
@@ -60,19 +60,28 @@ export class BaseAdminService<TEntity, TEntities> {
     }
 
     search(options: QueryOptions): void {
-        this.queryOptions.currentPage = 1;
-        this.queryOptions.searchPropertyName = options.searchPropertyName;
-        this.queryOptions.searchTerm = options.searchTerm;
+        this._queryOptions.currentPage = 1;
+        this._queryOptions.searchPropertyNames = options.searchPropertyNames;
+        this._queryOptions.searchTerm = options.searchTerm;
         this.searchTerm = options.searchTerm;
 
         this.getEntities();
     }
 
     sort(options: QueryOptions): void {
-        this.queryOptions.sortPropertyName = options.sortPropertyName;
-        this.queryOptions.descendingOrder = options.descendingOrder;
+        this._queryOptions.sortPropertyName = options.sortPropertyName;
+        this._queryOptions.descendingOrder = options.descendingOrder;
         this.sortPropertyName = options.sortPropertyName;
 
         this.getEntities();
+    }
+
+    changePage(newPage: number): void {
+        this._queryOptions.currentPage = newPage;
+        this.getEntities();
+    }
+
+    resetQueryOptionsToDefault(): void {
+        this._queryOptions.resetToDefault();
     }
 }

@@ -17,8 +17,8 @@ namespace BooksStoreSPA.Data.DTO
         public string BookCover { get; set; }
         public long? CategoryID { get; set; }
         public long? PublisherID { get; set; }
-        public string ParentCategoryName { get; set; }
         public string CategoryName { get; set; }
+        public string SubcategoryName { get; set; }
         public string PublisherName { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 import { BookResponse } from '../models/dataDTO/bookResponse';
 import { BooksGridType } from '../enums/bookGridType';
+import { NameOfHelper } from '../helpers/nameofHelper';
 
 //класс содержит элементы списка в панели Toolbar
 export class ListItem {
@@ -17,25 +18,21 @@ export class Dropdown {
 
     createStoreSorting(): void
     {
-        const nameof = <T>(name: keyof T) => name;
+        let nameofHelper: NameOfHelper = new NameOfHelper();
         this.storeSorting = new Array<ListItem>(
             new ListItem("", "Сортировать по", false),
-            new ListItem(this.nameof<BookResponse>("title"), "Названию: А - Я"),
-            new ListItem(nameof<BookResponse>("title"), "Названию: Я - А", true),
-            new ListItem(nameof<BookResponse>("price"), "Цене: мин. - макс."),
-            new ListItem(nameof<BookResponse>("price"), "Цене: макс. - мин.", true));
+            new ListItem(nameofHelper.nameof<BookResponse>("title"), "Названию: А - Я"),
+            new ListItem(nameofHelper.nameof<BookResponse>("title"), "Названию: Я - А", true),
+            new ListItem(nameofHelper.nameof<BookResponse>("price"), "Цене: мин. - макс."),
+            new ListItem(nameofHelper.nameof<BookResponse>("price"), "Цене: макс. - мин.", true));
     }
 
     createStoreView(): void
     {
         this.storeView = new Array<ListItem>(
             new ListItem("", "Отобразить", false),
-            new ListItem(String(BooksGridType.SixByTwo), "6 x 2"),
-            new ListItem(String(BooksGridType.FourByThree), "4 x 3"),
-            new ListItem(String(BooksGridType.ThreeByFour), "3 x 4"));
-    }
-
-    private nameof<T>(key: keyof T, instance?: T): keyof T {
-        return key;
+            new ListItem(BooksGridType.SixByTwo, "6 x 2 (строка x столбец)"),
+            new ListItem(BooksGridType.FourByThree, "4 x 3 (строка x столбец)"),
+            new ListItem(BooksGridType.ThreeByFour, "3 x 4 (строка x столбец)"));
     }
 }

@@ -2,7 +2,7 @@
     <a class="nav-link dropdown-toggle active"
        [href]="storeView[0].href" id="navbarDropdown1" role="button"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-       (click)="showGrid()">
+       (click)="onShowGrid()">
         {{storeView[0].name}}
     </a>
 
@@ -24,7 +24,7 @@
     <a class="nav-link dropdown-toggle active"
        [href]="storeSorting[0].href" id="navbarDropdown2" role="button"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-       (click)="showSorting()">
+       (click)="onShowSorting()">
         {{storeSorting[0].name}}
     </a>
 
@@ -32,7 +32,7 @@
         <ng-container *ngFor="let listItem of storeSorting">
             <ng-container *ngIf="listItem.name != storeSorting[0].name">
                 <a [ngClass]="setElementCssClass(listItem)"
-                   [href]="listItem.href">{{listItem.name}}</a>
+                   [href]="listItem.href" (click)="onSort(listItem); false">{{listItem.name}}</a>
             </ng-container>
         <div *ngIf="listItem?.hasDivider" class="dropdown-divider"></div>
 

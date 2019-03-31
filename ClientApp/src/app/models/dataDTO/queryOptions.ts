@@ -4,10 +4,10 @@ export class QueryOptions {
         public pageSize?: number,
         public sortPropertyName?: string,
         public descendingOrder?: boolean,
-        public searchPropertyName?: string,
+        public searchPropertyNames?: Array<string>,
         public searchTerm?: string,
         public filterPropertyName?: string,
-        public filterPropertyValue?: number | null) { }
+        public filterPropertyValue?: number) { }
 
         resetToDefault()
         {
@@ -15,9 +15,9 @@ export class QueryOptions {
             this.pageSize = 12;
             this.sortPropertyName = "";
             this.descendingOrder = false;
-            this.searchPropertyName = "";
+            this.searchPropertyNames = null;
             this.searchTerm = "";
             this.filterPropertyName = "";
-            this.filterPropertyValue = null;
+            this.filterPropertyValue = 0;
         }
 }

@@ -35,11 +35,11 @@ export class AdminFilterComponent implements OnChanges {
     onSearch(clear: boolean = false): void {
         let options: QueryOptions = new QueryOptions();
         if (clear) {
-            options.searchPropertyName = null;
+            options.searchPropertyNames = null;
             options.searchTerm = null;
         }
         else {
-            options.searchPropertyName = this.searchProperyName;
+            options.searchPropertyNames = new Array<string>(this.searchProperyName);
             options.searchTerm = this.searchTerm;
         }
 

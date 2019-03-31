@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
+using BooksStoreSPA.Data;
 using BooksStoreSPA.Data.DTO;
 
 namespace BooksStoreSPA.Models
@@ -18,14 +20,24 @@ namespace BooksStoreSPA.Models
 
         public IQueryable<T> ProcessQuery(IQueryable<T> query)
         {
-            if (!string.IsNullOrEmpty(_options.SearchPropertyName)
+            if (_options.SearchPropertyNames != null && 
+                _options.SearchPropertyNames.Length == 1 &&
+                !string.IsNullOrEmpty(_options.SearchPropertyNames[0])
                 && !string.IsNullOrEmpty(_options.SearchTerm))
             {
-                query = Search(query, _options.SearchPropertyName, _options.SearchTerm);
+                query = Search(query, _options.SearchPropertyNames[0], _options.SearchTerm);
+            }
+
+            if (_options.SearchPropertyNames != null &&
+                _options.SearchPropertyNames.Length == 2 &&
+                !Array.Exists(_options.SearchPropertyNames, v => string.IsNullOrWhiteSpace(v)) &&
+                !string.IsNullOrEmpty(_options.SearchTerm))
+            {
+                query = SearchByTwoProperties(query, _options.SearchPropertyNames, _options.SearchTerm);
             }
 
             if (!string.IsNullOrEmpty(_options.FilterPropertyName)
-                && _options.FilterPropertyValue != null)
+                && _options.FilterPropertyValue != 0)
             {
                 query = Filter(query, _options.FilterPropertyName, _options.FilterPropertyValue);
             }
@@ -49,20 +61,42 @@ namespace BooksStoreSPA.Models
             ConstantExpression constant = Expression.Constant(searchTerm, typeof(string));
 
             MethodCallExpression body = Expression.Call(source, "Contains", Type.EmptyTypes, constant);
-            var lambda = Expression.Lambda<Func<T, bool>>(body, pe);
+            Expression<Func<T, bool>> lambda = Expression.Lambda<Func<T, bool>>(body, pe);
 
             return query.Where(lambda);
         }
 
-        private IQueryable<T> Filter(IQueryable<T> query, string propertyName, long? value)
+        private IQueryable<T> SearchByTwoProperties(IQueryable<T> query, string[] propertyName, string searchTerm)
         {
             ParameterExpression pe = Expression.Parameter(typeof(T), "x");
-            MemberExpression source = Expression.Property(pe, propertyName);
-            ConstantExpression constant = Expression.Constant(value, typeof(long?));
+            ConstantExpression constant = Expression.Constant(searchTerm, typeof(string));
+
+            MemberExpression firstProp = Expression.Property(pe, propertyName[0]);
+            MemberExpression secondProp = Expression.Property(pe, propertyName[1]);
+            MethodCallExpression firstComparison = Expression.Call(firstProp, "Contains", 
+                Type.EmptyTypes, constant);
+            MethodCallExpression secondComparison = Expression.Call(secondProp, "Contains", 
+                Type.EmptyTypes, constant);
+
+            Expression predicateBody = Expression.OrElse(firstComparison, secondComparison);
+
+            Expression<Func<T, bool>> lambda = Expression.Lambda<Func<T, bool>>(predicateBody, pe);
+
+            return query.Where(lambda);
+        }
+
+        private IQueryable<T> Filter(IQueryable<T> query, string propertyName, long value)
+        {
+            ParameterExpression pe = Expression.Parameter(typeof(T), "x");
+            Expression source = pe;
+            foreach (string member in propertyName.Split("."))
+            {
+                source = Expression.Property(source, member);
+            }
+            ConstantExpression constant = Expression.Constant(value, typeof(long));
             BinaryExpression equality = Expression.Equal(source, constant);
 
-            MethodCallExpression body = Expression.Call(source, "Where", Type.EmptyTypes, equality);
-            var lambda = Expression.Lambda<Func<T, bool>>(body, pe);
+            Expression<Func<T, bool>> lambda = Expression.Lambda<Func<T, bool>>(equality, pe);
 
             return query.Where(lambda);
         }

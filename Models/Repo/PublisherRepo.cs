@@ -14,7 +14,6 @@ namespace BooksStoreSPA.Models.Repo
 
         public PagedList<Publisher> GetPublishers(QueryOptions options)
         {
-            SetCapitalLetterInProps(options);
             QueryProcessing<Publisher> processing = new QueryProcessing<Publisher>(options);
 
             IQueryable<Publisher> query = GetEntities();

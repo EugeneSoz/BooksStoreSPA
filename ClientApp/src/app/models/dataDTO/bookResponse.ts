@@ -11,7 +11,7 @@ export class BookResponse {
         public bookCover?: string,
         public categoryID?: number | null,
         public publisherID?: number | null,
-        public parentCategoryName?: string,
         public categoryName?: string,
+        public subcategoryName?: string,
         public publisherName?: string) { }
 }

@@ -15,8 +15,6 @@ namespace BooksStoreSPA.Models.Repo
 
         public PagedList<BookResponse> GetBooks(QueryOptions options)
         {
-            SetCapitalLetterInProps(options);
-            ResolveNames(options);
             QueryProcessing<Book> processing = new QueryProcessing<Book>(options);
 
             IQueryable<Book> query = GetEntities()
@@ -28,7 +26,8 @@ namespace BooksStoreSPA.Models.Repo
 
             if (options.SortPropertyName == $"{nameof(Publisher)}.{nameof(Publisher.Name)}" ||
                 options.SortPropertyName == $"{nameof(Category)}.{nameof(Category.Name)}" ||
-                options.SortPropertyName == $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}")
+                options.SortPropertyName == 
+                    $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}")
             {
                 processedBooks = options.DescendingOrder
                     ? processing.ProcessQuery(query.OrderByDescending(b => b.Title))
@@ -45,39 +44,6 @@ namespace BooksStoreSPA.Models.Repo
             PagedList<BookResponse> books = new PagedList<BookResponse>(processedBooks, options);
 
             return books;
-        }
-
-        private void ResolveNames(QueryOptions options)
-        {
-            if (options.SearchPropertyName == nameof(BookResponse.PublisherName))
-            {
-                options.SearchPropertyName = $"{nameof(Publisher)}.{nameof(Publisher.Name)}";
-            }
-
-            if (options.SortPropertyName == nameof(BookResponse.PublisherName))
-            {
-                options.SortPropertyName = $"{nameof(Publisher)}.{nameof(Publisher.Name)}";
-            }
-
-            if (options.SearchPropertyName == nameof(BookResponse.CategoryName))
-            {
-                options.SearchPropertyName = $"{nameof(Category)}.{nameof(Category.Name)}";
-            }
-
-            if (options.SortPropertyName == nameof(BookResponse.CategoryName))
-            {
-                options.SortPropertyName = $"{nameof(Category)}.{nameof(Category.Name)}";
-            }
-
-            if (options.SearchPropertyName == nameof(BookResponse.ParentCategoryName))
-            {
-                options.SearchPropertyName = $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
-            }
-
-            if (options.SortPropertyName == nameof(BookResponse.ParentCategoryName))
-            {
-                options.SortPropertyName = $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
-            }
         }
     }
 }

@@ -50,8 +50,6 @@ namespace BooksStoreSPA.Models.Repo
             //            ParentCategoryName = c.Name
             //        });
 
-            SetCapitalLetterInProps(options);
-            ResolveNames(options);
             QueryProcessing<Category> processing = new QueryProcessing<Category>(options);
 
             IQueryable<Category> query = GetEntities()
@@ -98,19 +96,6 @@ namespace BooksStoreSPA.Models.Repo
             List<Category> categories = processedCategories.ToList();
 
             return categories;
-        }
-
-        private void ResolveNames(QueryOptions options)
-        {
-            if (options.SearchPropertyName == nameof(CategoryResponse.ParentCategoryName))
-            {
-                options.SearchPropertyName = $"{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
-            }
-
-            if (options.SortPropertyName == nameof(CategoryResponse.ParentCategoryName))
-            {
-                options.SortPropertyName = $"{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
-            }
         }
     }
 }

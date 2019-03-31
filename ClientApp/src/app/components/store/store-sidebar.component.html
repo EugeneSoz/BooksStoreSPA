@@ -4,13 +4,13 @@
 
 <ul *ngIf="categories != null" class="list-unstyled components">
     <li>
-        <a href="#" (click)="filterByCategory(0); false">Все категории</a>
+        <a href="#" (click)="onFilterByCategory(0); false">Все категории</a>
     </li>
 
     <li *ngFor="let category of categories">
         <ng-container *ngIf="category.childrenCategories?.length == 0">
             <a [ngClass]="getCategoryClass(category.id)" href="#" 
-            (click)="filterByCategory(category.id); false">{{category.name}}</a>
+            (click)="onFilterByCategory(category.id); false">{{category.name}}</a>
         </ng-container>
 
         <ng-container *ngIf="category.childrenCategories?.length > 0">
@@ -19,12 +19,12 @@
                role="button"
                aria-expanded="false"
                [attr.aria-controls]="getControlId(category.id)"
-               (click)="filterByCategory(category.id)">{{category.name}}</a>
+               (click)="onFilterByCategory(category.id); false">{{category.name}}</a>
 
             <ul class="collapse list-unstyled" [id]="getControlId(category.id)">
                 <li *ngFor="let subcategory of category.childrenCategories">
-                    <a [ngClass]="getSubCategoryClass(subcategory.id)" href="#"
-                        (click)="filterBySubcategory(category.id, subcategory.id); false">
+                    <a [ngClass]="getSubCategoryClass(subcategory.id)"
+                        (click)="onFilterBySubcategory(category.id, subcategory.id); false">
                         {{subcategory.name}}
                     </a>
                 </li>

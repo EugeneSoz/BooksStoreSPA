@@ -12,18 +12,18 @@ import { BooksSelectionComponent } from './books/books-selection.component';
 import { BookFormComponent } from './books/book-form.component';
 import { AdminLayoutComponent } from '../layouts/admin-layout.component';
 import { BookInfoComponent } from './books/book-info.component';
-import { PublisherService } from '../../services/publisher.service';
-import { PaginationComponent } from '../shared/pagination.component';
-import { CateogoryService } from '../../services/category.service';
 import { BookService } from '../../services/book.services';
 import { AdminToolbarComponent } from '../shared/admin-toolbar.component';
 import { AdminFilterComponent } from '../shared/admin-filter.component';
 import { TableHeadComponent } from '../shared/table-head.component';
+import { DbServicesComponent } from './dbServices.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        SharedModule
     ],
     declarations: [
         RelatedBookTableComponent,
@@ -36,10 +36,10 @@ import { TableHeadComponent } from '../shared/table-head.component';
         BookFormComponent,
         BookInfoComponent,
         AdminLayoutComponent,
-        PaginationComponent,
         AdminToolbarComponent,
         AdminFilterComponent,
-        TableHeadComponent
+        TableHeadComponent,
+        DbServicesComponent,
     ],
     exports: [AdminToolbarComponent],
     providers: [

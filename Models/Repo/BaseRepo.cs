@@ -86,24 +86,6 @@ namespace BooksStoreSPA.Models.Repo
 
             return true;
         }
-
-        protected void SetCapitalLetterInProps(QueryOptions options)
-        {
-            string sortPropertyName = options.SortPropertyName;
-            string searchPropertyName = options.SearchPropertyName;
-            if (!string.IsNullOrEmpty(searchPropertyName))
-            {
-                options.SearchPropertyName = searchPropertyName[0].ToString().ToUpper() +
-                    searchPropertyName.Substring(1);
-            }
-
-            if (!string.IsNullOrEmpty(sortPropertyName))
-            {
-                options.SortPropertyName = sortPropertyName[0].ToString().ToUpper() +
-                    sortPropertyName.Substring(1);
-            }
-        }
-
         private bool EntityExist(long id) => Context.Set<T>().Any(e => e.Id == id);
     }
 }

@@ -7,6 +7,7 @@ import { Category } from '../models/dataDTO/category';
 import { BookResponse } from '../models/dataDTO/bookResponse';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { HttpMethod } from '../enums/httpMethods';
+import { Pagination } from "../models/pagination";
 
 @Injectable()
 export class StoreService {
@@ -14,21 +15,28 @@ export class StoreService {
         private _urls: Urls,
         private _rest: RestDatasource) {
 
-        this.queryOptions = new QueryOptions();
-        this.queryOptions.resetToDefault();
+        this._queryOptions = new QueryOptions();
+        this._queryOptions.resetToDefault();
     }
 
-    _cardsCountInRow: number = 4;
+    private _cardsCountInRow: number = 4;
+    private _queryOptions: QueryOptions = null;
+
     //общее кол-во отображаемых книг на странице
     displayedBooksCount: number
     //кол-во строк отображаемых книг на странице
     rows: Array<number> = new Array<number>();
     cols: Array<number> = new Array<number>();
 
-    queryOptions: QueryOptions = null;
     categories: Array<Category> = null;
     book: BookResponse = null;
-    books: PagedResponse<BookResponse> = null;
+    _books: PagedResponse<BookResponse> = null;
+
+    pagination: Pagination = null;
+    pageNumbers: Array<number>;
+
+    sortPropertyName: string;
+    searchTerm: string = null;
 
     get cardsCountInRow(): number {
         return this._cardsCountInRow;
@@ -36,6 +44,27 @@ export class StoreService {
 
     set cardsCountInRow(value: number) {
         this.setBooksRowsAndCol(value);
+    }
+
+    get books(): PagedResponse<BookResponse> {
+        return this._books;
+    }
+
+    set books(value: PagedResponse<BookResponse>) {
+        if (value != undefined || value != null) {
+            this._books = value;
+            //создать класс Pagination
+            this.pagination = new Pagination(value.currentPage, value.pageSize, value.totalPages,
+                value.hasPreviousPage, value.hasNextPage, value.leftBoundary, value.rightBoundary);
+            //создать массив из которого будет строиться компонент Pagination
+            let array: Array<number> = new Array<number>();
+
+            for (let i = this.pagination.leftBoundary; i <= this.pagination.rightBoundary; i++) {
+                array.push(i);
+            }
+
+            this.pageNumbers = array;
+        }
     }
 
     getCategories(): void {
@@ -46,7 +75,7 @@ export class StoreService {
     }
 
     getBooks(): void {
-        this._rest.receiveAll<PagedResponse<BookResponse>>(this._urls.books, this.queryOptions)
+        this._rest.receiveAll<PagedResponse<BookResponse>>(this._urls.books, this._queryOptions)
             .subscribe(response => {
                 this.books = this._rest.getResponseBody(response, HttpMethod.POSTGET);
                 this.setBooksRowsAndCol(this._cardsCountInRow);
@@ -62,6 +91,36 @@ export class StoreService {
 
     changeBooksGridSize(cardsCountInRow: number): void {
         this.cardsCountInRow = cardsCountInRow;
+    }
+
+    changePage(newPage: number): void {
+        this._queryOptions.currentPage = newPage;
+        this.getBooks();
+    }
+
+    filterBy(filterPropertyName: string, filterPropertyValue: number): void {
+        this._queryOptions.currentPage = 1;
+        this._queryOptions.filterPropertyName = filterPropertyName;
+        this._queryOptions.filterPropertyValue = filterPropertyValue;
+
+        this.getBooks();
+    }
+
+    search(options: QueryOptions): void {
+        this._queryOptions.currentPage = 1;
+        this._queryOptions.searchPropertyNames = options.searchPropertyNames;
+        this._queryOptions.searchTerm = options.searchTerm;
+        this.searchTerm = options.searchTerm;
+
+        this.getBooks();
+    }
+
+    sort(options: QueryOptions): void {
+        this._queryOptions.sortPropertyName = options.sortPropertyName;
+        this._queryOptions.descendingOrder = options.descendingOrder;
+        this.sortPropertyName = options.sortPropertyName;
+
+        this.getBooks();
     }
 
     private setBooksRowsAndCol(cardsCountInRow: number) {

@@ -25,8 +25,8 @@ export class FilterProperties {
     getBooksProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
             new FilterProperty(this.nameof<BookResponse>("title"), "Название"),
-            new FilterProperty(this.nameof<BookResponse>("parentCategoryName"), "Категория"),
-            new FilterProperty(this.nameof<BookResponse>("categoryName"), "Подкатегория"),
+            new FilterProperty(this.nameof<BookResponse>("categoryName"), "Категория"),
+            new FilterProperty(this.nameof<BookResponse>("subcategoryName"), "Подкатегория"),
             new FilterProperty(this.nameof<BookResponse>("publisherName"), "Издательство"),
             new FilterProperty(this.nameof<BookResponse>("price"), "Цена"));
     }
@@ -55,8 +55,8 @@ export class SortingProperties {
         return new Array<FilterProperty>(
             new FilterProperty(this.nameof<BookResponse>("id"), "ID"),
             new FilterProperty(this.nameof<BookResponse>("title"), "Название"),
-            new FilterProperty(this.nameof<BookResponse>("parentCategoryName"), "Категория"),
-            new FilterProperty(this.nameof<BookResponse>("categoryName"), "Подкатегория"),
+            new FilterProperty(this.nameof<BookResponse>("categoryName"), "Категория"),
+            new FilterProperty(this.nameof<BookResponse>("subcategoryName"), "Подкатегория"),
             new FilterProperty(this.nameof<BookResponse>("publisherName"), "Издательство"),
             new FilterProperty(this.nameof<BookResponse>("price"), "Цена"));
     }

@@ -5,11 +5,11 @@ import { ListItem, Dropdown } from '../../../viewModels/dropdown';
 import "jquery";
 import "bootstrap";
 import { BooksGridType } from '../../../enums/bookGridType';
+import { QueryOptions } from '../../../models/dataDTO/queryOptions';
 
 @Component({
     selector: '.navbar-nav .mr-auto',
     templateUrl: './actions.component.html',
-    providers: [StoreService]
 })
 export class ActionsComponent implements OnInit {
 
@@ -18,6 +18,13 @@ export class ActionsComponent implements OnInit {
 
     storeSorting: Array<ListItem> = null;
     storeView: Array<ListItem> = null;
+    gridSizeName: string = BooksGridType.ThreeByFour;
+
+    get sortPropertyName(): string {
+        return this._storeService.sortPropertyName;
+    }
+
+    private _descendingOrder: boolean = false;
 
     ngOnInit() {
         let dropdown: Dropdown = new Dropdown();
@@ -33,17 +40,14 @@ export class ActionsComponent implements OnInit {
     {
         let cssClass: string = "";
 
-        //if (listItem.PropertyName == "Desc")
-        //{
-        //    cssClass = TaskService.DescendingOrder ? string.Empty : " active";
-        //}
-        //else
-        //{
-        //    cssClass = TaskService.SortPropertyName == listItem.PropertyName
-        //       ? " active"
-        //       : string.Empty;
-        //}
+        if (listItem.propertyName == this.gridSizeName) {
+            cssClass = " active";
+        }
 
+        if (listItem.propertyName == this.sortPropertyName
+            && listItem.descendingOrder == this._descendingOrder) {
+            cssClass = " active";
+        }
 
         return `dropdown-item${cssClass}`;
     }
@@ -63,15 +67,25 @@ export class ActionsComponent implements OnInit {
                 break;
         }
 
+        this.gridSizeName = listItem.propertyName;
         this._storeService.changeBooksGridSize(cardsCountInRow);
     }
 
-    showGrid(): void {
+    onShowGrid(): void {
         $("#navbarDropdown1").dropdown("toggle");
     }
 
-    showSorting(): void
+    onShowSorting(): void
     {
         $("#navbarDropdown2").dropdown("toggle");
+    }
+
+    onSort(listItem: ListItem): void {
+        this._descendingOrder = listItem.descendingOrder;
+        let options: QueryOptions = new QueryOptions();
+        options.sortPropertyName = listItem.propertyName;
+        options.descendingOrder = listItem.descendingOrder;
+
+        this._storeService.sort(options);
     }
 }
