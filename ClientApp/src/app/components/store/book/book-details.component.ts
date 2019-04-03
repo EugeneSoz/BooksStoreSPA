@@ -1,32 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { BookResponse } from '../../../models/dataDTO/bookResponse';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
     selector: 'app-book-details',
     templateUrl: './book-details.component.html',
-    styles: []
 })
 export class BookDetailsComponent implements OnInit
 {
+    constructor(
+        private _storeService: StoreService,
+        activeRoute: ActivatedRoute) {
 
-    constructor() { }
-
-    ngOnInit()
-    {
+        this._id = activeRoute.snapshot.params["id"];
     }
-//     [Parameter] protected string BookId { get; set; }
-// [Inject] private StoreService StoreService { get; set; }
-// [Inject] private IUriHelper UriHelper { get; set; }
 
-//         public BookResponse Book => StoreService.Book;
+    private _id: number = 0;
 
-//         protected override async Task OnParametersSetAsync()
-// {
-//     long id = long.Parse(BookId);
-//     await StoreService.GetBookAsync(id);
-// }
+    get book(): BookResponse {
+        return this._storeService.book || null;
+    }
 
-//         protected void OnReturnToStore()
-// {
-//     UriHelper.NavigateTo(Routes.GetRoute(nameof(Main)));
-// }
+    ngOnInit(): void {
+        this._storeService.getBook(this._id);
+    }
 }

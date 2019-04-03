@@ -12,10 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStoreSPA.Controllers
 {
-    [Route("api/[controller]")]
-    [Produces("application/json")]
-    [ApiController]
-    public class PublisherController : ControllerBase
+    public class PublisherController : BaseController
     {
         private readonly IPublisherRepo _repo;
 
@@ -24,19 +21,33 @@ namespace BooksStoreSPA.Controllers
         [HttpGet("publisher/{id}")]
         public async Task<Publisher> GetPublisherAsync(long id)
         {
-            Publisher publisher = await _repo.GetOneAsync(id, nameof(Publisher.Books));
-
-            publisher.Books.ForEach(b => b.Publisher = null);
-
-            return publisher;
+            return await _repo.GetPublisherAsync(id);
         }
 
         [HttpPost("publishers")]
-        public PagedResponse<Publisher> GetPublishersAsync(QueryOptions options)
+        public async Task<PagedResponse<Publisher>> GetPublishersAsync(QueryOptions options)
         {
-            PagedList<Publisher> publishers = _repo.GetPublishers(options);
+            PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
 
             return publishers.MapPagedResponse();
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreatePublisherAsync([FromBody] Publisher publisher)
+        {
+            return await CreateAsync(publisher, _repo.AddAsync);
+        }
+
+        [HttpPut("edit")]
+        public async Task<ActionResult> UpdatePublisherAsync([FromBody] Publisher publisher)
+        {
+            return await UpdateAsync(publisher, _repo.UpdateAsync);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteTaskAsync(Publisher publisher)
+        {
+            return await DeleteAsync(publisher, _repo.DeleteAsync);
         }
     }
 }

@@ -11,4 +11,49 @@ body {
 @import './scss/_tabset.scss';
 @import './scss/_store-main';
 @import './scss/_store-sidebar';
-@import './scss/_modal.scss';
+
+
+/*.form-control {
+    .ng-dirty {
+        .ng-invalid {
+            border: 1px solid #dc3545;
+
+            &:focus {
+                border: 1px solid #dc3545;
+                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+            }
+        }
+    }
+}
+
+.form-control {
+    .ng-dirty {
+        .ng-valid {
+            border-color: #28a745;
+
+            &:focus {
+                border-color: #28a745;
+                box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+            }
+        }
+    }
+}*/
+
+
+.form-control.ng-dirty.ng-valid {
+    border-color: #28a745;
+}
+
+.form-control.ng-dirty.ng-valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-control.ng-dirty.ng-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.ng-dirty.ng-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}

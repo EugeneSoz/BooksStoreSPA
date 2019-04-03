@@ -27,7 +27,8 @@
                             <td>{{publisher.country}}</td>
                             <td>
                                 <div class="d-inline-flex">
-                                    <button type="button" class="btn btn-sm btn-warning text-white ml-1">
+                                    <button type="button" class="btn btn-sm btn-warning text-white ml-1"
+                                            [routerLink]="['/admin/publishers', 'edit', publisher.id]">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-danger ml-1">

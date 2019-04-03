@@ -33,17 +33,17 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("categories")]
-        public PagedResponse<CategoryResponse> GetCategoriesAsync(QueryOptions options)
+        public async Task<PagedResponse<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
         {
-            PagedList<CategoryResponse> categories = _repo.GetCategories(options);
+            PagedList<CategoryResponse> categories = await _repo.GetCategoriesAsync(options);
 
             return categories.MapPagedResponse();
         }
 
         [HttpGet("storecategories")]
-        public List<Category> GetStoreCategoriesAsync()
+        public async Task<List<Category>> GetStoreCategoriesAsync()
         {
-            return _repo.GetStoreCategories();
+            return await _repo.GetStoreCategoriesAsync();
         }
     }
 }

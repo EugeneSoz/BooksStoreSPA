@@ -9,6 +9,7 @@ namespace BooksStoreSPA.Models.Repo
 {
     public interface IPublisherRepo : IBaseRepo<Publisher>
     {
-        PagedList<Publisher> GetPublishers(QueryOptions options);
+        Task<Publisher> GetPublisherAsync(long id);
+        Task<PagedList<Publisher>> GetPublishersAsync(QueryOptions options);
     }
 }

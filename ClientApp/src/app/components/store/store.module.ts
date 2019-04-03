@@ -13,6 +13,7 @@ import { SearchToolbarComponent } from './toolbar/search-toolbar.component';
 import { MainComponent } from './main.component';
 import { StoreSidebarComponent } from './store-sidebar.component';
 import { SharedModule } from '../shared/shared.module';
+import { EmptyToolbarComponent } from './toolbar/empty-toolbar.component';
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { SharedModule } from '../shared/shared.module';
         SearchToolbarComponent,
         MainComponent,
         StoreSidebarComponent,
+        EmptyToolbarComponent
     ],
     providers: [StoreService],
 })

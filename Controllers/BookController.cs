@@ -23,9 +23,9 @@ namespace BooksStoreSPA.Controllers
         public BookController(IBookRepo repo) => _repo = repo;
 
         [HttpGet("book/{id}")]
-        public async Task<BookResponse> GetBookAsync(long id)
+        public BookResponse GetBook(long id)
         {
-            IQueryable<Book> entities = await _repo.GetAllAsync();
+            IQueryable<Book> entities = _repo.GetEntities();
 
             IQueryable<BookResponse> bookResponse = entities
                 .Include(p => p.Publisher)
@@ -37,9 +37,9 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("books")]
-        public PagedResponse<BookResponse> GetBooksAsync(QueryOptions options)
+        public async Task<PagedResponse<BookResponse>> GetBooksAsync(QueryOptions options)
         {
-            PagedList<BookResponse> books = _repo.GetBooks(options);
+            PagedList<BookResponse> books = await _repo.GetBooksAsync(options);
 
             return books.MapPagedResponse();
         }

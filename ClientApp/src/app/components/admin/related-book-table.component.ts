@@ -1,14 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Book } from '../../models/dataDTO/book';
 
 @Component({
-  selector: 'app-related-book-table',
-  templateUrl: './related-book-table.component.html',
+    selector: 'related-book-table',
+    templateUrl: './related-book-table.component.html',
 })
-export class RelatedBookTableComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-    // [Parameter] protected List<Book> Books { get; set; }
+export class RelatedBookTableComponent {
+    @Input() books: Array<Book> = null;
 }

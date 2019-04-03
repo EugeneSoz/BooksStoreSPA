@@ -9,7 +9,7 @@ namespace BooksStoreSPA.Models.Repo
 {
     public interface ICategoryRepo : IBaseRepo<Category>
     {
-        PagedList<CategoryResponse> GetCategories(QueryOptions options);
-        List<Category> GetStoreCategories();
+        Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options);
+        Task<List<Category>> GetStoreCategoriesAsync();
     }
 }

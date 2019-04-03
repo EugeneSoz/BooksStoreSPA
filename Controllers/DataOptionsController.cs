@@ -33,19 +33,19 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<MigrationsOptions> DbServices()
+        public MigrationsOptions DbServices()
         {
-            MigrationsOptions migrationsOptions = await GetMigrationsOptionsAsync();
+            MigrationsOptions migrationsOptions = GetMigrationsOptions();
 
             return migrationsOptions;
         }
 
-        private async Task<MigrationsOptions> GetMigrationsOptionsAsync(string contextName = null,
+        private MigrationsOptions GetMigrationsOptions(string contextName = null,
             string infoMessage = null)
         {
-            int books = (await _bookRepo.GetAllAsync())?.Count() ?? 0;
-            int categories = (await _categoryRepo.GetAllAsync())?.Count() ?? 0;
-            int publishers = (await _publisherRepo.GetAllAsync())?.Count() ?? 0;
+            int books = (_bookRepo.GetEntities())?.Count() ?? 0;
+            int categories = (_categoryRepo.GetEntities())?.Count() ?? 0;
+            int publishers = (_publisherRepo.GetEntities())?.Count() ?? 0;
 
             if (!string.IsNullOrEmpty(contextName))
             {

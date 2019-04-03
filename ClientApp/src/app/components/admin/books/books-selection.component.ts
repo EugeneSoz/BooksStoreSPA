@@ -8,6 +8,7 @@ import { FilterProperties, SortingProperties } from '../../../viewModels/filterP
 @Component({
     selector: 'app-books-selection',
     templateUrl: './books-selection.component.html',
+    providers: [BookService]
 })
 export class BooksSelectionComponent extends BaseSelection<BookResponse, BookResponse>
     implements OnInit, OnDestroy {

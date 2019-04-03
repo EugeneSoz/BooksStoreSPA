@@ -9,6 +9,6 @@ namespace BooksStoreSPA.Models.Repo
 {
     public interface IBookRepo : IBaseRepo<Book>
     {
-        PagedList<BookResponse> GetBooks(QueryOptions options);
+        Task<PagedList<BookResponse>> GetBooksAsync(QueryOptions options);
     }
 }

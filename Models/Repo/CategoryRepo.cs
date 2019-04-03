@@ -13,7 +13,7 @@ namespace BooksStoreSPA.Models.Repo
     {
         public CategoryRepo(StoreDbContext ctx) : base(ctx) { }
 
-        public PagedList<CategoryResponse> GetCategories(QueryOptions options)
+        public async Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
         {
             //SetCapitalLetterInProps(options);
             //QueryProcessing<Category> processing;
@@ -72,13 +72,13 @@ namespace BooksStoreSPA.Models.Repo
                     .Select(e => e.MapCategoryResponse());
             }
 
-            PagedList<CategoryResponse> pagedList = 
-                new PagedList<CategoryResponse>(processedCategories, options);
+            PagedList<CategoryResponse> pagedList = await Task.Run(() => 
+                new PagedList<CategoryResponse>(processedCategories, options));
 
             return pagedList;
         }
 
-        public List<Category> GetStoreCategories()
+        public async Task<List<Category>> GetStoreCategoriesAsync()
         {
             IQueryable<Category> query = GetEntities();
             IQueryable<Category> processedCategories = query
@@ -93,7 +93,7 @@ namespace BooksStoreSPA.Models.Repo
                     ChildrenCategories = joined.subcategories.ToList()
                 });
 
-            List<Category> categories = processedCategories.ToList();
+            List<Category> categories = await processedCategories.ToListAsync();
 
             return categories;
         }

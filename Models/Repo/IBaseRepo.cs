@@ -9,7 +9,7 @@ namespace BooksStoreSPA.Models.Repo
     public interface IBaseRepo<T>
     {
         Task<T> GetOneAsync(long id, string propName);
-        Task<IQueryable<T>> GetAllAsync(string propName = null);
+        IQueryable<T> GetEntities();
         Task<T> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);

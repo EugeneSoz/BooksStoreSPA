@@ -1,5 +1,8 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { Subject } from 'rxjs';
+
 import { AppRoutingModule } from '../../app-routing.module';
 
 import { RelatedBookTableComponent } from './related-book-table.component';
@@ -12,18 +15,20 @@ import { BooksSelectionComponent } from './books/books-selection.component';
 import { BookFormComponent } from './books/book-form.component';
 import { AdminLayoutComponent } from '../layouts/admin-layout.component';
 import { BookInfoComponent } from './books/book-info.component';
-import { BookService } from '../../services/book.services';
 import { AdminToolbarComponent } from '../shared/admin-toolbar.component';
 import { AdminFilterComponent } from '../shared/admin-filter.component';
 import { TableHeadComponent } from '../shared/table-head.component';
 import { DbServicesComponent } from './dbServices.component';
 import { SharedModule } from '../shared/shared.module';
+import { Entity_Changed, EntityEventArgs } from '../../models/events/entityEventArgs';
 
 @NgModule({
     imports: [
         BrowserModule,
         AppRoutingModule,
-        SharedModule
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         RelatedBookTableComponent,
@@ -43,7 +48,7 @@ import { SharedModule } from '../shared/shared.module';
     ],
     exports: [AdminToolbarComponent],
     providers: [
-        BookService
+        { provide: Entity_Changed, useValue: new Subject<EntityEventArgs>() }
     ]
 })
 export class AdminModule { }

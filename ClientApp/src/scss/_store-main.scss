@@ -1,13 +1,21 @@
-﻿@import '_shared';
+@import '_shared';
 @import '_customsVars';
 
-#store-main-content {
+%content {
     font-size: 1rem;
     display: flex;
     flex-direction: column;
     height: 100vh;
     background-color: #ecf0f5;
     @extend %marging-padding-reset;
+}
+
+#store-main-content {
+    @extend %content;
+}
+
+#store-content {
+    @extend %content;
 }
 
 /*верхняя панель*/

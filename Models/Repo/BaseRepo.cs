@@ -17,7 +17,7 @@ namespace BooksStoreSPA.Models.Repo
         public BaseRepo(StoreDbContext ctx) => context = ctx;
 
         //ссылка на контекст бд
-        public StoreDbContext Context => context;
+        protected StoreDbContext Context => context;
 
         public void Dispose() => Context?.Dispose();
 
@@ -26,17 +26,7 @@ namespace BooksStoreSPA.Models.Repo
             .Include(propName)
             .SingleOrDefaultAsync(e => e.Id == id);
 
-        //получить все объекты
-        public async Task<IQueryable<T>> GetAllAsync(string propName = null)
-        {
-            IQueryable<T> entities = propName == null
-                ? await Task.Run(() => GetEntities())
-                : await Task.Run(() => GetEntities().Include(propName));
-
-            return entities;
-        }
-
-        protected IQueryable<T> GetEntities()
+        public IQueryable<T> GetEntities()
         {
             if (Context.Database.GetAppliedMigrations().Count() > 0)
             {

@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { Observer } from 'rxjs';
 
 import { BaseAdminService } from './baseAdmin.service';
 import { RestDatasource } from '../helpers/restDatasource';
 import { Urls } from '../helpers/urls';
 import { BookResponse } from '../models/dataDTO/bookResponse';
-import { PagedResponse } from '../models/dataDTO/pagedResponse';
+import { Entity_Changed, EntityEventArgs } from '../models/events/entityEventArgs';
 
 @Injectable()
 export class BookService extends BaseAdminService<BookResponse, BookResponse> {
 
     constructor(
         urls: Urls,
-        rest: RestDatasource) {
+        rest: RestDatasource,
+        @Inject(Entity_Changed) entityChanged: Observer<EntityEventArgs>) {
 
-        super(rest);
+        super(rest, entityChanged);
         this.getAllUrl = urls.books;
         this.getOneUrl = urls.book;
     }

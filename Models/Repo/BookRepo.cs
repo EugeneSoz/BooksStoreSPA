@@ -13,7 +13,7 @@ namespace BooksStoreSPA.Models.Repo
     {
         public BookRepo(StoreDbContext ctx) : base(ctx) { }
 
-        public PagedList<BookResponse> GetBooks(QueryOptions options)
+        public async Task<PagedList<BookResponse>> GetBooksAsync(QueryOptions options)
         {
             QueryProcessing<Book> processing = new QueryProcessing<Book>(options);
 
@@ -41,7 +41,8 @@ namespace BooksStoreSPA.Models.Repo
                     .Select(e => e.MapBookResponse());
             }
 
-            PagedList<BookResponse> books = new PagedList<BookResponse>(processedBooks, options);
+            PagedList<BookResponse> books = await Task.Run(() => 
+                new PagedList<BookResponse>(processedBooks, options));
 
             return books;
         }
