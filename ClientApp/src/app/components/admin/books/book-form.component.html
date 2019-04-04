@@ -1,108 +1,66 @@
-﻿<!-- <FormModalTemplate Title="@Title" IsEditMode="@IsEditMode" HideForm="@HideFormAsync" Submit="@SubmitAsync">
-    <ModalBody>
-        @if (Entity != null)
-        {
-        <form novalidate>
-            <div class="form-group">
-                <label>Название книги</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.Title)))" bind="@Entity.Title" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Title)" />
-            </div>
-            <div class="form-group">
-                <label>Авторы</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.Authors)))" bind="@Entity.Authors" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Authors)" />
-            </div>
-            <div class="form-group">
-                <label>Дата публикации</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.Year)))" bind="@Entity.Year" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Year)" />
-            </div>
-            <div class="form-group">
-                <label>Язык</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.Language)))" bind="@Entity.Language" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Language)" />
-            </div>
-            <div class="form-group">
-                <label>Количество сраниц</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.PageCount)))" bind="@Entity.PageCount" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.PageCount)" />
-            </div>
-            <div class="form-group">
-                <label>Цена</label>
-                <input class="@(SetFormCotrolClass(nameof(Entity.Price)))" bind="@Entity.Price" />
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Price)" />
-            </div>
+﻿<div id="admin-main-content">
+    <div id="admin-scrollable-content">
+        <admin-toolbar [isButtonsVisible]="false"></admin-toolbar>
 
-            <BookFormDropdownsView Book="@Entity" OnPublisherChoose="@SetBookPublisher"
-                OnCategoryChoose="@SetBookCategory" />
+        <div class="card m-2">
+            <div class="card-body">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                            role="tab" aria-controls="nav-home" aria-selected="true">Книги</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">О книге</a>
 
-            <div class="form-group">
-                <label>Описание</label>
-                <textarea class="@(SetFormCotrolClass(nameof(Entity.Description)))" rows="10"
-                    bind="@Entity.Description"></textarea>
-                <ValidationErrorsView Errors="@Validation?.Errors" Property="@nameof(Book.Description)" />
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="bg-primary text-white p-2" [class.bg-warning]="editing">
+                            <div class="d-flex flex-row justify-content-between">
+                                <h5>{{title}} книгу</h5>
+                                <button type="button" [class]="background" routerLink="/admin/books">
+                                    К списку книг</button>
+                            </div>
+                        </div>
+                        <form class="mt-3" novalidate [formGroup]="form" (ngSubmit)="submitForm()">
+                            <server-validation [errors]="errors"></server-validation>
+                            <div class="form-group row" 
+                                *ngFor="let control of form.customControls; let i=index">
+                                <ng-container *ngIf="i >= 6 && i <= 8">
+                                    <label class="col-sm-3 col-form-label">{{control.label}}</label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" formControlName="{{control.property}}">
+                                            <option>1</option>
+                                            <option>2</option>
+                                        </select>
+                                        <app-validation [messages]="getErrors(control.property)"></app-validation>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="i < 6 || i > 8">
+                                    <label class="col-sm-3 col-form-label">{{control.label}}</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control"
+                                            formControlName="{{control.property}}" />
+                                        <app-validation [messages]="getErrors(control.property)"></app-validation>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-7">
+                                    <button type="submit" [class]="background"
+                                        [disabled]="form.invalid">{{title}}</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <app-book-info [book]="book"></app-book-info>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Обложка книги</label>
-                <input class="form-control" bind="@Entity.BookCover" />
-            </div>
-        </form>
-        }
-    </ModalBody>
-</FormModalTemplate>
-
-<div class="form-group">
-    <label>Категория</label>
-    <select class="form-control" value="@CategoryId" onchange="@((e) => ChooseCategory(e))">
-        @if (Categories == null)
-        {
-        <option>Создайте категорию</option>
-        }
-        else
-        {
-        <option value="0">Выберите категорию</option>
-
-        @foreach (Category category in Categories)
-        {
-        <option value="@category.Id">@category.Name</option>
-        }
-        }
-    </select>
+        </div>
+    </div>
 </div>
-<div class="form-group">
-    <label>Подкатегория</label>
-    <select class="form-control" value="@SubcategoryId" onchange="@((e) => ChooseSubcategory(e))">
-        @if (Subcategories == null)
-        {
-        <option>Создайте подкатегорию</option>
-        }
-        else
-        {
-        <option value="0">Выберите подкатегорию</option>
-
-        @foreach (Category subcategory in Subcategories)
-        {
-        <option value="@subcategory.Id">@subcategory.Name</option>
-        }
-        }
-    </select>
-</div>
-<div class="form-group">
-    <label>Издательство</label>
-    <select class="form-control" value="@PublisherId" onchange="@((e) => ChoosePublisher(e))">
-        @if (Publishers == null)
-        {
-        <option>Создайте издателя</option>
-        }
-        else
-        {
-        <option value="0">Выберите издательство</option>
-
-        @foreach (Publisher publisher in Publishers)
-        {
-        <option value="@publisher.Id">@publisher.Name</option>
-        }
-        }
-    </select>
-</div> -->

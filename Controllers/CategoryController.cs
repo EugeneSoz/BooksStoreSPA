@@ -13,10 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksStoreSPA.Controllers
 {
-    [Route("api/[controller]")]
-    [Produces("application/json")]
-    [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseController
     {
         private readonly ICategoryRepo _repo;
 
@@ -25,15 +22,12 @@ namespace BooksStoreSPA.Controllers
         [HttpGet("category/{id}")]
         public async Task<Category> GetCategoryAsync(long id)
         {
-            Category category = await _repo.GetOneAsync(id, nameof(Publisher.Books));
-
-            category.Books.ForEach(b => b.Category = null);
-
-            return category;
+            return await _repo.GetCategoryAsync(id);
         }
 
         [HttpPost("categories")]
-        public async Task<PagedResponse<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
+        public async Task<PagedResponse<CategoryResponse>> GetCategoriesAsync(
+            [FromBody] QueryOptions options)
         {
             PagedList<CategoryResponse> categories = await _repo.GetCategoriesAsync(options);
 
@@ -44,6 +38,24 @@ namespace BooksStoreSPA.Controllers
         public async Task<List<Category>> GetStoreCategoriesAsync()
         {
             return await _repo.GetStoreCategoriesAsync();
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateCategoryAsync([FromBody] Category category)
+        {
+            return await CreateAsync(category, _repo.AddAsync);
+        }
+
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateCategoryAsync([FromBody] Category category)
+        {
+            return await UpdateAsync(category, _repo.UpdateAsync);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteCategoryAsync([FromBody] Category category)
+        {
+            return await DeleteAsync(category, _repo.DeleteAsync);
         }
     }
 }

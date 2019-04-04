@@ -4,7 +4,8 @@ import { EntityType } from '../../enums/entityType';
 import { ErrorAttributes } from '../../enums/errorAttributes';
 
 export class CustomFormControl extends FormControl {
-    constructor(value: string, validator: ValidatorFn | ValidatorFn[], label: string, property: string,
+    constructor(value: string | number | boolean, validator: ValidatorFn | ValidatorFn[],
+        label: string, property: string,
         entityType: EntityType, ve: ValidationErrors) {
 
         super(value, validator);

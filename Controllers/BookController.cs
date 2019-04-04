@@ -13,35 +13,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksStoreSPA.Controllers
 {
-    [Route("api/[controller]")]
-    [Produces("application/json")]
-    [ApiController]
-    public class BookController : ControllerBase
+    public class BookController : BaseController
     {
         private readonly IBookRepo _repo;
 
         public BookController(IBookRepo repo) => _repo = repo;
 
         [HttpGet("book/{id}")]
-        public BookResponse GetBook(long id)
+        public async Task<Book> GetBookAsync(long id)
         {
-            IQueryable<Book> entities = _repo.GetEntities();
-
-            IQueryable<BookResponse> bookResponse = entities
-                .Include(p => p.Publisher)
-                .Include(c => c.Category)
-                .ThenInclude(c => c.ParentCategory)
-                .Select(e => e.MapBookResponse());
-
-            return bookResponse.ToList().SingleOrDefault(b => b.Id == id);
+            return await _repo.GetBookAsync(id);
         }
 
         [HttpPost("books")]
-        public async Task<PagedResponse<BookResponse>> GetBooksAsync(QueryOptions options)
+        public async Task<PagedResponse<BookResponse>> GetBooksAsync([FromBody] QueryOptions options)
         {
             PagedList<BookResponse> books = await _repo.GetBooksAsync(options);
 
             return books.MapPagedResponse();
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateBookAsync([FromBody] Book book)
+        {
+            return await CreateAsync(book, _repo.AddAsync);
+        }
+
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateBookAsync([FromBody] Book book)
+        {
+            return await UpdateAsync(book, _repo.UpdateAsync);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteTaskAsync(Book book)
+        {
+            return await DeleteAsync(book, _repo.DeleteAsync);
         }
     }
 }

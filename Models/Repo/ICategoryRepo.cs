@@ -9,6 +9,7 @@ namespace BooksStoreSPA.Models.Repo
 {
     public interface ICategoryRepo : IBaseRepo<Category>
     {
+        Task<Category> GetCategoryAsync(long id);
         Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options);
         Task<List<Category>> GetStoreCategoriesAsync();
     }

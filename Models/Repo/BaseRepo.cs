@@ -21,11 +21,6 @@ namespace BooksStoreSPA.Models.Repo
 
         public void Dispose() => Context?.Dispose();
 
-        //получить один объект
-        public async Task<T> GetOneAsync(long id, string propName) => await Context.Set<T>()
-            .Include(propName)
-            .SingleOrDefaultAsync(e => e.Id == id);
-
         public IQueryable<T> GetEntities()
         {
             if (Context.Database.GetAppliedMigrations().Count() > 0)

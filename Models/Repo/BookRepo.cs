@@ -13,6 +13,24 @@ namespace BooksStoreSPA.Models.Repo
     {
         public BookRepo(StoreDbContext ctx) : base(ctx) { }
 
+        public async Task<Book> GetBookAsync(long id)
+        {
+            IQueryable<Book> entities = GetEntities();
+
+            IQueryable<Book> book = entities
+                .Include(p => p.Publisher)
+                .Include(c => c.Category)
+                .ThenInclude(c => c.ParentCategory);
+
+            Book result = await book.SingleOrDefaultAsync(b => b.Id == id);
+            result.Publisher.Books = null;
+            result.Category.Books = null;
+            result.Category.ParentCategory.ChildrenCategories = null;
+            result.Category.ParentCategory.Books = null;
+
+            return result;
+        }
+
         public async Task<PagedList<BookResponse>> GetBooksAsync(QueryOptions options)
         {
             QueryProcessing<Book> processing = new QueryProcessing<Book>(options);

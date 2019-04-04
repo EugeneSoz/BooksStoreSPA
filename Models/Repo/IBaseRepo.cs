@@ -8,7 +8,6 @@ namespace BooksStoreSPA.Models.Repo
     //интерфейс для базового класса репозитория
     public interface IBaseRepo<T>
     {
-        Task<T> GetOneAsync(long id, string propName);
         IQueryable<T> GetEntities();
         Task<T> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);

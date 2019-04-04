@@ -9,7 +9,7 @@ import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 import { Entity_Changed, EntityEventArgs } from '../models/events/entityEventArgs';
 
 @Injectable()
-export class CateogoryService extends BaseAdminService<Category, CategoryResponse> {
+export class CategoryService extends BaseAdminService<Category, CategoryResponse> {
 
     constructor(
         urls: Urls,
@@ -19,5 +19,8 @@ export class CateogoryService extends BaseAdminService<Category, CategoryRespons
         super(rest, entityChanged);
         this.getAllUrl = urls.categories;
         this.getOneUrl = urls.category;
+        this.createUrl = urls.category_create;
+        this.updateUrl = urls.category_update;
+        this.deleteUrl = urls.category_delete;
     }
 }

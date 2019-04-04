@@ -25,7 +25,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("publishers")]
-        public async Task<PagedResponse<Publisher>> GetPublishersAsync(QueryOptions options)
+        public async Task<PagedResponse<Publisher>> GetPublishersAsync([FromBody] QueryOptions options)
         {
             PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
 
@@ -45,7 +45,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteTaskAsync(Publisher publisher)
+        public async Task<ActionResult> DeletePublisherAsync([FromBody] Publisher publisher)
         {
             return await DeleteAsync(publisher, _repo.DeleteAsync);
         }

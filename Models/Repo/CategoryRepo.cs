@@ -13,6 +13,25 @@ namespace BooksStoreSPA.Models.Repo
     {
         public CategoryRepo(StoreDbContext ctx) : base(ctx) { }
 
+        public async Task<Category> GetCategoryAsync(long id)
+        {
+            IQueryable<Category> categories = GetEntities();
+            IQueryable<Book> books = Context.Books.OrderBy(b => b.Title);
+
+            Category result = await categories
+                .GroupJoin(books, c => c.Id, b => b.CategoryID, (c, relbooks) =>
+                new Category
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ParentCategoryID = c.ParentCategoryID,
+                    Books = relbooks.ToList()
+                })
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+            return result;
+        }
+
         public async Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
         {
             //SetCapitalLetterInProps(options);

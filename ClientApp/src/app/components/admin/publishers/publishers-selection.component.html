@@ -1,5 +1,5 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/publishers'"></admin-toolbar>
 
     <admin-filter [properties]="filterProperties" [term]="searchTerm" 
         (searchEvent)="onSearch($event)"></admin-filter>

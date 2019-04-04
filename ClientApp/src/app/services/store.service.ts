@@ -8,6 +8,7 @@ import { BookResponse } from '../models/dataDTO/bookResponse';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { HttpMethod } from '../enums/httpMethods';
 import { Pagination } from "../models/pagination";
+import { Book } from '../models/dataDTO/book';
 
 @Injectable()
 export class StoreService {
@@ -29,7 +30,7 @@ export class StoreService {
     cols: Array<number> = new Array<number>();
 
     categories: Array<Category> = null;
-    book: BookResponse = null;
+    book: Book = null;
     _books: PagedResponse<BookResponse> = null;
 
     pagination: Pagination = null;
@@ -83,7 +84,7 @@ export class StoreService {
     }
 
     getBook(id: number): void {
-        this._rest.getAll<BookResponse>(`${this._urls.book}/${id}`)
+        this._rest.getAll<Book>(`${this._urls.book}/${id}`)
             .subscribe(response => {
                 this.book = this._rest.getResponseBody(response, HttpMethod.GET);
             });

@@ -61,10 +61,4 @@ export class BooksGridComponent implements OnInit
     onChangePage(newPage: number): void {
         this._storeService.changePage(newPage);
     }
-
-    // protected async Task OnGoToPageAsync(int buttonNumber)
-    // {
-    // StoreService.QueryOptions.CurrentPage = buttonNumber;
-    // await StoreService.GetBooksAsync();
-    // }
 }

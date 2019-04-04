@@ -9,7 +9,7 @@
             <span class="text-white ml-2">Выйти</span>
         </div>
         <div *ngIf="isButtonsVisible" class="col-lg-auto d-flex flex-row">
-            <button class="btn btn-primary" [routerLink]="['/admin/publishers', 'create']">Новая</button>
+            <button class="btn btn-primary" [routerLink]="[link, 'create']">Новая</button>
         </div>
     </div>
 </nav>

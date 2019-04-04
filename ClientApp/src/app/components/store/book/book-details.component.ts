@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { BookResponse } from '../../../models/dataDTO/bookResponse';
 import { StoreService } from '../../../services/store.service';
+import { Book } from '../../../models/dataDTO/book';
 
 @Component({
     selector: 'app-book-details',
@@ -19,7 +19,7 @@ export class BookDetailsComponent implements OnInit
 
     private _id: number = 0;
 
-    get book(): BookResponse {
+    get book(): Book {
         return this._storeService.book || null;
     }
 

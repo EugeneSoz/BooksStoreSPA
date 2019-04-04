@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
@@ -27,29 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\components\shared\server-validation.component.ts" />
-    <None Remove="ClientApp\src\app\components\shared\validation.component.ts" />
-    <None Remove="ClientApp\src\app\components\store\toolbar\empty-toolbar.component.ts" />
-    <None Remove="ClientApp\src\app\enums\entityType.ts" />
-    <None Remove="ClientApp\src\app\enums\errorAttributes.ts" />
-    <None Remove="ClientApp\src\app\models\events\entityEventArgs.ts" />
-    <None Remove="ClientApp\src\app\models\forms\form.ts" />
-    <None Remove="ClientApp\src\app\models\forms\publisherForm.ts" />
-    <None Remove="ClientApp\src\app\models\forms\serverErrors.ts" />
-    <None Remove="ClientApp\src\app\models\forms\validationErrors.ts" />
+    <None Remove="ClientApp\src\app\models\forms\bookForm.ts" />
+    <None Remove="ClientApp\src\app\models\forms\categoryForm.ts" />
+    <None Remove="ClientApp\src\app\viewModels\baseForm.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\components\shared\server-validation.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\components\shared\validation.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\components\store\toolbar\empty-toolbar.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\enums\entityType.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\enums\errorAttributes.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\events\entityEventArgs.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\forms\form.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\forms\publisherForm.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\forms\serverErrors.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\forms\validationErrors.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\forms\bookForm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\forms\categoryForm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\viewModels\baseForm.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

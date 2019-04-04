@@ -6,27 +6,23 @@ import { Publisher } from '../../../models/dataDTO/publisher';
 import { PublisherService } from '../../../services/publisher.service';
 import { PublisherFormGroup } from '../../../models/forms/publisherForm';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { CustomFormControl } from '../../../models/forms/form';
 import { Entity_Changed, EntityEventArgs } from '../../../models/events/entityEventArgs';
-import { NgForm } from '@angular/forms';
-import { fillProperties } from '@angular/core/src/util/property';
-import { PublicTestability } from '@angular/core/src/testability/testability';
+import { BaseForm } from '../../../viewModels/baseForm';
 
 @Component({
     selector: 'app-publisher-form',
     templateUrl: './publisher-form.component.html',
     providers: [PublisherService]
 })
-export class PublisherFormComponent implements OnInit {
+export class PublisherFormComponent extends BaseForm<PublisherFormGroup> implements OnInit {
     constructor(
         private _publisherService: PublisherService,
         private _nh: NameOfHelper,
         @Inject(Entity_Changed) private entityChanged: Observable<EntityEventArgs>,
         activeRoute: ActivatedRoute) {
 
-        this.editing = activeRoute.snapshot.params["mode"] == "edit";
-        this._id = activeRoute.snapshot.params["id"];
-
+        super(activeRoute);
+        this.form = new PublisherFormGroup(this._nh, this.publisher);
         this.entityChanged.subscribe(changed => {
             if (changed) {
                 Object.assign(this.publisher, _publisherService.entity);
@@ -35,19 +31,7 @@ export class PublisherFormComponent implements OnInit {
         });
     }
 
-    private _id: number = 0;
-
-    editing: boolean = false;
     publisher: Publisher = new Publisher();
-    form: PublisherFormGroup = new PublisherFormGroup(this._nh, this.publisher);
-
-    get title(): string {
-        return this.editing ? "Редактировать" : "Создать";
-    }
-
-    get background(): string {
-        return this.editing ? "btn btn-warning" : "btn btn-primary";
-    }
 
     get errors(): Array<string> {
         return this._publisherService.errors;
@@ -56,15 +40,6 @@ export class PublisherFormComponent implements OnInit {
     ngOnInit(): void {
         if (this._id != null) {
             this._publisherService.getEntity(this._id);
-        }
-    }
-
-    getErrors(property: string): Array<string> {
-        if (this.form.controls[property].dirty && this.form.controls[property].invalid) {
-            return (this.form.controls[property] as CustomFormControl).getValidationMessages();
-        }
-        else {
-            return null;
         }
     }
 

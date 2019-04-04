@@ -1,5 +1,5 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/categories'"></admin-toolbar>
 
     <admin-filter [properties]="filterProperties" [term]="searchTerm" 
         (searchEvent)="onSearch($event)"></admin-filter>
@@ -27,7 +27,8 @@
                             <td>{{category.name}}</td>
                             <td>
                                 <div class="d-inline-flex">
-                                    <button type="button" class="btn btn-sm btn-warning text-white ml-1">
+                                    <button type="button" class="btn btn-sm btn-warning text-white ml-1"
+                                            [routerLink]="['/admin/categories', 'edit', category.id]">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-danger ml-1">

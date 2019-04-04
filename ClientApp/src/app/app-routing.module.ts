@@ -9,6 +9,8 @@ import { PublishersSelectionComponent } from './components/admin/publishers/publ
 import { MainComponent } from './components/store/main.component';
 import { BookDetailsComponent } from './components/store/book/book-details.component';
 import { PublisherFormComponent } from './components/admin/publishers/publisher-form.component';
+import { CategoryFormComponent } from './components/admin/categories/category-form.component';
+import { BookFormComponent } from './components/admin/books/book-form.component';
 
 const routes: Routes = [
     {
@@ -22,6 +24,10 @@ const routes: Routes = [
     },
     { path: "admin/publishers/:mode/:id", component: PublisherFormComponent },
     { path: "admin/publishers/:mode", component: PublisherFormComponent },
+    { path: "admin/categories/:mode/:id", component: CategoryFormComponent },
+    { path: "admin/categories/:mode", component: CategoryFormComponent },
+    { path: "admin/books/:mode/:id", component: BookFormComponent },
+    { path: "admin/books/:mode", component: BookFormComponent },
     { path: "store/details/:id", component: BookDetailsComponent },
     { path: "store", component: MainComponent }
 ];
