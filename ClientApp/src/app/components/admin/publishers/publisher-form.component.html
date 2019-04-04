@@ -18,11 +18,12 @@
                         <div class="bg-primary text-white p-2" [class.bg-warning]="editing">
                             <div class="d-flex flex-row justify-content-between">
                             <h5>{{title}} издательство</h5>
-                            <button type="button" [class]="editing ? 'btn btn-warning' : 'btn btn-primary'">
+                            <button type="button" [class]="background">
                                 К списку издательств</button>
                             </div>
                         </div>
-                        <form class="mt-3" novalidate [formGroup]="form">
+                        <form class="mt-3" novalidate [formGroup]="form" (ngSubmit)="submitForm()">
+                            <server-validation [errors]="errors"></server-validation>
                             <div class="form-group row" *ngFor="let control of form.customControls">
                                 <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                 <div class="col-sm-7">
@@ -35,7 +36,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-7">
-                                    <button type="submit" class="btn btn-primary">{{title}}</button>
+                                    <button type="submit" 
+                                    [class]="background" [disabled]="form.invalid">{{title}}</button>
                                 </div>
                                 
                             </div>

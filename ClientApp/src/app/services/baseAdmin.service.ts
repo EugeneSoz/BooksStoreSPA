@@ -1,12 +1,12 @@
 import { Observer } from 'rxjs';
-import { Inject } from '@angular/core';
 
-import { EntityEventArgs, Entity_Changed } from '../models/events/entityEventArgs';
+import { EntityEventArgs } from '../models/events/entityEventArgs';
 import { RestDatasource } from '../helpers/restDatasource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { HttpMethod } from '../enums/httpMethods';
 import { Pagination } from '../models/pagination';
+import { ServerErrors } from '../models/forms/serverErrors';
 
 export class BaseAdminService<TEntity, TEntities> {
     constructor(
@@ -19,12 +19,16 @@ export class BaseAdminService<TEntity, TEntities> {
 
     protected getOneUrl: string;
     protected getAllUrl: string;
+    protected createUrl: string;
+    protected updateUrl: string;
+    protected deleteUrl: string;
 
     private _entities: PagedResponse<TEntities> = null;
     protected _queryOptions: QueryOptions = null;
     private _entity: TEntity = null;
     pagination: Pagination = null;
     pageNumbers: Array<number>;
+    errors: Array<string> = null;
 
     sortPropertyName: string;
     searchTerm: string = null;
@@ -71,6 +75,22 @@ export class BaseAdminService<TEntity, TEntities> {
         this._rest.getAll<TEntity>(`${this.getOneUrl}/${id}`)
             .subscribe(response => {
                 this.entity = this._rest.getResponseBody(response, HttpMethod.GET);
+            });
+    }
+
+    createEntity(model: TEntity): void {
+        this._rest.create<TEntity>(`${this.createUrl}`, model)
+            .subscribe(response => {
+                let serverErrors: ServerErrors = this._rest.getResponseBody(response, HttpMethod.POST);
+                this.errors = serverErrors.errors;
+            });
+    }
+
+    updateEntity(model: TEntity): void {
+        this._rest.update<TEntity>(`${this.updateUrl}`, model)
+            .subscribe(response => {
+                let serverErrors: ServerErrors = this._rest.getResponseBody(response, HttpMethod.PUT);
+                this.errors = serverErrors.errors;
             });
     }
 

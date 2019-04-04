@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BooksStoreSPA.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace BooksStoreSPA.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    [ApiController]
     public class BaseController : ControllerBase
     {
         public async Task<ActionResult> CreateAsync<T>(T entity, Func<T, Task> addMethod)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(GetServerErrors(ModelState));
             }
             try
             {
@@ -24,7 +26,7 @@ namespace BooksStoreSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно создать запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             return Created("", entity);
@@ -34,7 +36,7 @@ namespace BooksStoreSPA.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             bool isOk;
@@ -45,7 +47,7 @@ namespace BooksStoreSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно сохранить запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             if (!isOk)
@@ -66,7 +68,7 @@ namespace BooksStoreSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно удалить запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             if (!isOk)
@@ -74,6 +76,21 @@ namespace BooksStoreSPA.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        protected ValidationErrors GetServerErrors(ModelStateDictionary modelstate)
+        {
+            List<string> errors = new List<string>();
+            foreach (ModelStateEntry error in modelstate.Values)
+            {
+                foreach (ModelError e in error.Errors)
+                {
+                    errors.Add(e.ErrorMessage);
+                }
+            }
+
+            ValidationErrors v_errors = new ValidationErrors { Errors = errors }; 
+            return v_errors;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BooksStoreSPA.Controllers
             return await CreateAsync(publisher, _repo.AddAsync);
         }
 
-        [HttpPut("edit")]
+        [HttpPut("update")]
         public async Task<ActionResult> UpdatePublisherAsync([FromBody] Publisher publisher)
         {
             return await UpdateAsync(publisher, _repo.UpdateAsync);

@@ -10,12 +10,21 @@ export class Urls {
     storeCategories: string = `${this.baseCategoryUrl}/storecategories`;
     categories: string = `${this.baseCategoryUrl}/categories`;
     category: string = `${this.baseCategoryUrl}/category`;
+    category_create: string = `${this.baseCategoryUrl}/create`;
+    category_update: string = `${this.baseCategoryUrl}/update`;
+    category_delete: string = `${this.baseCategoryUrl}/delete`;
 
     private baseBookUrl: string = `/api/book`;
     books: string = `${this.baseBookUrl}/books`;
     book: string = `${this.baseBookUrl}/book`;
+    book_create: string = `${this.baseBookUrl}/create`;
+    book_update: string = `${this.baseBookUrl}/update`;
+    book_delete: string = `${this.baseBookUrl}/delete`;
 
     private basePublisherUrl: string = `/api/publisher`;
     publishers: string = `${this.basePublisherUrl}/publishers`;
     publisher: string = `${this.basePublisherUrl}/publisher`;
+    publisher_create: string = `${this.basePublisherUrl}/create`;
+    publisher_update: string = `${this.basePublisherUrl}/update`;
+    publisher_delete: string = `${this.basePublisherUrl}/delete`;
 }

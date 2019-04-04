@@ -8,6 +8,9 @@ import { PublisherFormGroup } from '../../../models/forms/publisherForm';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CustomFormControl } from '../../../models/forms/form';
 import { Entity_Changed, EntityEventArgs } from '../../../models/events/entityEventArgs';
+import { NgForm } from '@angular/forms';
+import { fillProperties } from '@angular/core/src/util/property';
+import { PublicTestability } from '@angular/core/src/testability/testability';
 
 @Component({
     selector: 'app-publisher-form',
@@ -26,6 +29,7 @@ export class PublisherFormComponent implements OnInit {
 
         this.entityChanged.subscribe(changed => {
             if (changed) {
+                Object.assign(this.publisher, _publisherService.entity);
                 this.form = new PublisherFormGroup(this._nh, this.publisher);
             }
         });
@@ -34,14 +38,19 @@ export class PublisherFormComponent implements OnInit {
     private _id: number = 0;
 
     editing: boolean = false;
+    publisher: Publisher = new Publisher();
     form: PublisherFormGroup = new PublisherFormGroup(this._nh, this.publisher);
 
     get title(): string {
         return this.editing ? "Редактировать" : "Создать";
     }
 
-    get publisher(): Publisher {
-        return this._publisherService.entity || new Publisher();
+    get background(): string {
+        return this.editing ? "btn btn-warning" : "btn btn-primary";
+    }
+
+    get errors(): Array<string> {
+        return this._publisherService.errors;
     }
 
     ngOnInit(): void {
@@ -56,6 +65,21 @@ export class PublisherFormComponent implements OnInit {
         }
         else {
             return null;
+        }
+    }
+
+    submitForm(): void {
+        if (this.form.valid) {
+            this.publisher.name = "";// this.form.get(this._nh.nameof<Publisher>("name")).value;
+            this.publisher.country = "";// this.form.get(this._nh.nameof<Publisher>("country")).value;
+
+            if (this.editing) {
+                this._publisherService.updateEntity(this.publisher);
+            }
+            else {
+                this._publisherService.createEntity(this.publisher)
+            }
+            this.form.reset();
         }
     }
 }

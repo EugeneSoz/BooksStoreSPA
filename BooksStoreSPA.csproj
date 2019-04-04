@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\components\shared\server-validation.component.ts" />
     <None Remove="ClientApp\src\app\components\shared\validation.component.ts" />
     <None Remove="ClientApp\src\app\components\store\toolbar\empty-toolbar.component.ts" />
     <None Remove="ClientApp\src\app\enums\entityType.ts" />
@@ -34,10 +35,12 @@
     <None Remove="ClientApp\src\app\models\events\entityEventArgs.ts" />
     <None Remove="ClientApp\src\app\models\forms\form.ts" />
     <None Remove="ClientApp\src\app\models\forms\publisherForm.ts" />
+    <None Remove="ClientApp\src\app\models\forms\serverErrors.ts" />
     <None Remove="ClientApp\src\app\models\forms\validationErrors.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\components\shared\server-validation.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\shared\validation.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\store\toolbar\empty-toolbar.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\entityType.ts" />
@@ -45,6 +48,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\models\events\entityEventArgs.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\forms\form.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\forms\publisherForm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\forms\serverErrors.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\forms\validationErrors.ts" />
   </ItemGroup>
 

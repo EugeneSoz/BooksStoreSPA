@@ -14,6 +14,7 @@ namespace BooksStoreSPA.Data
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Название должно быть не меньше 2 и не больше 100 символов")]
         public string Name { get; set; } = string.Empty;
         //страна происхождения
+        [Required(ErrorMessage = "Укажите название страны нахождения издательства")]
         public string Country { get; set; }
         public List<Book> Books { get; set; }
     }
