@@ -1,8 +1,10 @@
-﻿using BooksStoreSPA.Data;
+﻿using System;
+using BooksStoreSPA.Data;
 using BooksStoreSPA.Models.Database;
 using BooksStoreSPA.Models.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +45,20 @@ namespace BooksStoreSPA
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
             });
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
+                options.SchemaName = "dbo";
+                options.TableName = "SessionData";
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "BooksStore.Session";
+                options.IdleTimeout = TimeSpan.FromHours(24);
+                options.Cookie.HttpOnly = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +77,7 @@ namespace BooksStoreSPA
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

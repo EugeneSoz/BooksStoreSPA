@@ -1,23 +1,19 @@
 import { Component } from '@angular/core';
-import { StoreService } from '../../../services/store.service';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
     selector: 'cart-summary',
     templateUrl: './cart-summary.component.html',
-    providers: [StoreService]
 })
 export class CartSummaryComponent {
     constructor(
-        private _storeService: StoreService) { }
+        private _cart: CartService) { }
 
-    itemsCount: number = 0;
-    totalPrice: number = 0;
-    cartBtnCss: string = `text-white btn btn-sm ml-1'${this.itemsCount == 0 ? ' disabled' : ''}`;
+    get itemsCount(): number {
+        return this._cart.itemCount;
+    }
 
-    getDisplayMessage(): string
-    {
-        let item: string = "книг(и)";
-
-        return `Корзина: ${this.itemsCount} ${item} на ${this.totalPrice}`;
+    get totalPrice(): number {
+        return this._cart.totalPrice;
     }
 }

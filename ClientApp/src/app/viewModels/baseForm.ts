@@ -7,7 +7,7 @@ export class BaseForm<TFormGroup extends FormGroup> {
         activeRoute: ActivatedRoute) {
 
         this.editing = activeRoute.snapshot.params["mode"] == "edit";
-        this._id = activeRoute.snapshot.params["id"];
+        this._id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }
 
     protected _id: number = 0;

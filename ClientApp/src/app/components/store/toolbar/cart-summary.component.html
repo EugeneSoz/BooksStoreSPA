@@ -3,9 +3,9 @@
         (Корзина: пусто)
     </small>
     <small *ngSwitchDefault class="text-white">
-        {{getDisplayMessage()}}
+        Корзина: {{itemsCount}} книг(и) на {{totalPrice | currency:"RUB":"symbol":"2.2-2":"ru"}}
     </small>
-    <button [ngClass]="cartBtnCss" routerLink="/cart-details">
-        <i class="fa fa-shopping-cart"></i>
+    <button class="text-white btn btn-sm ml-1" [disabled]="itemsCount == 0" routerLink="/store/cart">
+        <i class="fa fa-shopping-cart fa-lg"></i>
     </button>
 </div>

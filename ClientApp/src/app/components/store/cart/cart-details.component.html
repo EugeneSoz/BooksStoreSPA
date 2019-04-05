@@ -1,0 +1,69 @@
+<div class="container-fluid px-0">
+    <div id="store-content">
+        <empty-toolbar></empty-toolbar>
+        <div id="store-scrollable-content p-2">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Ваша корзина</h2>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Количество</th>
+                                <th>Товар</th>
+                                <th class="text-right">Цена</th>
+                                <th class="text-right">Всего за товар</th>
+                                <th class="text-center">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="cart.selections.length == 0">
+                                <td colspan="5" class="text-center">
+                                    Ваша корзина пуста
+                                </td>
+                            </tr>
+                            <tr *ngFor="let sel of cart.selections">
+                                <td>
+                                    <input type="number" class="form-control-sm" style="width:5em"
+                                        min="0"
+                                        [value]="sel.quantity" 
+                                        (input)="onUpdate(sel.itemId, $event.target.value)" />
+                                </td>
+                                <td>{{sel.name}}</td>
+                                <td class="text-right">
+                                    {{sel.price | currency:"RUB":"symbol":"2.2-2":"ru"}}
+                                </td>
+                                <td class="text-right">
+                                    {{(sel.quantity * sel.price) | currency:"RUB":"symbol":"2.2-2":"ru"}}
+                                </td>
+                                <td class="text-center" style="width:5em">
+                                    <button class="btn btn-sm btn-danger" (click)="onUpdate(sel.itemId, 0)">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right font-weight-bold">Всего:</td>
+                                <td class="text-right font-weight-bold">
+                                    {{cart.totalPrice | currency:"RUB":"symbol":"2.2-2":"ru"}}
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-primary" routerLink="/store">Продолжить покупки</button>
+                        <button class="btn btn-secondary ml-2" routerLink="/store/checkout" 
+                        [disabled]="cart.selections.length == 0">
+                            Оплатить
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+                

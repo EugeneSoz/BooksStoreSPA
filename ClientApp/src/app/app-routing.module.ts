@@ -11,11 +11,13 @@ import { BookDetailsComponent } from './components/store/book/book-details.compo
 import { PublisherFormComponent } from './components/admin/publishers/publisher-form.component';
 import { CategoryFormComponent } from './components/admin/categories/category-form.component';
 import { BookFormComponent } from './components/admin/books/book-form.component';
+import { CartDetailsComponent } from './components/store/cart/cart-details.component';
 
 const routes: Routes = [
     {
         path: "", component: AdminLayoutComponent,
         children: [
+            { path: "admin/services", component: DbServicesComponent },
             { path: "", component: DbServicesComponent },
             { path: "admin/books", component: BooksSelectionComponent },
             { path: "admin/categories", component: CategoriesSelectionComponent },
@@ -29,7 +31,8 @@ const routes: Routes = [
     { path: "admin/books/:mode/:id", component: BookFormComponent },
     { path: "admin/books/:mode", component: BookFormComponent },
     { path: "store/details/:id", component: BookDetailsComponent },
-    { path: "store", component: MainComponent }
+    { path: "store", component: MainComponent },
+    { path: "store/cart", component: CartDetailsComponent },
 ];
 
 @NgModule({

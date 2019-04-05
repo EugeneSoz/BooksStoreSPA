@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
-
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from '../../app-routing.module';
 import { StoreService } from '../../services/store.service';
 import { BookCardComponent } from './book/book-card.component';
@@ -14,10 +15,14 @@ import { MainComponent } from './main.component';
 import { StoreSidebarComponent } from './store-sidebar.component';
 import { SharedModule } from '../shared/shared.module';
 import { EmptyToolbarComponent } from './toolbar/empty-toolbar.component';
+import { CartService } from '../../services/cart.service';
+import { CartDetailsComponent } from './cart/cart-details.component';
 
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule,
         SharedModule
     ],
@@ -32,8 +37,12 @@ import { EmptyToolbarComponent } from './toolbar/empty-toolbar.component';
         SearchToolbarComponent,
         MainComponent,
         StoreSidebarComponent,
-        EmptyToolbarComponent
+        EmptyToolbarComponent,
+        CartDetailsComponent
     ],
-    providers: [StoreService],
+    providers: [
+        StoreService,
+        CartService
+    ],
 })
 export class StoreModule { }

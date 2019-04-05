@@ -7,7 +7,7 @@
         <p class="card-text text-warning">В наличии</p>
     </div>
     <div class="card-footer">
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success" (click)="onAddToCart()">
             В корзину
         </button>
         <button type="button" class="btn btn-primary ml-2" [routerLink]="['/store/details', book.id]">
