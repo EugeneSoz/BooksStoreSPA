@@ -7,6 +7,7 @@ using BooksStoreSPA.Data.DTO;
 using BooksStoreSPA.Infrastructure;
 using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("books")]
+        [AllowAnonymous]
         public async Task<PagedResponse<BookResponse>> GetBooksAsync([FromBody] QueryOptions options)
         {
             PagedList<BookResponse> books = await _repo.GetBooksAsync(options);

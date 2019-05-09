@@ -30,4 +30,11 @@ export class Urls {
 
     private baseSessionUrl: string = `/api/session`;
     session: string = `${this.baseSessionUrl}/cart`;
+
+    private baseOrderUrl: string = `/api/orders`;
+    orders: string = `${this.baseOrderUrl}`;
+
+    private baseAccountUrl: string = `/api/acount`;
+    login: string = `${this.baseAccountUrl}/login`;
+    logout: string = `${this.baseAccountUrl}/logout`;
 }

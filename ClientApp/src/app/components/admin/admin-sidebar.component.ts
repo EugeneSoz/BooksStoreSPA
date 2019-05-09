@@ -14,6 +14,7 @@ export class AdminSidebarComponent implements OnInit {
         this.sections.push(new AdminSidebarSection("/admin/books", "Книги"));
         this.sections.push(new AdminSidebarSection("/admin/categories", "Категории"));
         this.sections.push(new AdminSidebarSection("/admin/publishers", "Издатели"));
+        this.sections.push(new AdminSidebarSection("/admin/orders", "Заказы"));
         this.sections.push(new AdminSidebarSection("/store", "Магазин"));
     }
 

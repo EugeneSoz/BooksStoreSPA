@@ -12,6 +12,11 @@ import { PublisherFormComponent } from './components/admin/publishers/publisher-
 import { CategoryFormComponent } from './components/admin/categories/category-form.component';
 import { BookFormComponent } from './components/admin/books/book-form.component';
 import { CartDetailsComponent } from './components/store/cart/cart-details.component';
+import { CheckoutDetailsComponent } from './components/store/order/checkout-details.component';
+import { CheckoutPaymentComponent } from './components/store/order/checkout-payment.component';
+import { CheckoutSummaryComponent } from './components/store/order/checkout-summary.component';
+import { OrderConfirmationComponent } from './components/store/order/order-confirmation.component';
+import { OrderSelectionComponent } from './components/admin/orders/order-selection.component';
 
 const routes: Routes = [
     {
@@ -22,6 +27,7 @@ const routes: Routes = [
             { path: "admin/books", component: BooksSelectionComponent },
             { path: "admin/categories", component: CategoriesSelectionComponent },
             { path: "admin/publishers", component: PublishersSelectionComponent },
+            { path: "admin/orders", component: OrderSelectionComponent }
         ],
     },
     { path: "admin/publishers/:mode/:id", component: PublisherFormComponent },
@@ -33,6 +39,10 @@ const routes: Routes = [
     { path: "store/details/:id", component: BookDetailsComponent },
     { path: "store", component: MainComponent },
     { path: "store/cart", component: CartDetailsComponent },
+    { path: "store/checkout", component: CheckoutDetailsComponent },
+    { path: "store/payment", component: CheckoutPaymentComponent },
+    { path: "store/summary", component: CheckoutSummaryComponent },
+    { path: "store/confirmation", component: OrderConfirmationComponent },
 ];
 
 @NgModule({

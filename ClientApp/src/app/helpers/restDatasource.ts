@@ -72,6 +72,13 @@ export class RestDatasource {
         return result;
     }
 
+    createObject<TParameter, TReturnValue>(url: string, model: TParameter): Observable<HttpResponse<TReturnValue>> {
+        let result: Observable<HttpResponse<TReturnValue>> =
+            this.sendRequest<TReturnValue, TParameter>("post", url, model);
+
+        return result;
+    }
+
     update<TParameter>(url: string, model: TParameter): Observable<HttpResponse<ServerErrors>> {
         let result: Observable<HttpResponse<ServerErrors>> =
             this.sendRequest<ServerErrors, TParameter>("put", url, model);

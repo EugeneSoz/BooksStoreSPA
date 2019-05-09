@@ -28,5 +28,8 @@ namespace BooksStoreSPA.Data
 
         //таблица издателей в бд
         public DbSet<Publisher> Publishers { get; set; }
+
+        //таблица заказов в бд
+        public DbSet<Order> Orders { get; set; }
     }
 }

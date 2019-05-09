@@ -27,9 +27,14 @@ namespace BooksStoreSPA.Controllers
         [HttpPost("publishers")]
         public async Task<PagedResponse<Publisher>> GetPublishersAsync([FromBody] QueryOptions options)
         {
-            PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
+            if (HttpContext.User.IsInRole("Administrator"))
+            {
+                PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
 
-            return publishers.MapPagedResponse();
+                return publishers?.MapPagedResponse();
+            }
+
+            return null;
         }
 
         [HttpPost("create")]

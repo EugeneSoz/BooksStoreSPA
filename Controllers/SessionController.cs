@@ -31,5 +31,22 @@ namespace BooksStoreSPA.Controllers
             HttpContext.Session.SetString("cart", jsonData);
             return Ok(new ValidationErrors { Errors = null });
         }
+
+        [HttpGet("checkout")]
+        public IActionResult GetCheckout()
+        {
+            return Ok(HttpContext.Session.GetString("checkout"));
+        }
+
+        [HttpPost("checkout")]
+        public void StoreCheckout([FromBody] CheckoutState data)
+        {
+            string jsonData = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+
+            HttpContext.Session.SetString("checkout", jsonData);
+        }
     }
 }

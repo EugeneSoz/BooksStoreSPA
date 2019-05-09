@@ -5,6 +5,7 @@ using BooksStoreSPA.Models.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,12 @@ namespace BooksStoreSPA
             services.AddTransient<ICategoryRepo, CategoryRepo>();
             services.AddTransient<IBookRepo, BookRepo>();
             services.AddTransient<MigrationsManager>();
+
+            services.AddDbContext<IdentityDataContext>(options => 
+                options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>();
 
             services.AddDbContext<StoreDbContext>(options =>
             {
@@ -78,6 +85,7 @@ namespace BooksStoreSPA
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -109,6 +117,8 @@ namespace BooksStoreSPA
                     //spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            //IdentitySeedData.SeedDatabase(app);
         }
     }
 }

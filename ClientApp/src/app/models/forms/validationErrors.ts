@@ -4,6 +4,7 @@ import { EntityType } from '../../enums/entityType';
 import { ErrorAttributes } from '../../enums/errorAttributes';
 import { Category } from '../dataDTO/category';
 import { Book } from '../dataDTO/book';
+import { Order, Payment } from '../dataDTO/order';
 
 export class ValidationErrors {
 
@@ -18,6 +19,8 @@ export class ValidationErrors {
                 return this.getCategoriesValidationErrors(property, errorName);
             case EntityType.Book:
                 return this.getBooksValidationErrors(property, errorName);
+            case EntityType.Order:
+                return this.getOrdersValidationErrors(property, errorName);
         }
     }
 
@@ -81,6 +84,33 @@ export class ValidationErrors {
         else if (property == this._nameofHelper.nameof<Book>("description")
             && errorName == ErrorAttributes.minlength) {
             msg = "Название должно быть не меньше 2 и не больше 1000 символов";
+        }
+
+        return msg;
+    }
+
+    private getOrdersValidationErrors(property: string, errorName: string): string {
+        let msg: string = null;
+
+        if (property == this._nameofHelper.nameof<Order>("name")
+            && errorName == ErrorAttributes.required) {
+            msg = "Введите ваше имя";
+        }
+        else if (property == this._nameofHelper.nameof<Order>("address")
+            && errorName == ErrorAttributes.required) {
+            msg = "Укажите адрес доставки";
+        }
+        else if (property == this._nameofHelper.nameof<Payment>("cardNumber")
+            && errorName == ErrorAttributes.required) {
+            msg = "Введите номер банковской карты";
+        }
+        else if (property == this._nameofHelper.nameof<Payment>("cardExpiry")
+            && errorName == ErrorAttributes.required) {
+            msg = "Введите срок окончания банковской карты";
+        }
+        if (property == this._nameofHelper.nameof<Payment>("cardSecurityCode")
+            && errorName == ErrorAttributes.required) {
+            msg = "Укажите код безопасности карты";
         }
 
         return msg;

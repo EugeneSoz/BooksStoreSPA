@@ -21,6 +21,7 @@ import { TableHeadComponent } from '../shared/table-head.component';
 import { DbServicesComponent } from './dbServices.component';
 import { SharedModule } from '../shared/shared.module';
 import { Entity_Changed, EntityEventArgs } from '../../models/events/entityEventArgs';
+import { OrderSelectionComponent } from './orders/order-selection.component';
 
 @NgModule({
     imports: [
@@ -45,6 +46,7 @@ import { Entity_Changed, EntityEventArgs } from '../../models/events/entityEvent
         AdminFilterComponent,
         TableHeadComponent,
         DbServicesComponent,
+        OrderSelectionComponent
     ],
     exports: [AdminToolbarComponent],
     providers: [

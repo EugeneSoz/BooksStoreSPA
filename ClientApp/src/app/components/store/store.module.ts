@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from '../../app-routing.module';
 import { StoreService } from '../../services/store.service';
@@ -17,6 +18,11 @@ import { SharedModule } from '../shared/shared.module';
 import { EmptyToolbarComponent } from './toolbar/empty-toolbar.component';
 import { CartService } from '../../services/cart.service';
 import { CartDetailsComponent } from './cart/cart-details.component';
+import { Order } from '../../models/dataDTO/order';
+import { CheckoutDetailsComponent } from './order/checkout-details.component';
+import { CheckoutPaymentComponent } from './order/checkout-payment.component';
+import { CheckoutSummaryComponent } from './order/checkout-summary.component';
+import { OrderConfirmationComponent } from './order/order-confirmation.component';
 
 @NgModule({
     imports: [
@@ -24,7 +30,8 @@ import { CartDetailsComponent } from './cart/cart-details.component';
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        SharedModule
+        SharedModule,
+        RouterModule
     ],
     exports: [],
     declarations: [
@@ -38,11 +45,16 @@ import { CartDetailsComponent } from './cart/cart-details.component';
         MainComponent,
         StoreSidebarComponent,
         EmptyToolbarComponent,
-        CartDetailsComponent
+        CartDetailsComponent,
+        CheckoutDetailsComponent,
+        CheckoutPaymentComponent,
+        CheckoutSummaryComponent,
+        OrderConfirmationComponent
     ],
     providers: [
         StoreService,
-        CartService
+        CartService,
+        Order
     ],
 })
 export class StoreModule { }
