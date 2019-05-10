@@ -3,8 +3,12 @@ import { Injectable } from "@angular/core";
 @Injectable({ providedIn: 'root' })
 export class Urls {
     private baseoptionsUrl: string = `/api/options`;
-    dataOptions: string = `${this.baseoptionsUrl}/dbServices`;
-    seed: string = `${this.baseoptionsUrl}/seed`;
+    dataOptions: string = `${this.baseoptionsUrl}/services`;
+    options_seed: string = `${this.baseoptionsUrl}/seed`;
+    options_apply: string = `${this.baseoptionsUrl}/apply`;
+    options_save: string = `${this.baseoptionsUrl}/save`;
+    options_clear: string = `${this.baseoptionsUrl}/clear`;
+    options_context: string = `${this.baseoptionsUrl}/context`;
 
     private baseCategoryUrl: string = `/api/category`;
     storeCategories: string = `${this.baseCategoryUrl}/storecategories`;

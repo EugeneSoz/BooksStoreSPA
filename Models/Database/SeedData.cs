@@ -17,21 +17,7 @@ namespace BooksStoreSPA.Models.Database
             {
                 try
                 {
-                    if (context is StoreDbContext dataContext && dataContext.Books.Count() == 0)
-                    {
-                        if (fromFile)
-                        {
-                            DataRW dataReadingWriting = new DataRW();
-                            //dataReadingWriting.SeedDataFromFile(dataContext);
-                        }
-                        else
-                        {
-                            SeedWithTestData(dataContext);
-                        }
-
-                        message = "Данные загружены";
-                    }
-                    context.SaveChanges();
+                    Seed(context, fromFile, ref message);
                 }
                 catch (Exception ex)
                 {
@@ -42,34 +28,60 @@ namespace BooksStoreSPA.Models.Database
             return message;
         }
 
-        //public static string ClearDatabase(DbContext context)
-        //{
-        //    string message = string.Empty;
-        //    if (context.Database.GetPendingMigrations().Count() == 0)
-        //    {
-        //        try
-        //        {
-        //            if (context is StoreDbContext dataContext && dataContext.Books.Count() > 0)
-        //            {
-        //                dataContext.Tasks.RemoveRange(dataContext.Tasks);
-        //                dataContext.Categories.RemoveRange(dataContext.Categories);
-        //            }
-        //            else
-        //            {
-        //                message = "Удаление не произведено, так как данные отсутствуют";
-        //            }
-        //            context.SaveChanges();
+        public static string ClearDatabase(DbContext context)
+        {
+            string message = string.Empty;
+            if (context.Database.GetPendingMigrations().Count() == 0)
+            {
+                try
+                {
+                    Clear(context, ref message);
+                }
+                catch (Exception ex)
+                {
+                    message = ex.Message;
+                }
 
-        //            message = "Данные удалены из базы данных";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            message = ex.Message;
-        //        }
+            }
+            return message;
+        }
 
-        //    }
-        //    return message;
-        //}
+        private static void Seed(DbContext context, bool fromFile, ref string message)
+        {
+            if (context is StoreDbContext dataContext && dataContext.Books.Count() == 0)
+            {
+                if (fromFile)
+                {
+                    DataRW dataRW = new DataRW();
+                    dataRW.SeedDataFromFile(dataContext);
+                }
+                else
+                {
+                    SeedWithTestData(dataContext);
+                }
+
+                message = "Данные загружены";
+            }
+            context.SaveChanges();
+        }
+
+        private static void Clear(DbContext context, ref string message)
+        {
+            if (context is StoreDbContext dataContext && dataContext.Books.Count() > 0)
+            {
+                dataContext.Books.RemoveRange(dataContext.Books);
+                dataContext.Categories.RemoveRange(dataContext.Categories);
+                dataContext.Publishers.RemoveRange(dataContext.Publishers);
+            }
+            else
+            {
+                message = "Удаление не произведено, так как данные отсутствуют";
+            }
+            context.SaveChanges();
+
+            message = "Данные удалены из базы данных";
+            context.SaveChanges();
+        }
 
         private static void SeedWithTestData(StoreDbContext context)
         {

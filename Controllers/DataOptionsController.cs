@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BooksStoreSPA.Data;
 using BooksStoreSPA.Data.DTO;
+using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Database;
 using BooksStoreSPA.Models.Repo;
 using Microsoft.AspNetCore.Http;
@@ -32,12 +33,35 @@ namespace BooksStoreSPA.Controllers
             _publisherRepo = publisherRepo;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("services")]
         public MigrationsOptions DbServices()
         {
             MigrationsOptions migrationsOptions = GetMigrationsOptions();
 
             return migrationsOptions;
+        }
+
+        [HttpGet("context/{contextName}")]
+        public MigrationsOptions ChooseContext(string contextName)
+        {
+            return GetMigrationsOptions(contextName);
+        }
+
+        [HttpGet("apply/{contextName}/{migrationName}")]
+        public MigrationsOptions ApplyMigrationsAsync(string contextName, string migrationName)
+        {
+            string infoMessage = string.Empty;
+            try
+            {
+                _manager.Migrate(contextName, migrationName);
+                infoMessage = "Миграции применены";
+            }
+            catch (Exception ex)
+            {
+                infoMessage = ex.Message;
+            }
+
+            return GetMigrationsOptions(contextName, infoMessage);
         }
 
         private MigrationsOptions GetMigrationsOptions(string contextName = null,
@@ -54,58 +78,37 @@ namespace BooksStoreSPA.Controllers
             return new MigrationsOptions(books, categories, publishers, _manager, infoMessage);
         }
 
+        [HttpGet("save")]
+        public string SaveDataToJson()
+        {
+            IQueryable<Book> dbbooks = _bookRepo.GetEntities().OrderBy(b => b.Id);
+            IQueryable<Category> dbcategories = _categoryRepo.GetEntities().OrderBy(c => c.Id);
+            IQueryable<Publisher> dbpublishers = _publisherRepo.GetEntities().OrderBy(p => p.Id);
 
-        //public async Task<MigrationsOptions> ApplyMigrationsAsync(string contextName, string migrationName)
-        //{
-        //    string infoMessage = string.Empty;
-        //    try
-        //    {
-        //        _manager.Migrate(contextName, migrationName);
-        //        infoMessage = "Миграции применены";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        infoMessage = ex.Message;
-        //    }
+            StoreSavedData storeSavedData = new StoreSavedData
+            {
+                Books = dbbooks.ToList(),
+                Categories = dbcategories.ToList(),
+                Publishers = dbpublishers.ToList()
+            };
 
-        //    return await GetMigrationsOptionsAsync(contextName, infoMessage);
-        //}
+            DataRW dataRW = new DataRW();
 
-        //[HttpGet("[action]")]
-        //public async Task<string> SaveDataToJsonAsync()
-        //{
-        //    IQueryable<Category> dbcategories =
-        //        (await _categoryRepo.GetAllAsync(nameof(Category.TaskItems))).OrderBy(c => c.Id);
-        //    List<Category> categories = dbcategories.ToList();
-        //    foreach (Category category in categories)
-        //    {
-        //        category.Id = 0;
-        //        foreach (TaskItem taskItem in category.TaskItems)
-        //        {
-        //            taskItem.Id = 0;
-        //            taskItem.CategoryId = 0;
-        //            taskItem.Category = null;
-        //        }
-        //    }
+            string msg = string.Empty;
+            try
+            {
+                dataRW.CreateJsonData(storeSavedData, "savedData");
 
-        //    DataReadingWriting dataReadingWriting = new DataReadingWriting();
+                msg = "Данные сохранены в файл";
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+            }
 
-        //    string msg = string.Empty;
-        //    try
-        //    {
-        //        dataReadingWriting.CreateJsonData(categories, "savedData");
+            return msg;
+        }
 
-        //        msg = "Данные сохранены в файл";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        msg = ex.Message;
-        //    }
-
-        //    return msg;
-        //}
-
-        //BooksStoreRC.Server.Data.StoreDbContext
         [HttpGet("seed/{contextName}/{fromFile}")]
         public string SeedDatabase(string contextName, bool fromFile)
         {
@@ -115,13 +118,13 @@ namespace BooksStoreSPA.Controllers
             return msg;
         }
 
-        //[HttpGet("clear/{contextName}")]
-        //public string ClearDatabase(string contextName)
-        //{
-        //    _manager.ContextName = contextName;
-        //    string msg = SeedData.ClearDatabase(_manager.Context);
+        [HttpGet("clear/{contextName}")]
+        public string ClearDatabase(string contextName)
+        {
+            _manager.ContextName = contextName;
+            string msg = SeedData.ClearDatabase(_manager.Context);
 
-        //    return msg;
-        //}
+            return msg;
+        }
     }
 }

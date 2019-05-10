@@ -1,48 +1,102 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
 
-import { HttpMethod } from "../enums/httpMethods";
-import { QueryOptions } from '../models/dataDTO/queryOptions';
-import { ServerErrors } from '../models/forms/serverErrors';
+import { HttpMethod } from './httpMethod';
+import { HttpStatusCode } from '../enums/httpStatusCode';
+
 
 @Injectable({ providedIn: 'root' })
 export class RestDatasource {
-    constructor(private _http: HttpClient) { }
+    constructor(
+        private _http: HttpClient) { }
 
-    getResponseBody<TReturnValue>(response: HttpResponse<TReturnValue>, method: HttpMethod): TReturnValue {
-        let result: TReturnValue = null;
+    private _errors: Array<string> = null;
+
+    getOne<TResponse>(url: string): Observable<TResponse> {
+        let entity$ = this.sendRequest<TResponse, {}>(HttpMethod.get, url)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.get)));
+
+        return entity$;
+    }
+
+    getAll<TResponse>(url: string): Observable<TResponse> {
+        let entities$ = this.sendRequest<TResponse, {}>(HttpMethod.get, url)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.get)));
+
+        return entities$;
+    }
+
+    receiveAll<TResponse, TBody>(url: string, parameter: TBody): Observable<TResponse> {
+        let entities$ = this.sendRequest<TResponse, TBody>(HttpMethod.post, url, parameter)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.post)));
+
+        return entities$;
+    }
+
+    create<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.post, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.post)));
+
+        return entities$;
+    }
+
+    update<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.put, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.put)));
+
+        return entities$;
+    }
+
+    delete<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.delete, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.delete)));
+
+        return entities$;
+    }
+
+    private getResult<TBody>(response: HttpResponse<TBody>, method: HttpMethod): TBody {
+        let result: TBody = null;
         switch (method) {
-            case HttpMethod.GET:
-                result = response.status == 200
+            case HttpMethod.get:
+            case HttpMethod.post:
+                result = response.status == HttpStatusCode.OK
                     ? response.body
                     : null;
-                break;
-            case HttpMethod.POSTGET:
-                result = response.status == 200
-                    ? response.body
-                    : null;
-                break;
-            case HttpMethod.POST:
-                result = response.status == 201
-                    ? null
-                    : response.body;
-                break;
-            case HttpMethod.PUT:
-                result = response.status == 200
-                    ? null
-                    : response.body;
                 break;
         }
 
         return result;
     }
 
-    getBoolResponseBody(response: HttpResponse<boolean>, method: HttpMethod): boolean {
+    private getBoolResult(response: HttpResponse<{}>, method: HttpMethod): boolean {
         let boolResult: boolean = null;
         switch (method) {
-            case HttpMethod.DELETE:
-                boolResult = response.status == 204
+            case HttpMethod.post:
+                boolResult = response.status == HttpStatusCode.Created
+                    ? true
+                    : false;
+                break;
+            case HttpMethod.put:
+                boolResult = response.status == HttpStatusCode.OK
+                    ? true
+                    : false;
+                break;
+            case HttpMethod.delete:
+                boolResult = response.status == HttpStatusCode.NoContent
                     ? true
                     : false;
                 break;
@@ -51,51 +105,23 @@ export class RestDatasource {
         return boolResult;
     }
 
-    getAll<TReturnValue>(url: string): Observable<HttpResponse<TReturnValue>> {
-        let result: Observable<HttpResponse<TReturnValue>> =
-            this.sendRequest<TReturnValue, boolean>("get", url);
-
-        return result;
-    }
-
-    receiveAll<TReturnValue>(url: string, options: QueryOptions): Observable<HttpResponse<TReturnValue>> {
-        let result: Observable<HttpResponse<TReturnValue>> =
-            this.sendRequest<TReturnValue, QueryOptions>("post", url, options);
-
-        return result;
-    }
-
-    create<TParameter>(url: string, model: TParameter): Observable<HttpResponse<ServerErrors>> {
-        let result: Observable<HttpResponse<ServerErrors>> =
-            this.sendRequest<ServerErrors, TParameter>("post", url, model);
-
-        return result;
-    }
-
-    createObject<TParameter, TReturnValue>(url: string, model: TParameter): Observable<HttpResponse<TReturnValue>> {
-        let result: Observable<HttpResponse<TReturnValue>> =
-            this.sendRequest<TReturnValue, TParameter>("post", url, model);
-
-        return result;
-    }
-
-    update<TParameter>(url: string, model: TParameter): Observable<HttpResponse<ServerErrors>> {
-        let result: Observable<HttpResponse<ServerErrors>> =
-            this.sendRequest<ServerErrors, TParameter>("put", url, model);
-
-        return result;
-    }
-
-    delete<TParameter>(url: string, model: TParameter): Observable<HttpResponse<boolean>> {
-        let result: Observable<HttpResponse<boolean>> =
-            this.sendRequest<boolean, TParameter>("delete", url, model);
-
-        return result;
-    }
-
     //вспомогательный метод для сериализации объекта и отправки его на сервер
-    private sendRequest<TReturnValue, TParameter>(verb: string,
-        url: string, body?: TParameter): Observable<HttpResponse<TReturnValue>> {
-        return this._http.request<TReturnValue>(verb, url, { body, observe: "response" });
+    private sendRequest<TResponse, TBody>(verb: string,
+        url: string, body?: TBody): Observable<HttpResponse<TResponse>> {
+        return this._http.request<TResponse>(verb, url, { body, observe: "response" })
+            .pipe(catchError(this.handleError));
     }
+
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('Произошла ошибка:', error.error.message);
+        }
+        else {
+            this._errors = <string[]>error.error
+        }
+        // return an observable with a user-facing error message
+        return throwError(
+            this._errors);
+    };
 }

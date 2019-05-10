@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DataOptionsService } from "../../services/dataOptions.service";
 import { MigrationsOptions } from "../../models/dataDTO/migrationsOptions";
 
@@ -25,6 +25,10 @@ export class DbServicesComponent implements OnInit {
         return true;
     }
 
+    get infoMessage(): string {
+        return this._dataOptionsService.infoMessage;
+    }
+
     get contextName(): string {
         return this._dataOptionsService.contextName;
     }
@@ -38,14 +42,34 @@ export class DbServicesComponent implements OnInit {
     }
 
     onChangeContext(context: string): void {
-        this._dataOptionsService.contextName = String(context);
+        this._dataOptionsService.contextName = context;
     }
 
     onChangeMigration(migration: string): void {
-        this._dataOptionsService.migrationName = String(migration);
+        this._dataOptionsService.migrationName = migration;
     }
 
     onSeedDatabase(): void {
         this._dataOptionsService.seedDatabase(false);
+    }
+
+    onSeedDatabaseFromFile(): void {
+        this._dataOptionsService.seedDatabase(true);
+    }
+
+    onApplyMigrations(): void {
+        this._dataOptionsService.applyMigrations();
+    }
+
+    onClearDatabase(): void {
+        this._dataOptionsService.clearDatabase();
+    }
+
+    onSaveData(): void {
+        this._dataOptionsService.saveData();
+    }
+
+    onChooseContext(): void {
+        this._dataOptionsService.chooseContext();
     }
 }

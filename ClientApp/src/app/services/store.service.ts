@@ -6,7 +6,6 @@ import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { Category } from '../models/dataDTO/category';
 import { BookResponse } from '../models/dataDTO/bookResponse';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
-import { HttpMethod } from '../enums/httpMethods';
 import { Pagination } from "../models/pagination";
 import { Book } from '../models/dataDTO/book';
 
@@ -70,23 +69,23 @@ export class StoreService {
 
     getCategories(): void {
         this._rest.getAll<Array<Category>>(this._urls.storeCategories)
-            .subscribe(response => {
-                this.categories = this._rest.getResponseBody(response, HttpMethod.GET);
+            .subscribe(result => {
+                this.categories = result;
             });
     }
 
     getBooks(): void {
-        this._rest.receiveAll<PagedResponse<BookResponse>>(this._urls.books, this._queryOptions)
-            .subscribe(response => {
-                this.books = this._rest.getResponseBody(response, HttpMethod.POSTGET);
+        this._rest.receiveAll<PagedResponse<BookResponse>, QueryOptions>(this._urls.books, this._queryOptions)
+            .subscribe(result => {
+                this.books = result;
                 this.setBooksRowsAndCol(this._cardsCountInRow);
             });
     }
 
     getBook(id: number): void {
         this._rest.getAll<Book>(`${this._urls.book}/${id}`)
-            .subscribe(response => {
-                this.book = this._rest.getResponseBody(response, HttpMethod.GET);
+            .subscribe(result => {
+                this.book = result;
             });
     }
 
@@ -124,14 +123,14 @@ export class StoreService {
         this.getBooks();
     }
 
-    login(name: string, password: string): void {
-        this._rest.createObject<{}, void>(this._urls.login, { name: name, password: password });
-    }
+    //login(name: string, password: string): void {
+    //    this._rest.createObject<{}, void>(this._urls.login, { name: name, password: password });
+    //}
 
-    logout(): void {
-        this._rest.createObject<{}, void>(this._urls.logout, null)
-            .subscribe(response => { });
-    }
+    //logout(): void {
+    //    this._rest.createObject<{}, void>(this._urls.logout, null)
+    //        .subscribe(response => { });
+    //}
 
     private setBooksRowsAndCol(cardsCountInRow: number) {
         this.cols = new Array<number>();

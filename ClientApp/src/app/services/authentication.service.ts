@@ -14,25 +14,25 @@ export class AuthenticationService {
     password: string;
     callbackUrl: string;
 
-    login(): Observable<boolean> {
-        this.authenticated = false;
-        return this.repo.login(this.name, this.password)
-            .map(response => {
-                if (response.ok) {
-                    this.authenticated = true;
-                    this.password = null;
-                    this.router.navigateByUrl(this.callbackUrl || "/admin/overview");
-                }
-                return this.authenticated;
-            })
-            .catch(e => {
-                this.authenticated = false;
-                return Observable.of(false);
-            });
-    }
-    logout() {
-        this.authenticated = false;
-        this.repo.logout();
-        this.router.navigateByUrl("/login");
-    }
+    //login(): Observable<boolean> {
+    //    this.authenticated = false;
+    //    return this.repo.login(this.name, this.password)
+    //        .map(response => {
+    //            if (response.ok) {
+    //                this.authenticated = true;
+    //                this.password = null;
+    //                this.router.navigateByUrl(this.callbackUrl || "/admin/overview");
+    //            }
+    //            return this.authenticated;
+    //        })
+    //        .catch(e => {
+    //            this.authenticated = false;
+    //            return Observable.of(false);
+    //        });
+    //}
+    //logout() {
+    //    this.authenticated = false;
+    //    this.repo.logout();
+    //    this.router.navigateByUrl("/login");
+    //}
 }

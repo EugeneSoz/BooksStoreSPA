@@ -10,8 +10,8 @@ export class AuthenticationComponent {
 
     login() {
         this.showError = false;
-        this.authService.login().subscribe(result => {
-            this.showError = !result;
-        });
+        // this.authService.login().subscribe(result => {
+        //     this.showError = !result;
+        //});
     }
 }

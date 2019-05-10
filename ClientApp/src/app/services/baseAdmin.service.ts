@@ -4,7 +4,6 @@ import { EntityEventArgs } from '../models/events/entityEventArgs';
 import { RestDatasource } from '../helpers/restDatasource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
-import { HttpMethod } from '../enums/httpMethods';
 import { Pagination } from '../models/pagination';
 import { ServerErrors } from '../models/forms/serverErrors';
 
@@ -65,33 +64,29 @@ export class BaseAdminService<TEntity, TEntities> {
     }
 
     getEntities(): void {
-        this._rest.receiveAll<PagedResponse<TEntities>>(this.getAllUrl, this._queryOptions)
-            .subscribe(response => {
-                this.entities = this._rest.getResponseBody(response, HttpMethod.POSTGET);
+        this._rest.receiveAll<PagedResponse<TEntities>, QueryOptions>(this.getAllUrl, this._queryOptions)
+            .subscribe(result => {
+                this.entities = result;
             });
     }
 
     getEntity(id: number): void {
-        this._rest.getAll<TEntity>(`${this.getOneUrl}/${id}`)
-            .subscribe(response => {
-                this.entity = this._rest.getResponseBody(response, HttpMethod.GET);
+        this._rest.getOne<TEntity>(`${this.getOneUrl}/${id}`)
+            .subscribe(result => {
+                this.entity = result;
             });
     }
 
     createEntity(model: TEntity): void {
         this._rest.create<TEntity>(`${this.createUrl}`, model)
-            .subscribe(response => {
-                let serverErrors: ServerErrors = this._rest.getResponseBody(response, HttpMethod.POST);
-                this.errors = serverErrors.errors;
-            });
+            .subscribe((result: boolean) => {},
+            (errors) => this.errors = <string[]>errors);
     }
 
     updateEntity(model: TEntity): void {
         this._rest.update<TEntity>(`${this.updateUrl}`, model)
-            .subscribe(response => {
-                let serverErrors: ServerErrors = this._rest.getResponseBody(response, HttpMethod.PUT);
-                this.errors = serverErrors.errors;
-            });
+            .subscribe((result: boolean) => { },
+            (errors) => this.errors = <string[]>errors);
     }
 
     search(options: QueryOptions): void {
