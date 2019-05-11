@@ -30,7 +30,7 @@ export class StoreService {
 
     categories: Array<Category> = null;
     book: Book = null;
-    _books: PagedResponse<BookResponse> = null;
+    books: Array<BookResponse> = null;
 
     pagination: Pagination = null;
     pageNumbers: Array<number>;
@@ -46,27 +46,6 @@ export class StoreService {
         this.setBooksRowsAndCol(value);
     }
 
-    get books(): PagedResponse<BookResponse> {
-        return this._books;
-    }
-
-    set books(value: PagedResponse<BookResponse>) {
-        if (value != undefined || value != null) {
-            this._books = value;
-            //создать класс Pagination
-            this.pagination = new Pagination(value.currentPage, value.pageSize, value.totalPages,
-                value.hasPreviousPage, value.hasNextPage, value.leftBoundary, value.rightBoundary);
-            //создать массив из которого будет строиться компонент Pagination
-            let array: Array<number> = new Array<number>();
-
-            for (let i = this.pagination.leftBoundary; i <= this.pagination.rightBoundary; i++) {
-                array.push(i);
-            }
-
-            this.pageNumbers = array;
-        }
-    }
-
     getCategories(): void {
         this._rest.getAll<Array<Category>>(this._urls.storeCategories)
             .subscribe(result => {
@@ -77,7 +56,9 @@ export class StoreService {
     getBooks(): void {
         this._rest.receiveAll<PagedResponse<BookResponse>, QueryOptions>(this._urls.books, this._queryOptions)
             .subscribe(result => {
-                this.books = result;
+                this.books = result.entities;
+                this.pagination = result.pagination;
+                this.pageNumbers = result.pageNumbers;
                 this.setBooksRowsAndCol(this._cardsCountInRow);
             });
     }
@@ -137,7 +118,7 @@ export class StoreService {
         this.rows = new Array<number>();
 
         this._cardsCountInRow = cardsCountInRow;
-        this.displayedBooksCount = this.books != null ? this.books.entities.length : 0;
+        this.displayedBooksCount = this.books != null ? this.books.length : 0;
         for (let i = 0; i < cardsCountInRow; i++)
         {
             this.cols.push(i);

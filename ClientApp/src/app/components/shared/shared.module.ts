@@ -7,7 +7,7 @@ import { ServerValidationComponent } from './server-validation.component';
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule        
     ],
     exports: [
         PaginationComponent,

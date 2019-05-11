@@ -18,8 +18,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="adminEntities != null || adminEntities?.entities?.length > 0">
-                        <tr *ngFor="let publisher of adminEntities.entities">
+                    <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
+                        <tr *ngFor="let publisher of adminEntities">
                             <td>
                                 {{publisher.id}}
                             </td>
@@ -51,4 +51,8 @@
                             (pageNumberEvent)="onChangePage($event)"></app-pagination>
         </div>
     </div>
+
+    <button type="button" class="btn btn-primary" tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." placement="top">
+        Simple demo
+    </button>
 </div>

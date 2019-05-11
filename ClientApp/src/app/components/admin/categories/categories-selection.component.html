@@ -18,8 +18,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="adminEntities != null || adminEntities?.entities?.length > 0">
-                        <tr *ngFor="let category of adminEntities.entities">
+                    <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
+                        <tr *ngFor="let category of adminEntities">
                             <td>
                                 {{category.id}}
                             </td>

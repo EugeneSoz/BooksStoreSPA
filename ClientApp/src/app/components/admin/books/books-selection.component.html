@@ -19,8 +19,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="adminEntities != null || adminEntities?.entities?.length > 0">
-                        <tr *ngFor="let book of adminEntities.entities">
+                    <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
+                        <tr *ngFor="let book of adminEntities">
                             <td>
                                 {{book.id}}
                             </td>
@@ -28,7 +28,7 @@
                             <td>{{book.categoryName}}</td>
                             <td>{{book.subcategoryName}}</td>
                             <td>{{book.publisherName}}</td>
-                            <td class="text-right">{{book.price | currency:"RUB":"symbol":"2.2-2":"ru"}}</td>
+                            <td class="text-right">{{book.price | currency:"RUB":"symbol":"2.2-2"}}</td>
                             <td>
                                 <div class="d-inline-flex">
                                     <button type="button" class="btn btn-sm btn-warning text-white ml-1"

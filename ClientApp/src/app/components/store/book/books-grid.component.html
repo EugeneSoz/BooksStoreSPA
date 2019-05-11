@@ -4,7 +4,7 @@
         <div class="row no-gutters">
             <ng-container *ngFor="let col of cols">
                 <div class="col" *ngIf="isColEmpty(row, col) == false">
-                    <book-card [book]="books.entities[getBookIndex(row, col)]"></book-card>
+                    <book-card [book]="books[getBookIndex(row, col)]"></book-card>
                 </div>
                 <div class="col" *ngIf="isColEmpty(row, col)"></div>
             </ng-container>

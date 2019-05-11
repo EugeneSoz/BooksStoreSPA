@@ -1,12 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Publisher } from '../../../models/dataDTO/publisher';
 import { PublisherService } from '../../../services/publisher.service';
 import { PublisherFormGroup } from '../../../models/forms/publisherForm';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { Entity_Changed, EntityEventArgs } from '../../../models/events/entityEventArgs';
 import { BaseForm } from '../../../viewModels/baseForm';
 
 @Component({
@@ -18,17 +17,10 @@ export class PublisherFormComponent extends BaseForm<PublisherFormGroup> impleme
     constructor(
         private _publisherService: PublisherService,
         private _nh: NameOfHelper,
-        @Inject(Entity_Changed) private entityChanged: Observable<EntityEventArgs>,
         activeRoute: ActivatedRoute) {
 
         super(activeRoute);
         this.form = new PublisherFormGroup(this._nh, this.publisher);
-        this.entityChanged.subscribe(changed => {
-            if (changed) {
-                Object.assign(this.publisher, _publisherService.entity);
-                this.form = new PublisherFormGroup(this._nh, this.publisher);
-            }
-        });
     }
 
     publisher: Publisher = new Publisher();
@@ -38,6 +30,13 @@ export class PublisherFormComponent extends BaseForm<PublisherFormGroup> impleme
     }
 
     ngOnInit(): void {
+        this._subscription.add(
+            this._publisherService.entityChanged.subscribe(changed => {
+                if (changed) {
+                    Object.assign(this.publisher, this._publisherService.entity);
+                    this.form = new PublisherFormGroup(this._nh, this.publisher);
+                }
+            }));
         if (this._id != null) {
             this._publisherService.getEntity(this._id);
         }

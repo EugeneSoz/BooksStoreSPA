@@ -16,7 +16,7 @@ export class BaseSelection<TEntity, TEntities> {
     filterProperties: Array<FilterProperty>;
     sortingProperties: Array<FilterProperty>;
 
-    get adminEntities(): PagedResponse<TEntities> {
+    get adminEntities(): Array<TEntities> {
         return this._service.entities;
     }
 

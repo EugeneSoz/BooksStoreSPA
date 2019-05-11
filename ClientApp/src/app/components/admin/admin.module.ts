@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { Subject } from 'rxjs';
 
 import { AppRoutingModule } from '../../app-routing.module';
 
@@ -20,7 +19,6 @@ import { AdminFilterComponent } from '../shared/admin-filter.component';
 import { TableHeadComponent } from '../shared/table-head.component';
 import { DbServicesComponent } from './dbServices.component';
 import { SharedModule } from '../shared/shared.module';
-import { Entity_Changed, EntityEventArgs } from '../../models/events/entityEventArgs';
 import { OrderSelectionComponent } from './orders/order-selection.component';
 
 @NgModule({
@@ -49,8 +47,6 @@ import { OrderSelectionComponent } from './orders/order-selection.component';
         OrderSelectionComponent
     ],
     exports: [AdminToolbarComponent],
-    providers: [
-        { provide: Entity_Changed, useValue: new Subject<EntityEventArgs>() }
-    ]
+    providers: []
 })
 export class AdminModule { }

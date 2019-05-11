@@ -30,10 +30,10 @@
                                 </td>
                                 <td>{{sel.name}}</td>
                                 <td class="text-right">
-                                    {{sel.price | currency:"RUB":"symbol":"2.2-2":"ru"}}
+                                    {{sel.price | currency:"RUB":"symbol":"2.2-2"}}
                                 </td>
                                 <td class="text-right">
-                                    {{(sel.quantity * sel.price) | currency:"RUB":"symbol":"2.2-2":"ru"}}
+                                    {{(sel.quantity * sel.price) | currency:"RUB":"symbol":"2.2-2"}}
                                 </td>
                                 <td class="text-center" style="width:5em">
                                     <button class="btn btn-sm btn-danger" (click)="onUpdate(sel.itemId, 0)">

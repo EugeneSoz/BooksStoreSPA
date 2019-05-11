@@ -1,12 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {  Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { CategoryFormGroup } from '../../../models/forms/categoryForm';
 import { BaseForm } from '../../../viewModels/baseForm';
 import { Category } from '../../../models/dataDTO/category';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { EntityEventArgs, Entity_Changed } from '../../../models/events/entityEventArgs';
 import { CategoryService } from '../../../services/category.service';
 
 @Component({
@@ -18,17 +17,10 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
     constructor(
         private _categoryService: CategoryService,
         private _nh: NameOfHelper,
-        @Inject(Entity_Changed) private entityChanged: Observable<EntityEventArgs>,
         activeRoute: ActivatedRoute) {
 
         super(activeRoute);
         this.form = new CategoryFormGroup(this._nh, this.category);
-        this.entityChanged.subscribe(changed => {
-            if (changed) {
-                Object.assign(this.category, _categoryService.entity);
-                this.form = new CategoryFormGroup(this._nh, this.category);
-            }
-        });
     }
 
     category: Category = new Category();
@@ -38,6 +30,13 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
     }
 
     ngOnInit(): void {
+        this._subscription.add(
+            this._categoryService.entityChanged.subscribe(changed => {
+                if (changed) {
+                    Object.assign(this.category, this._categoryService.entity);
+                    this.form = new CategoryFormGroup(this._nh, this.category);
+                }
+            }));
         if (this._id != null) {
             this._categoryService.getEntity(this._id);
         }

@@ -13,7 +13,7 @@ export class BooksGridComponent implements OnInit
     constructor(
         private _storeService: StoreService) {}
 
-    get books(): PagedResponse<BookResponse> {
+    get books(): Array<BookResponse> {
         return this._storeService.books;
     }
 

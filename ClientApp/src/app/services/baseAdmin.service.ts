@@ -1,16 +1,13 @@
-import { Observer } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { EntityEventArgs } from '../models/events/entityEventArgs';
 import { RestDatasource } from '../helpers/restDatasource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { Pagination } from '../models/pagination';
-import { ServerErrors } from '../models/forms/serverErrors';
 
 export class BaseAdminService<TEntity, TEntities> {
     constructor(
-        private _rest: RestDatasource,
-        private _entityChanged: Observer<EntityEventArgs>) {
+        private _rest: RestDatasource) {
 
         this._queryOptions = new QueryOptions();
         this._queryOptions.resetToDefault();
@@ -22,7 +19,8 @@ export class BaseAdminService<TEntity, TEntities> {
     protected updateUrl: string;
     protected deleteUrl: string;
 
-    private _entities: PagedResponse<TEntities> = null;
+    entityChanged: Subject<boolean> = new Subject<boolean>();
+    entities: Array<TEntities> = null;
     protected _queryOptions: QueryOptions = null;
     private _entity: TEntity = null;
     pagination: Pagination = null;
@@ -39,34 +37,15 @@ export class BaseAdminService<TEntity, TEntities> {
     set entity(value: TEntity) {
         this._entity = value;
         let changed: boolean = value == null ? false : true;
-        this._entityChanged.next(new EntityEventArgs(changed));
-    }
-
-    get entities(): PagedResponse<TEntities> {
-        return this._entities;
-    }
-
-    set entities(value: PagedResponse<TEntities>) {
-        if (value != undefined || value != null) {
-            this._entities = value;
-            //создать класс Pagination
-            this.pagination = new Pagination(value.currentPage, value.pageSize, value.totalPages,
-                value.hasPreviousPage, value.hasNextPage, value.leftBoundary, value.rightBoundary);
-            //создать массив из которого будет строиться компонент Pagination
-            let array: Array<number> = new Array<number>();
-
-            for (let i = this.pagination.leftBoundary; i <= this.pagination.rightBoundary; i++) {
-                array.push(i);
-            }
-
-            this.pageNumbers = array;
-        }
+        this.entityChanged.next(changed);
     }
 
     getEntities(): void {
         this._rest.receiveAll<PagedResponse<TEntities>, QueryOptions>(this.getAllUrl, this._queryOptions)
             .subscribe(result => {
-                this.entities = result;
+                this.entities = result.entities;
+                this.pagination = result.pagination;
+                this.pageNumbers = result.pageNumbers;
             });
     }
 
