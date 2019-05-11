@@ -26,15 +26,33 @@ namespace BooksStoreSPA.Models.Database
         {
             string categoryJson = GetDataFromJson("savedData");
             StoreSavedData data = JsonConvert.DeserializeObject<StoreSavedData>(categoryJson);
+            Dictionary<long, long> parentIds = new Dictionary<long, long>();
+            data.ParentCategories.ForEach((Category p) =>
+            {
+                long oldId = p.Id;
+                p.Id = 0;
+                dataContext.Categories.Add(p);
+                dataContext.SaveChanges();
+                parentIds.Add(oldId, p.Id);
+            });
 
             data.Books.ForEach(b =>
             {
-                b.Id = 0;
-                b.Category = data.Categories.Find(c => c.Id == b.CategoryID);
-                b.Publisher = data.Publishers.Find(p => p.Id == b.PublisherID);
+                Category category = data.Categories.Find(c => c.Id == b.CategoryID);
+                Publisher publisher = data.Publishers.Find(p => p.Id == b.PublisherID);
 
-                b.Category.Id = 0;
-                b.Publisher.Id = 0;
+                b.Category = new Category
+                {
+                    Name = category.Name,
+                    ParentCategoryID = parentIds[category.ParentCategoryID.Value]
+                };
+
+                b.Publisher = new Publisher
+                {
+                    Name = publisher.Name,
+                    Country = publisher.Country
+                };
+
                 b.CategoryID = 0;
                 b.PublisherID = 0;
             });

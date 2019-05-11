@@ -10,6 +10,7 @@ namespace BooksStoreSPA.Models
     {
         public List<Publisher> Publishers { get; set; }
         public List<Category> Categories { get; set; }
+        public List<Category> ParentCategories { get; set; }
         public List<Book> Books { get; set; }
     }
 }

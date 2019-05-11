@@ -34,6 +34,12 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\httpMethod.ts" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Content Update="Files\DataForUpload\savedData.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

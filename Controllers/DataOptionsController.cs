@@ -9,6 +9,7 @@ using BooksStoreSPA.Models.Database;
 using BooksStoreSPA.Models.Repo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BooksStoreSPA.Controllers
 {
@@ -82,16 +83,39 @@ namespace BooksStoreSPA.Controllers
         public string SaveDataToJson()
         {
             IQueryable<Book> dbbooks = _bookRepo.GetEntities().OrderBy(b => b.Id);
-            IQueryable<Category> dbcategories = _categoryRepo.GetEntities().OrderBy(c => c.Id);
+
+            IQueryable<Category> dbparents = _categoryRepo.GetEntities()
+                .Where(p => p.ParentCategoryID == null).OrderBy(p => p.Id);
+
+            IQueryable<Category> dbcategories = _categoryRepo.GetEntities()
+                .Where(c => c.ParentCategoryID != null).OrderBy(c => c.Id);
+
             IQueryable<Publisher> dbpublishers = _publisherRepo.GetEntities().OrderBy(p => p.Id);
 
             StoreSavedData storeSavedData = new StoreSavedData
             {
                 Books = dbbooks.ToList(),
+                ParentCategories = dbparents.ToList(),
                 Categories = dbcategories.ToList(),
                 Publishers = dbpublishers.ToList()
             };
 
+            storeSavedData.Books.ForEach(b => 
+            {
+                b.Id = 0; b.Category = null; b.Publisher = null;
+            });
+            storeSavedData.ParentCategories.ForEach(p =>
+            {
+                p.Books = null;
+                p.ChildrenCategories = null;
+            });
+            storeSavedData.Categories.ForEach(c =>
+            {
+                c.ParentCategory = null;
+                c.ChildrenCategories = null;
+                c.Books = null;
+            });
+            storeSavedData.Publishers.ForEach(p => p.Books = null);
             DataRW dataRW = new DataRW();
 
             string msg = string.Empty;
