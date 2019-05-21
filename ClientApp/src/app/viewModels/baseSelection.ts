@@ -1,18 +1,29 @@
 import { BaseAdminService } from '../services/baseAdmin.service';
-import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { Pagination } from '../models/pagination';
 import { FilterProperty } from './filterProperty';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
+import { EntityType } from '../enums/entityType';
+import { DeleteMessageComponent } from '../components/modals/delete-message.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { Subscription } from 'rxjs';
 
 export class BaseSelection<TEntity, TEntities> {
     constructor(
-        private _service: BaseAdminService<TEntity, TEntities>, fprop: Array<FilterProperty>,
-        sprop: Array<FilterProperty>) {
+        private _service: BaseAdminService<TEntity, TEntities>,
+        fprop: Array<FilterProperty>,
+        sprop: Array<FilterProperty>,
+        entityType: EntityType,
+        modalService: BsModalService) {
 
         this.filterProperties = fprop;
         this.sortingProperties = sprop;
+        this._entityType = entityType;
+        this._modalService = modalService;
     }
 
+    private _entityType: EntityType;
+    private _modalService: BsModalService;
+    protected subscription: Subscription = new Subscription();
     filterProperties: Array<FilterProperty>;
     sortingProperties: Array<FilterProperty>;
 
@@ -52,7 +63,16 @@ export class BaseSelection<TEntity, TEntities> {
         this._service.sort(options);
     }
 
+    onDelete(id: number): void {
+        const initialState = {
+            entityType: this._entityType,
+            entityId: id
+        }
+        this._modalService.show(DeleteMessageComponent, { initialState });
+    }
+
     ngOnDestroy(): void {
         this._service.resetQueryOptionsToDefault();
+        this.subscription.unsubscribe();
     }
 }

@@ -31,7 +31,8 @@
                                             [routerLink]="['/admin/publishers', 'edit', publisher.id]">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger ml-1">
+                                    <button type="button" class="btn btn-sm btn-danger ml-1"
+                                        (click)="onDelete(publisher.id)">
                                         <i class='fas fa-trash-alt fa-lg'></i>
                                     </button>
                                 </div>
@@ -52,7 +53,7 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-primary" tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." placement="top">
-        Simple demo
+    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+        Tooltip on top
     </button>
 </div>

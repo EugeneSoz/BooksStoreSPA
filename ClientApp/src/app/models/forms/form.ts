@@ -1,4 +1,4 @@
-import { FormControl, ValidatorFn, FormGroup, AbstractControl } from "@angular/forms";
+import { FormControl, ValidatorFn, FormGroup } from "@angular/forms";
 import { ValidationErrors } from './validationErrors';
 import { EntityType } from '../../enums/entityType';
 import { ErrorAttributes } from '../../enums/errorAttributes';
@@ -30,7 +30,7 @@ export class CustomFormControl extends FormControl {
                         messages.push(this._ve.getValidationErrors(this._entityType,
                             this.property, errorName));
                         break;
-                    case ErrorAttributes.minlength:
+                    case ErrorAttributes.range:
                         messages.push(this._ve.getValidationErrors(this._entityType,
                             this.property, errorName));
                         break;

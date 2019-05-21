@@ -80,7 +80,7 @@ namespace BooksStoreSPA.Controllers
             return NoContent();
         }
 
-        protected ValidationErrors GetServerErrors(ModelStateDictionary modelstate)
+        protected List<string> GetServerErrors(ModelStateDictionary modelstate)
         {
             List<string> errors = new List<string>();
             foreach (ModelStateEntry error in modelstate.Values)
@@ -91,8 +91,7 @@ namespace BooksStoreSPA.Controllers
                 }
             }
 
-            ValidationErrors v_errors = new ValidationErrors { Errors = errors }; 
-            return v_errors;
+            return errors;
         }
     }
 }

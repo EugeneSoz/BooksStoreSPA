@@ -32,7 +32,7 @@ export class ValidationErrors {
             msg = "Укажите название издательства";
         }
         else if (property == this._nameofHelper.nameof<Publisher>("name")
-            && errorName == ErrorAttributes.minlength) {
+            && errorName == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 100 символов";
         }
         else if (property == this._nameofHelper.nameof<Publisher>("country")
@@ -51,7 +51,7 @@ export class ValidationErrors {
             msg = "Укажите название категории/подкатегории";
         }
         else if (property == this._nameofHelper.nameof<Category>("name")
-            && errorName == ErrorAttributes.minlength) {
+            && errorName == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 100 символов";
         }
 
@@ -66,7 +66,7 @@ export class ValidationErrors {
             msg = "Укажите название книги";
         }
         else if (property == this._nameofHelper.nameof<Book>("title")
-            && errorName == ErrorAttributes.minlength) {
+            && errorName == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 250 символов";
         }
         else if (property == this._nameofHelper.nameof<Book>("authors")
@@ -82,7 +82,7 @@ export class ValidationErrors {
             msg = "Добавьте какое либо описание книги";
         }
         else if (property == this._nameofHelper.nameof<Book>("description")
-            && errorName == ErrorAttributes.minlength) {
+            && errorName == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 1000 символов";
         }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Publisher } from '../../../models/dataDTO/publisher';
 import { PublisherService } from '../../../services/publisher.service';
@@ -17,7 +16,8 @@ export class PublisherFormComponent extends BaseForm<PublisherFormGroup> impleme
     constructor(
         private _publisherService: PublisherService,
         private _nh: NameOfHelper,
-        activeRoute: ActivatedRoute) {
+        activeRoute: ActivatedRoute,
+        private _router: Router) {
 
         super(activeRoute);
         this.form = new PublisherFormGroup(this._nh, this.publisher);
@@ -42,10 +42,10 @@ export class PublisherFormComponent extends BaseForm<PublisherFormGroup> impleme
         }
     }
 
-    submitForm(): void {
+    onSubmit(): void {
         if (this.form.valid) {
-            this.publisher.name = "";// this.form.get(this._nh.nameof<Publisher>("name")).value;
-            this.publisher.country = "";// this.form.get(this._nh.nameof<Publisher>("country")).value;
+            this.publisher.name = this.form.get(this._nh.nameof<Publisher>("name")).value;
+            this.publisher.country = this.form.get(this._nh.nameof<Publisher>("country")).value;
 
             if (this.editing) {
                 this._publisherService.updateEntity(this.publisher);
@@ -53,6 +53,11 @@ export class PublisherFormComponent extends BaseForm<PublisherFormGroup> impleme
             else {
                 this._publisherService.createEntity(this.publisher)
             }
+            this.publisher = new Publisher();
+            if (this.editing) {
+                this._router.navigateByUrl("admin/publishers");
+            }
+            this.isAlertVisible = true;
             this.form.reset();
         }
     }

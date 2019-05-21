@@ -68,6 +68,16 @@ export class BaseAdminService<TEntity, TEntities> {
             (errors) => this.errors = <string[]>errors);
     }
 
+    deleteEntity(model: TEntity): void {
+        this._rest.delete<TEntity>(this.deleteUrl, model)
+            .subscribe((result: boolean) => {
+                if (result) {
+                    this.entity = null;
+                    this.getEntities();
+                }
+            });
+    }
+
     search(options: QueryOptions): void {
         this._queryOptions.currentPage = 1;
         this._queryOptions.searchPropertyNames = options.searchPropertyNames;

@@ -29,7 +29,7 @@ namespace BooksStoreSPA.Controllers
                 new JsonSerializerSettings {
                     ContractResolver = new CamelCasePropertyNamesContractResolver() });
             HttpContext.Session.SetString("cart", jsonData);
-            return Ok(new ValidationErrors { Errors = null });
+            return Ok(null);
         }
 
         [HttpGet("checkout")]

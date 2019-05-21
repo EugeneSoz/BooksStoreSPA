@@ -27,6 +27,10 @@ namespace BooksStoreSPA.Models.Database
             string categoryJson = GetDataFromJson("savedData");
             StoreSavedData data = JsonConvert.DeserializeObject<StoreSavedData>(categoryJson);
             Dictionary<long, long> parentIds = new Dictionary<long, long>();
+            Dictionary<long, long> categoriesIds = new Dictionary<long, long>();
+            Dictionary<long, long> publishersIds = new Dictionary<long, long>();
+            List<long> oldCategoriesIds = new List<long>();
+            List<long> oldPublishersIds = new List<long>();
             data.ParentCategories.ForEach((Category p) =>
             {
                 long oldId = p.Id;
@@ -36,25 +40,37 @@ namespace BooksStoreSPA.Models.Database
                 parentIds.Add(oldId, p.Id);
             });
 
+            data.Categories.ForEach(c =>
+            {
+                c.ParentCategoryID = parentIds[c.ParentCategoryID.Value];
+                oldCategoriesIds.Add(c.Id);
+                c.Id = 0;
+                dataContext.Categories.Add(c);
+            });
+
+            dataContext.SaveChanges();
+            for (int i = 0; i < data.Categories.Count; i++)
+            {
+                categoriesIds.Add(oldCategoriesIds[i], data.Categories[i].Id);
+            }
+
+            data.Publishers.ForEach(p =>
+            {
+                oldPublishersIds.Add(p.Id);
+                p.Id = 0;
+                dataContext.Publishers.Add(p);
+            });
+
+            dataContext.SaveChanges();
+            for (int i = 0; i < data.Publishers.Count; i++)
+            {
+                publishersIds.Add(oldPublishersIds[i], data.Publishers[i].Id);
+            }
+
             data.Books.ForEach(b =>
             {
-                Category category = data.Categories.Find(c => c.Id == b.CategoryID);
-                Publisher publisher = data.Publishers.Find(p => p.Id == b.PublisherID);
-
-                b.Category = new Category
-                {
-                    Name = category.Name,
-                    ParentCategoryID = parentIds[category.ParentCategoryID.Value]
-                };
-
-                b.Publisher = new Publisher
-                {
-                    Name = publisher.Name,
-                    Country = publisher.Country
-                };
-
-                b.CategoryID = 0;
-                b.PublisherID = 0;
+                b.CategoryID = categoriesIds[b.CategoryID.Value];
+                b.PublisherID = publishersIds[b.PublisherID.Value];
             });
 
             dataContext.Books.AddRange(data.Books);

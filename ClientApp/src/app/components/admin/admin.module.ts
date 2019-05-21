@@ -20,6 +20,8 @@ import { TableHeadComponent } from '../shared/table-head.component';
 import { DbServicesComponent } from './dbServices.component';
 import { SharedModule } from '../shared/shared.module';
 import { OrderSelectionComponent } from './orders/order-selection.component';
+import { DeleteMessageComponent } from '../modals/delete-message.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
     imports: [
@@ -27,7 +29,8 @@ import { OrderSelectionComponent } from './orders/order-selection.component';
         AppRoutingModule,
         SharedModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ModalModule.forRoot()
     ],
     declarations: [
         RelatedBookTableComponent,
@@ -44,7 +47,8 @@ import { OrderSelectionComponent } from './orders/order-selection.component';
         AdminFilterComponent,
         TableHeadComponent,
         DbServicesComponent,
-        OrderSelectionComponent
+        OrderSelectionComponent,
+        DeleteMessageComponent
     ],
     exports: [AdminToolbarComponent],
     providers: []

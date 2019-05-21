@@ -1,4 +1,5 @@
 export enum ErrorAttributes {
     required = "required",
-    minlength = "minlength"
+    minlength = "minlength",
+    range = "range"
 }

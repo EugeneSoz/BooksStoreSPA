@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -17,6 +17,7 @@ export class BaseForm<TFormGroup extends FormGroup> implements OnDestroy {
 
     editing: boolean = false;
     form: TFormGroup = null;
+    isAlertVisible: boolean = false;
 
     protected _subscription: Subscription = new Subscription();
     get title(): string {

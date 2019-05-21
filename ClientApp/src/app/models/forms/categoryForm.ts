@@ -5,6 +5,7 @@ import { Category } from '../dataDTO/category';
 import { NameOfHelper } from '../../helpers/nameofHelper';
 import { EntityType } from '../../enums/entityType';
 import { ValidationErrors } from "./validationErrors";
+import { RangeValidator } from './range.formvalidator';
 
 export class CategoryFormGroup extends CustomFormGroup {
     constructor(
@@ -22,7 +23,7 @@ export class CategoryFormGroup extends CustomFormGroup {
 
         this.addControl(nh.nameof<Category>("name"),
             new CustomFormControl(category.name,
-                Validators.compose([Validators.required, Validators.minLength(3)]),
+                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
                 "Название категории",
                 nh.nameof<Category>("name"),
                 EntityType.Publisher,

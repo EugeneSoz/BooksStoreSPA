@@ -5,6 +5,7 @@ import { NameOfHelper } from "../../helpers/nameofHelper";
 import { Publisher } from "../dataDTO/publisher";
 import { ValidationErrors } from "./validationErrors";
 import { EntityType } from '../../enums/entityType';
+import { RangeValidator } from './range.formvalidator';
 
 export class PublisherFormGroup extends CustomFormGroup {
     constructor(
@@ -14,7 +15,7 @@ export class PublisherFormGroup extends CustomFormGroup {
         this._ve = new ValidationErrors();
         this.addControl(nh.nameof<Publisher>("name"),
             new CustomFormControl(publisher.name,
-                Validators.compose([Validators.required, Validators.minLength(3)]),
+                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
                 "Название издательства",
                 nh.nameof<Publisher>("name"),
                 EntityType.Publisher,

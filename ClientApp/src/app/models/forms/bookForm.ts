@@ -5,6 +5,7 @@ import { NameOfHelper } from '../../helpers/nameofHelper';
 import { EntityType } from '../../enums/entityType';
 import { ValidationErrors } from "./validationErrors";
 import { Book } from '../dataDTO/book';
+import { RangeValidator } from './range.formvalidator';
 
 export class BookFormGroup extends CustomFormGroup {
     constructor(
@@ -14,7 +15,7 @@ export class BookFormGroup extends CustomFormGroup {
         this._ve = new ValidationErrors();
         this.addControl(nh.nameof<Book>("title"),
             new CustomFormControl(book.title,
-                Validators.compose([Validators.required, Validators.minLength(3)]),
+                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
                 "Название книги",
                 nh.nameof<Book>("title"),
                 EntityType.Book,
@@ -88,7 +89,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nh.nameof<Book>("description"),
             new CustomFormControl(book.description,
-                Validators.compose([Validators.required, Validators.minLength(3)]),
+                Validators.compose([Validators.required, RangeValidator.range(3, 1000)]),
                 "Описание",
                 nh.nameof<Book>("description"),
                 EntityType.Book,
