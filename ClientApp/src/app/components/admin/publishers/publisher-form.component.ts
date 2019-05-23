@@ -10,7 +10,6 @@ import { BaseForm } from '../../../viewModels/baseForm';
 @Component({
     selector: 'app-publisher-form',
     templateUrl: './publisher-form.component.html',
-    providers: [PublisherService]
 })
 export class PublisherFormComponent extends BaseForm<PublisherFormGroup> implements OnInit {
     constructor(

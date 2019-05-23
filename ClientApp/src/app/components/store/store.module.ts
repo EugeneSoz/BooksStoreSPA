@@ -1,9 +1,8 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { AppRoutingModule } from '../../app-routing.module';
+import { StoreRoutingModule } from './store-routing.module';
+
 import { StoreService } from '../../services/store.service';
 import { BookCardComponent } from './book/book-card.component';
 import { BookDetailsComponent } from './book/book-details.component';
@@ -23,15 +22,14 @@ import { CheckoutDetailsComponent } from './order/checkout-details.component';
 import { CheckoutPaymentComponent } from './order/checkout-payment.component';
 import { CheckoutSummaryComponent } from './order/checkout-summary.component';
 import { OrderConfirmationComponent } from './order/order-confirmation.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        FormsModule,
+        CommonModule,
         ReactiveFormsModule,
-        AppRoutingModule,
-        SharedModule,
-        RouterModule
+        StoreRoutingModule,
+        SharedModule
     ],
     exports: [],
     declarations: [

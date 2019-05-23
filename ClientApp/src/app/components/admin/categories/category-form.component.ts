@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {  Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CategoryFormGroup } from '../../../models/forms/categoryForm';
@@ -21,6 +20,10 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
 
         super(activeRoute);
         this.form = new CategoryFormGroup(this._nh, this.category);
+    }
+
+    get formTitle(): string {
+        return `${this.title} ${this._categoryService.categoryActions ? "категорию" : "подкатегорию"}`;
     }
 
     category: Category = new Category();

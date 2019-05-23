@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
+import { CommonModule } from '@angular/common';
 
 import { PaginationComponent } from './pagination.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { ValidationComponent } from './validation.component';
 import { ServerValidationComponent } from './server-validation.component';
 
 @NgModule({
     imports: [
-        BrowserModule        
+        CommonModule      
     ],
     exports: [
         PaginationComponent,

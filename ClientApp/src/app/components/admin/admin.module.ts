@@ -1,8 +1,9 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
 
-import { AppRoutingModule } from '../../app-routing.module';
+import { AdminRoutingModule } from './admin-rooting.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { RelatedBookTableComponent } from './related-book-table.component';
 import { AdminSidebarComponent } from './admin-sidebar.component';
@@ -18,19 +19,19 @@ import { AdminToolbarComponent } from '../shared/admin-toolbar.component';
 import { AdminFilterComponent } from '../shared/admin-filter.component';
 import { TableHeadComponent } from '../shared/table-head.component';
 import { DbServicesComponent } from './dbServices.component';
-import { SharedModule } from '../shared/shared.module';
 import { OrderSelectionComponent } from './orders/order-selection.component';
 import { DeleteMessageComponent } from '../modals/delete-message.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { SharedModule } from '../shared/shared.module';
+import { PublishersSectionComponent } from './publishers/publishers-section.component';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        SharedModule,
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        ModalModule.forRoot()
+        AdminRoutingModule,
+        SharedModule,
+        TooltipModule.forRoot()
     ],
     declarations: [
         RelatedBookTableComponent,
@@ -48,7 +49,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         TableHeadComponent,
         DbServicesComponent,
         OrderSelectionComponent,
-        DeleteMessageComponent
+        PublishersSectionComponent
     ],
     exports: [AdminToolbarComponent],
     providers: []

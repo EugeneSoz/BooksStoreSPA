@@ -11,7 +11,6 @@ import { DeletionService } from '../../../services/deletion.service';
 @Component({
     selector: 'publishers-selection',
     templateUrl: './publishers-selection.component.html',
-    providers: [PublisherService]
 })
 export class PublishersSelectionComponent extends BaseSelection<Publisher, Publisher>
     implements OnInit, OnDestroy {

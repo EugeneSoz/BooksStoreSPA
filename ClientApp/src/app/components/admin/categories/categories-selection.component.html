@@ -6,6 +6,11 @@
 
     <div class="card m-3">
         <div class="card-body">
+            <div class="custom-control custom-switch mb-2">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1"
+                    [checked]="categoryActions" (change)="onChangeActions()">
+                <label class="custom-control-label" for="customSwitch1">Действия над категориями</label>
+            </div>
             <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
@@ -20,8 +25,11 @@
                 <tbody>
                     <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
                         <tr *ngFor="let category of adminEntities">
-                            <td>
+                            <td *ngIf="!categoryActions">
                                 {{category.id}}
+                            </td>
+                            <td *ngIf="categoryActions">
+                                {{category.parentCategoryID}}
                             </td>
                             <td>{{category.parentCategoryName}}</td>
                             <td>{{category.name}}</td>

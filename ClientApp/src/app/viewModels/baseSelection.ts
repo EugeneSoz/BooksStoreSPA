@@ -72,7 +72,7 @@ export class BaseSelection<TEntity, TEntities> {
     }
 
     ngOnDestroy(): void {
-        this._service.resetQueryOptionsToDefault();
+        //this._service.resetQueryOptionsToDefault();
         this.subscription.unsubscribe();
     }
 }

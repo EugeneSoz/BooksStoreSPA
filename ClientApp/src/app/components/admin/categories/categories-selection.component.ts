@@ -5,7 +5,7 @@ import { CategoryService } from '../../../services/category.service';
 import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 import { CategoryResponse } from '../../../models/dataDTO/categoryResponse';
 import { EntityType } from '../../../enums/entityType';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'categories-selection',
@@ -22,5 +22,17 @@ export class CategoriesSelectionComponent extends BaseSelection<Category, Catego
         let fprop = (new FilterProperties()).getCategoriesProp()
         let sprop = (new SortingProperties()).getCategoriesProp()
         super(categoryService, fprop, sprop, EntityType.Category, modalService);
+
+        this._categoryService = categoryService;
+    }
+
+    private _categoryService: CategoryService;
+
+    get categoryActions(): boolean {
+        return this._categoryService.categoryActions;
+    }
+
+    onChangeActions() {
+        this._categoryService.categoryActions = !this._categoryService.categoryActions;
     }
 }
