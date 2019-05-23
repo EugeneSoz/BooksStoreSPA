@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from "@angular/core";
-import { FilterProperty } from '../../viewModels/filterProperty';
-import { QueryOptions } from '../../models/dataDTO/queryOptions';
+import { FilterProperty } from '../../../viewModels/filterProperty';
+import { QueryOptions } from '../../../models/dataDTO/queryOptions';
 
 @Component({
     selector: 'admin-filter',

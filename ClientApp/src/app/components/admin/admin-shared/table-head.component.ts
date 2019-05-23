@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
-import { QueryOptions } from "../../models/dataDTO/queryOptions";
-import { FilterProperty } from '../../viewModels/filterProperty';
+import { QueryOptions } from "../../../models/dataDTO/queryOptions";
+import { FilterProperty } from '../../../viewModels/filterProperty';
 
 @Component({
     selector: 'table-head',

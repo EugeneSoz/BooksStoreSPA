@@ -1,7 +1,7 @@
-﻿import { Component } from "@angular/core";
+import { Component } from "@angular/core";
+import { DeletionService } from '../../services/deletion.service';
 
 @Component({
-    selector: 'admin',
     templateUrl: './admin-layout.component.html',
 })
 export class AdminLayoutComponent { }

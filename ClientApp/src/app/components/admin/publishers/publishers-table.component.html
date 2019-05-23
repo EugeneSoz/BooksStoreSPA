@@ -1,41 +1,39 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/books'"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/publishers'"></admin-toolbar>
 
-    <admin-filter [properties]="filterProperties" [term]="searchTerm"
+    <admin-filter [properties]="filterProperties" [term]="searchTerm" 
         (searchEvent)="onSearch($event)"></admin-filter>
-
-
     <div class="card m-3">
         <div class="card-body">
             <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
                         <th *ngFor="let sortingProperty of sortingProperties">
-                            <table-head [property]="sortingProperty" [sortPropName]="sortPropertyName" (sortingEvent)="onSort($event)">
-                            </table-head>
+                            <table-head [property]="sortingProperty" 
+                            [sortPropName]="sortPropertyName"
+                            (sortingEvent)="onSort($event)"></table-head>
                         </th>
-
-                        <th style="width: 6rem">Действия</th>
+                        
+                        <th style="width: 6rem;">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
-                        <tr *ngFor="let book of adminEntities">
+                        <tr *ngFor="let publisher of adminEntities">
                             <td>
-                                {{book.id}}
+                                {{publisher.id}}
                             </td>
-                            <td>{{book.title}}</td>
-                            <td>{{book.categoryName}}</td>
-                            <td>{{book.subcategoryName}}</td>
-                            <td>{{book.publisherName}}</td>
-                            <td class="text-right">{{book.price | currency:"RUB":"symbol":"2.2-2"}}</td>
+                            <td>{{publisher.name}}</td>
+                            <td>{{publisher.country}}</td>
                             <td>
                                 <div class="d-inline-flex">
                                     <button type="button" class="btn btn-sm btn-warning text-white ml-1"
-                                            [routerLink]="['/admin/books', 'edit', book.id]">
+                                            [routerLink]="['/admin/publishers', 'edit', publisher.id]"
+                                            tooltip="Редактировать">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger ml-1">
+                                    <button type="button" class="btn btn-sm btn-danger ml-1"
+                                        (click)="onDelete(publisher.id)" tooltip="Удалить">
                                         <i class='fas fa-trash-alt fa-lg'></i>
                                     </button>
                                 </div>
@@ -45,7 +43,7 @@
 
                     <ng-container *ngIf="adminEntities == null">
                         <tr>
-                            <td class="text-center" colspan="6">Нет данных</td>
+                            <td class="text-center" colspan="4">Нет данных</td>
                         </tr>
                     </ng-container>
                 </tbody>

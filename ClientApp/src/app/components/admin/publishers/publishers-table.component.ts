@@ -2,17 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { PublisherService } from '../../../services/publisher.service';
 import { Publisher } from '../../../models/dataDTO/publisher';
-import { BaseSelection } from '../../../viewModels/baseSelection';
+import { BaseTable } from '../../../viewModels/baseSelection';
 import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
 
 @Component({
-    selector: 'publishers-selection',
-    templateUrl: './publishers-selection.component.html',
+    templateUrl: './publishers-table.component.html',
 })
-export class PublishersSelectionComponent extends BaseSelection<Publisher, Publisher>
+export class PublishersTableComponent extends BaseTable<Publisher, Publisher>
     implements OnInit, OnDestroy {
 
     constructor(

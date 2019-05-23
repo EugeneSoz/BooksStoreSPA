@@ -1,16 +1,12 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/categories'"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/books'"></admin-toolbar>
 
-    <admin-filter [properties]="filterProperties" [term]="searchTerm" 
+    <admin-filter [properties]="filterProperties" [term]="searchTerm"
         (searchEvent)="onSearch($event)"></admin-filter>
+
 
     <div class="card m-3">
         <div class="card-body">
-            <div class="custom-control custom-switch mb-2">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1"
-                    [checked]="categoryActions" (change)="onChangeActions()">
-                <label class="custom-control-label" for="customSwitch1">Действия над категориями</label>
-            </div>
             <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
@@ -19,27 +15,29 @@
                             </table-head>
                         </th>
 
-                        <th style="width: 6rem;">Действия</th>
+                        <th style="width: 6rem">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngIf="adminEntities != null || adminEntities?.length > 0">
-                        <tr *ngFor="let category of adminEntities">
-                            <td *ngIf="!categoryActions">
-                                {{category.id}}
+                        <tr *ngFor="let book of adminEntities">
+                            <td>
+                                {{book.id}}
                             </td>
-                            <td *ngIf="categoryActions">
-                                {{category.parentCategoryID}}
-                            </td>
-                            <td>{{category.parentCategoryName}}</td>
-                            <td>{{category.name}}</td>
+                            <td>{{book.title}}</td>
+                            <td>{{book.categoryName}}</td>
+                            <td>{{book.subcategoryName}}</td>
+                            <td>{{book.publisherName}}</td>
+                            <td class="text-right">{{book.price | currency:"RUB":"symbol":"2.2-2"}}</td>
                             <td>
                                 <div class="d-inline-flex">
                                     <button type="button" class="btn btn-sm btn-warning text-white ml-1"
-                                            [routerLink]="['/admin/categories', 'edit', category.id]">
+                                            [routerLink]="['/admin/books', 'edit', book.id]"
+                                            tooltip="Редактировать">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger ml-1">
+                                    <button type="button" class="btn btn-sm btn-danger ml-1"
+                                        tooltip="Удалить">
                                         <i class='fas fa-trash-alt fa-lg'></i>
                                     </button>
                                 </div>
@@ -49,7 +47,7 @@
 
                     <ng-container *ngIf="adminEntities == null">
                         <tr>
-                            <td class="text-center" colspan="3">Нет данных</td>
+                            <td class="text-center" colspan="6">Нет данных</td>
                         </tr>
                     </ng-container>
                 </tbody>

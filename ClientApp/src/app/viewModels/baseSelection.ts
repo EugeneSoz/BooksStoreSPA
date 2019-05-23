@@ -7,7 +7,7 @@ import { DeleteMessageComponent } from '../components/modals/delete-message.comp
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 
-export class BaseSelection<TEntity, TEntities> {
+export class BaseTable<TEntity, TEntities> {
     constructor(
         private _service: BaseAdminService<TEntity, TEntities>,
         fprop: Array<FilterProperty>,

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../../../models/dataDTO/category';
-import { BaseSelection } from '../../../viewModels/baseSelection';
+import { BaseTable } from '../../../viewModels/baseSelection';
 import { CategoryService } from '../../../services/category.service';
 import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 import { CategoryResponse } from '../../../models/dataDTO/categoryResponse';
@@ -8,11 +8,9 @@ import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
-    selector: 'categories-selection',
-    templateUrl: './categories-selection.component.html',
-    providers: [CategoryService]
+    templateUrl: './categories-table.component.html',
 })
-export class CategoriesSelectionComponent extends BaseSelection<Category, CategoryResponse>
+export class CategoriesTableComponent extends BaseTable<Category, CategoryResponse>
     implements OnInit, OnDestroy {
 
     constructor(

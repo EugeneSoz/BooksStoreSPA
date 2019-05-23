@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../../models/dataDTO/book';
+import { Book } from '../../../models/dataDTO/book';
 
 @Component({
     selector: 'related-book-table',

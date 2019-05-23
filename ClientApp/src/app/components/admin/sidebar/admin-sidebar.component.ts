@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminSidebarSection } from '../../viewModels/adminSidebarSection';
+import { AdminSidebarSection } from '../../../viewModels/adminSidebarSection';
 
 @Component({
     selector: 'admin-sidebar',

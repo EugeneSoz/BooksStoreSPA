@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { DataOptionsService } from "../../services/dataOptions.service";
-import { MigrationsOptions } from "../../models/dataDTO/migrationsOptions";
+import { DataOptionsService } from "../../../services/dataOptions.service";
+import { MigrationsOptions } from "../../../models/dataDTO/migrationsOptions";
 
 @Component({
     selector: 'services',
