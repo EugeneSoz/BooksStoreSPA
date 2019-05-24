@@ -7,6 +7,7 @@ import { FilterProperties, SortingProperties } from '../../../viewModels/filterP
 import { Book } from '../../../models/dataDTO/book';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DeletionService } from '../../../services/deletion.service';
 
 @Component({
     templateUrl: './books-table.component.html',
@@ -16,10 +17,17 @@ export class BooksTableComponent extends BaseTable<Book, BookResponse>
 
     constructor(
         bookService: BookService,
-        modalService: BsModalService) {
+        modalService: BsModalService,
+        deletionService: DeletionService) {
 
         let fprop = (new FilterProperties()).getBooksProp();
         let sprop = (new SortingProperties()).getBooksProp();
         super(bookService, fprop, sprop, EntityType.Book, modalService);
+
+        this.subscription.add(
+            deletionService.bookDeleted.subscribe(deletion => {
+                let model: Book = deletion.entity as Book;
+                bookService.deleteEntity(model);
+            }));
     }
 }

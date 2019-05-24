@@ -4,7 +4,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div *ngIf="publisher != null" class="modal-body">
+<div *ngIf="publisher != null || category != null || book != null" class="modal-body">
     <h5>{{question}}</h5>
     <p>&laquo;{{objectName}}&raquo;</p>
 </div>
