@@ -36,20 +36,23 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreateBookAsync([FromBody] Book book)
+        public async Task<ActionResult> CreateBookAsync([FromBody] BookDTO bookDTO)
         {
+            Book book = bookDTO.MapBook();
             return await CreateAsync(book, _repo.AddAsync);
         }
 
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateBookAsync([FromBody] Book book)
+        public async Task<ActionResult> UpdateBookAsync([FromBody] BookDTO bookDTO)
         {
+            Book book = bookDTO.MapBook();
             return await UpdateAsync(book, _repo.UpdateAsync);
         }
 
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteTaskAsync(Book book)
+        public async Task<ActionResult> DeleteTaskAsync(BookDTO bookDTO)
         {
+            Book book = bookDTO.MapBook();
             return await DeleteAsync(book, _repo.DeleteAsync);
         }
     }

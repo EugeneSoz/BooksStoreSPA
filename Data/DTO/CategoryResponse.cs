@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BooksStoreSPA.Data.DTO
+﻿namespace BooksStoreSPA.Data.DTO
 {
-    public class CategoryResponse : EntityBase
+    public class CategoryResponse : CategoryDTO
     {
-        public string Name { get; set; }
-        public long? ParentCategoryID { get; set; }
         public string ParentCategoryName { get; set; }
         public string DisplayedName { get; set; }
     }

@@ -31,6 +31,24 @@ namespace BooksStoreSPA.Infrastructure
             };
         }
 
+        public static Book MapBook(this BookDTO bookDTO)
+        {
+            return new Book
+            {
+                Id = bookDTO.Id,
+                Title = bookDTO.Title,
+                Authors = bookDTO.Authors,
+                Year = bookDTO.Year,
+                Language = bookDTO.Language,
+                PageCount = bookDTO.PageCount,
+                Description = bookDTO.Description,
+                Price = bookDTO.Price,
+                BookCover = bookDTO.BookCover,
+                CategoryID = bookDTO.CategoryID,
+                PublisherID = bookDTO.PublisherID
+            };
+        }
+
         public static CategoryResponse MapCategoryResponse(this Category category)
         {
             return new CategoryResponse
@@ -40,6 +58,26 @@ namespace BooksStoreSPA.Infrastructure
                 ParentCategoryID = category.ParentCategory?.Id ?? null,
                 ParentCategoryName = category.ParentCategory?.Name ?? "",
                 DisplayedName = category.DisplayedName
+            };
+        }
+
+        public static Category MapCategory(this CategoryDTO categoryDTO)
+        {
+            return new Category
+            {
+                Id = categoryDTO.Id,
+                Name = categoryDTO.Name,
+                ParentCategoryID = categoryDTO.ParentCategoryID
+            };
+        }
+
+        public static Publisher MapPublisher(this PublisherDTO publisherDTO)
+        {
+            return new Publisher
+            {
+                Id = publisherDTO.Id,
+                Name = publisherDTO.Name,
+                Country = publisherDTO.Country
             };
         }
 

@@ -41,20 +41,23 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreateCategoryAsync([FromBody] Category category)
+        public async Task<ActionResult> CreateCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
+            Category category = categoryDTO.MapCategory();
             return await CreateAsync(category, _repo.AddAsync);
         }
 
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateCategoryAsync([FromBody] Category category)
+        public async Task<ActionResult> UpdateCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
+            Category category = categoryDTO.MapCategory();
             return await UpdateAsync(category, _repo.UpdateAsync);
         }
 
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteCategoryAsync([FromBody] Category category)
+        public async Task<ActionResult> DeleteCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
+            Category category = categoryDTO.MapCategory();
             return await DeleteAsync(category, _repo.DeleteAsync);
         }
     }

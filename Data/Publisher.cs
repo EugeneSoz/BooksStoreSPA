@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BooksStoreSPA.Data.DTO;
 
 namespace BooksStoreSPA.Data
 {
-    //класс определяющий издателя книг
-    public class Publisher : EntityBase
+    public class Publisher : PublisherDTO
     {
-        //название издательства
-        [Required(ErrorMessage = "Укажите название издательства")]
-        [StringLength(100, MinimumLength = 2, ErrorMessage = "Название должно быть не меньше 2 и не больше 100 символов")]
-        public string Name { get; set; } = string.Empty;
-        //страна происхождения
-        [Required(ErrorMessage = "Укажите название страны нахождения издательства")]
-        public string Country { get; set; }
         public List<Book> Books { get; set; }
     }
 }

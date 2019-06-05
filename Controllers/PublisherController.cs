@@ -19,7 +19,7 @@ namespace BooksStoreSPA.Controllers
         public PublisherController(IPublisherRepo repo) => _repo = repo;
 
         [HttpGet("publisher/{id}")]
-        public async Task<Publisher> GetPublisherAsync(long id)
+        public async Task<Data.Publisher> GetPublisherAsync(long id)
         {
             return await _repo.GetPublisherAsync(id);
         }
@@ -35,26 +35,29 @@ namespace BooksStoreSPA.Controllers
             //}
 
             //return null;
-            PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
+            PagedList<Data.Publisher> publishers = await _repo.GetPublishersAsync(options);
 
             return publishers?.MapPagedResponse();
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreatePublisherAsync([FromBody] Publisher publisher)
+        public async Task<ActionResult> CreatePublisherAsync([FromBody] PublisherDTO publisherDTO)
         {
+            Publisher publisher = publisherDTO.MapPublisher();
             return await CreateAsync(publisher, _repo.AddAsync);
         }
 
         [HttpPut("update")]
-        public async Task<ActionResult> UpdatePublisherAsync([FromBody] Publisher publisher)
+        public async Task<ActionResult> UpdatePublisherAsync([FromBody] Publisher publisherDTO)
         {
+            Publisher publisher = publisherDTO.MapPublisher();
             return await UpdateAsync(publisher, _repo.UpdateAsync);
         }
 
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeletePublisherAsync([FromBody] Publisher publisher)
+        public async Task<ActionResult> DeletePublisherAsync([FromBody] Publisher publisherDTO)
         {
+            Publisher publisher = publisherDTO.MapPublisher();
             return await DeleteAsync(publisher, _repo.DeleteAsync);
         }
     }

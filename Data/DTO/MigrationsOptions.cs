@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BooksStoreSPA.Models.Database;
 
 namespace BooksStoreSPA.Data.DTO
@@ -10,7 +8,7 @@ namespace BooksStoreSPA.Data.DTO
     {
         public MigrationsOptions() { }
 
-        public MigrationsOptions(int booksCount, int categoriesCount, int publishersCount, 
+        public MigrationsOptions(int booksCount, int categoriesCount, int publishersCount,
             MigrationsManager manager, string infoMessage)
         {
             BooksCount = booksCount;

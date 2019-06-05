@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BooksStoreSPA.Data.DTO
+﻿namespace BooksStoreSPA.Data.DTO
 {
     public class QueryOptions
     {
@@ -76,13 +71,13 @@ namespace BooksStoreSPA.Data.DTO
             switch (valueToChange)
             {
                 case nameof(CategoryResponse.ParentCategoryName):
-                    return $"{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
+                    return $"{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Name)}";
                 case nameof(BookResponse.PublisherName):
-                    return $"{nameof(Publisher)}.{nameof(Publisher.Name)}";
+                    return $"{nameof(PublisherDTO)}.{nameof(PublisherDTO.Name)}";
                 case nameof(BookResponse.SubcategoryName):
-                    return $"{nameof(Category)}.{nameof(Category.Name)}";
+                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.Name)}";
                 case nameof(BookResponse.CategoryName):
-                    return $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
+                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Name)}";
                 default:
                     return valueToChange;
             }
@@ -93,9 +88,9 @@ namespace BooksStoreSPA.Data.DTO
             switch (valueToChange)
             {
                 case nameof(BookResponse.SubcategoryName):
-                    return $"{nameof(Category)}.{nameof(Category.Id)}";
+                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.Id)}";
                 case nameof(BookResponse.CategoryName):
-                    return $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Id)}";
+                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Id)}";
                 default:
                     return valueToChange;
             }
