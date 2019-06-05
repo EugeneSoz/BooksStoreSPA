@@ -13,6 +13,7 @@
 </div>
 
 <div *ngIf="books != null" class="px-3 py-2 bg-light">
-    <app-pagination [pagination]="pagination" [pageNumbers]="pageNumbers" (pageNumberEvent)="onChangePage($event)">
+    <app-pagination [pagination]="pagination" [pageNumbers]="pageNumbers" 
+        (pageNumberEvent)="onChangePage($event)">
     </app-pagination>
 </div>

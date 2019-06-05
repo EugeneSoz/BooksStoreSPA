@@ -71,13 +71,13 @@
             switch (valueToChange)
             {
                 case nameof(CategoryResponse.ParentCategoryName):
-                    return $"{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Name)}";
+                    return $"{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
                 case nameof(BookResponse.PublisherName):
-                    return $"{nameof(PublisherDTO)}.{nameof(PublisherDTO.Name)}";
+                    return $"{nameof(Publisher)}.{nameof(Publisher.Name)}";
                 case nameof(BookResponse.SubcategoryName):
-                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.Name)}";
+                    return $"{nameof(Category)}.{nameof(Category.Name)}";
                 case nameof(BookResponse.CategoryName):
-                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Name)}";
+                    return $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Name)}";
                 default:
                     return valueToChange;
             }
@@ -88,9 +88,9 @@
             switch (valueToChange)
             {
                 case nameof(BookResponse.SubcategoryName):
-                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.Id)}";
+                    return $"{nameof(Category)}.{nameof(Category.Id)}";
                 case nameof(BookResponse.CategoryName):
-                    return $"{nameof(CategoryDTO)}.{nameof(CategoryDTO.ParentCategory)}.{nameof(CategoryDTO.Id)}";
+                    return $"{nameof(Category)}.{nameof(Category.ParentCategory)}.{nameof(Category.Id)}";
                 default:
                     return valueToChange;
             }

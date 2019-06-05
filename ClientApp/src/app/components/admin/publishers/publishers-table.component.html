@@ -1,7 +1,7 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/publishers'"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="link"></admin-toolbar>
 
-    <admin-filter [properties]="filterProperties" [term]="searchTerm" 
+    <admin-filter [properties]="properties" [term]="searchTerm" 
         (searchEvent)="onSearch($event)"></admin-filter>
     <div class="card m-3">
         <div class="card-body">
@@ -28,7 +28,7 @@
                             <td>
                                 <div class="d-inline-flex">
                                     <button type="button" class="btn btn-sm btn-warning text-white ml-1"
-                                            [routerLink]="['/admin/publishers', 'edit', publisher.id]"
+                                            [routerLink]="[link, 'edit', publisher.id]"
                                             tooltip="Редактировать">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>

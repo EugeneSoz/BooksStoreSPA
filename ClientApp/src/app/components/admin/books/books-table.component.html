@@ -1,5 +1,5 @@
 <div id="admin-scrollable-content">
-    <admin-toolbar [isButtonsVisible]="true" [link]="'/admin/books'"></admin-toolbar>
+    <admin-toolbar [isButtonsVisible]="true" [link]="link"></admin-toolbar>
 
     <admin-filter [properties]="filterProperties" [term]="searchTerm"
         (searchEvent)="onSearch($event)"></admin-filter>
@@ -32,7 +32,7 @@
                             <td>
                                 <div class="d-inline-flex">
                                     <button type="button" class="btn btn-sm btn-warning text-white ml-1"
-                                            [routerLink]="['/admin/books', 'edit', book.id]"
+                                            [routerLink]="[link, 'edit', book.id]"
                                             tooltip="Редактировать">
                                         <i class='fas fa-pencil-alt fa-lg'></i>
                                     </button>

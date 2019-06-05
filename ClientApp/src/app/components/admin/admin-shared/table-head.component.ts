@@ -20,8 +20,8 @@ export class TableHeadComponent implements OnChanges {
         let fp = changes["property"];
         let sp = changes["sortPropName"];
         if (fp != undefined && fp.currentValue != fp.previousValue) {
-            this.name = this.property.name;
-            this.sortPropertyName = this.property.property;
+            this.name = this.property.displayName;
+            this.sortPropertyName = this.property.propertyName;
         }
 
         if (sp != undefined && sp.currentValue != sp.previousValue) {

@@ -41,4 +41,8 @@ export class Urls {
     private baseAccountUrl: string = `/api/acount`;
     login: string = `${this.baseAccountUrl}/login`;
     logout: string = `${this.baseAccountUrl}/logout`;
+
+    private basePropertyUrl: string = "api/properties";
+    pub_filter: string = `${this.basePropertyUrl}/pub_filter`;
+    pub_sorting: string = `${this.basePropertyUrl}/pub_sorting`;
 }

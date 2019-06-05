@@ -7,6 +7,7 @@ import { FilterProperties, SortingProperties } from '../../../viewModels/filterP
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
+import { PageLink } from '../../../enums/pageLink';
 
 @Component({
     templateUrl: './publishers-table.component.html',
@@ -28,5 +29,9 @@ export class PublishersTableComponent extends BaseTable<Publisher, Publisher>
                 let model: Publisher = deletion.entity as Publisher;
                 publisherService.deleteEntity(model);
             }));
+
+        this.link = `/${PageLink.admin_publishers}`;
     }
+
+    link: string;
 }

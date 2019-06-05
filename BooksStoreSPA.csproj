@@ -25,15 +25,7 @@
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\helpers\httpMethod.ts" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\httpMethod.ts" />
-  </ItemGroup>
-  
+    
   <ItemGroup>
     <Content Update="Files\DataForUpload\savedData.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

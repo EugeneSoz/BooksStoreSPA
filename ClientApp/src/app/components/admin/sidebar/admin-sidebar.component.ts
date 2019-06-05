@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminSidebarSection } from '../../../viewModels/adminSidebarSection';
+import { PageLink } from '../../../enums/pageLink';
 
 @Component({
     selector: 'admin-sidebar',
@@ -10,12 +11,11 @@ export class AdminSidebarComponent implements OnInit {
 
     ngOnInit() {
         this.sections = new Array<AdminSidebarSection>();
-        this.sections.push(new AdminSidebarSection("/admin/services", "Работа с бд"));
-        this.sections.push(new AdminSidebarSection("/admin/books", "Книги"));
-        this.sections.push(new AdminSidebarSection("/admin/categories", "Категории"));
-        this.sections.push(new AdminSidebarSection("/admin/publishers", "Издатели"));
-        this.sections.push(new AdminSidebarSection("/admin/orders", "Заказы"));
-        this.sections.push(new AdminSidebarSection("/store", "Магазин"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.admin_services}`, "Работа с бд"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.admin_books}`, "Книги"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.admin_categories}`, "Категории"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.admin_publishers}`, "Издатели"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.admin_orders}`, "Заказы"));
+        this.sections.push(new AdminSidebarSection(`/${PageLink.store}`, "Магазин"));
     }
-
 }

@@ -13,14 +13,15 @@ export class AdminFilterComponent implements OnChanges {
 
     searchProperyName: string;
     searchTerm: string = null;
+
     get isClearBtnVisible(): boolean {
         return this.term == null ? false : true;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         let props = changes["properties"];
-        if (props != undefined && props.currentValue != props.previousValue) {
-            this.searchProperyName = this.properties[0].property;
+        if (props != null && props.currentValue != props.previousValue) {
+            this.searchProperyName = this.properties[0].propertyName;
         }
     }
 

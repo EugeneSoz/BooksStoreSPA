@@ -6,8 +6,9 @@ import { BookService } from '../../../services/book.services';
 import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 import { Book } from '../../../models/dataDTO/book';
 import { EntityType } from '../../../enums/entityType';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
+import { PageLink } from '../../../enums/pageLink';
 
 @Component({
     templateUrl: './books-table.component.html',
@@ -29,5 +30,9 @@ export class BooksTableComponent extends BaseTable<Book, BookResponse>
                 let model: Book = deletion.entity as Book;
                 bookService.deleteEntity(model);
             }));
+
+        this.link = `/${PageLink.admin_books}`;
     }
+
+    link: string;
 }

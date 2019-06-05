@@ -18,5 +18,6 @@ export class PublisherService extends BaseAdminService<Publisher, Publisher> {
         this.createUrl = urls.publisher_create;
         this.updateUrl = urls.publisher_update;
         this.deleteUrl = urls.publisher_delete;
+        this.fitlerPropUrl = urls.pub_filter;
     }
 }

@@ -8,6 +8,7 @@ import { CategoryResponse } from '../../../models/dataDTO/categoryResponse';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
+import { PageLink } from '../../../enums/pageLink';
 
 @Component({
     templateUrl: './categories-table.component.html',
@@ -29,5 +30,9 @@ export class CategoriesTableComponent extends BaseTable<Category, CategoryRespon
                 let model: Category = deletion.entity as Category;
                 categoryService.deleteEntity(model);
             }));
+
+        this.link = `/${PageLink.admin_categories}`;
     }
+
+    link: string;
 }

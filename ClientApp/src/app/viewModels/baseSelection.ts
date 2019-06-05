@@ -27,6 +27,10 @@ export class BaseTable<TEntity, TEntities> {
     filterProperties: Array<FilterProperty>;
     sortingProperties: Array<FilterProperty>;
 
+    get properties(): Array<FilterProperty> {
+        return this._service.filterProps;
+    }
+
     get adminEntities(): Array<TEntities> {
         return this._service.entities;
     }
@@ -49,6 +53,7 @@ export class BaseTable<TEntity, TEntities> {
 
     ngOnInit(): void {
         this._service.getEntities();
+        this._service.getFilterProps();
     }
 
     onChangePage(newPage: number): void {

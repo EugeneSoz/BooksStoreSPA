@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
-import { PagedResponse } from 'src/app/models/dataDTO/pagedResponse';
 import { BookResponse } from 'src/app/models/dataDTO/bookResponse';
 import { Pagination } from '../../../models/pagination';
 

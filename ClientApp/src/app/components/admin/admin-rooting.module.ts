@@ -13,15 +13,16 @@ import { CategoriesSectionComponent } from './categories/categories-section.comp
 import { CategoriesTableComponent } from './categories/categories-table.component';
 import { BooksSectionComponent } from './books/books-section.component';
 import { BooksTableComponent } from './books/books-table.component';
+import { PageLink } from '../../enums/pageLink';
 
 const routes: Routes = [
     {
         path: "", component: AdminLayoutComponent,
         children: [
-            { path: "admin/services", component: DbServicesComponent },
+            { path: PageLink.admin_services, component: DbServicesComponent },
             { path: "", component: DbServicesComponent },
             {
-                path: "admin/books", component: BooksSectionComponent,
+                path: PageLink.admin_books, component: BooksSectionComponent,
                 children: [
                     { path: ":mode/:id", component: BookFormComponent },
                     { path: ":mode", component: BookFormComponent },
@@ -29,7 +30,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: "admin/categories", component: CategoriesSectionComponent,
+                path: PageLink.admin_categories, component: CategoriesSectionComponent,
                 children: [
                     { path: ":mode/:id", component: CategoryFormComponent },
                     { path: ":mode", component: CategoryFormComponent },
@@ -37,14 +38,14 @@ const routes: Routes = [
                 ]
             },
             {
-                path: "admin/publishers", component: PublishersSectionComponent,
+                path: PageLink.admin_publishers, component: PublishersSectionComponent,
                 children: [
                     { path: ":mode/:id", component: PublisherFormComponent },
                     { path: ":mode", component: PublisherFormComponent },
                     { path: "", component: PublishersTableComponent},
                 ]
             },
-            { path: "admin/orders", component: OrderSelectionComponent }
+            { path: PageLink.admin_orders, component: OrderSelectionComponent }
         ],
     },
 ];

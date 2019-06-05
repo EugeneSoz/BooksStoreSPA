@@ -4,8 +4,8 @@ import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 
 export class FilterProperty {
     constructor(
-        public property: string,
-        public name: string) { }
+        public propertyName: string,
+        public displayName: string) { }
 }
 
 export class FilterProperties {
