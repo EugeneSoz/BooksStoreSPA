@@ -34,56 +34,50 @@ namespace BooksStoreSPA.Models.Repo
 
         public async Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
         {
-            //SetCapitalLetterInProps(options);
-            //QueryProcessing<Category> processing;
-
-            //IQueryable<Category> subcategories;
-            //IQueryable<Category> categories;
-            //IQueryable<Category> query = GetEntities();
-
-            //if (options.SearchPropertyName == nameof(CategoryResponse.ParentCategoryName) ||
-            //    options.SortPropertyName == nameof(CategoryResponse.ParentCategoryName))
-            //{
-            //    ResolveNames(options);
-            //    processing = new QueryProcessing<Category>(options);
-            //    subcategories = options.DescendingOrder 
-            //        ? query.OrderByDescending(s => s.Name) 
-            //        : query.OrderBy(s => s.Name);
-            //    categories = processing.ProcessQuery(query);
-            //}
-            //else
-            //{
-            //    //когда сортируем ищем по подкатегории
-            //    processing = new QueryProcessing<Category>(options);
-            //    subcategories = processing.ProcessQuery(query);
-            //    categories = query;
-            //}
-
-            //IQueryable<CategoryResponse> result = subcategories
-            //        .Join(categories, s => s.ParentCategoryID, c => c.Id,
-            //        (s, c) => new CategoryResponse
-            //        {
-            //            Id = s.Id,
-            //            Name = s.Name,
-            //            ParentCategoryID = c.Id,
-            //            ParentCategoryName = c.Name
-            //        });
-
             QueryProcessing<Category> processing = new QueryProcessing<Category>(options);
 
-            IQueryable<Category> query = GetEntities()
-                .Where(s => s.ParentCategoryID != null)
-                .Include(s => s.ParentCategory);
+            IQueryable<Category> entities = GetEntities();
+            IQueryable<Category> query = entities
+                .GroupJoin(entities, subcategory => subcategory.ParentCategoryID,
+                    category => category.Id, (Category subcategory, IEnumerable<Category> categories) =>
+                 new
+                 {
+                     subcategory,
+                     categories
+                 })
+                .SelectMany(newCategory => newCategory.categories.DefaultIfEmpty(),
+                  (temp0, categoryWithDisplayedName) =>
+                     new Category
+                     {
+                         Id = temp0.subcategory.Id,
+                         Name = temp0.subcategory.Name,
+                         ParentCategoryID = temp0.subcategory.ParentCategoryID,
+                         DisplayedName = (temp0.subcategory.ParentCategoryID == null)
+                         ? temp0.subcategory.Name
+                         : ((temp0.subcategory.ParentCategory.Name + " <=> ") + temp0.subcategory.Name)
+                     }
+               );
+            //from subcategories in entities
+            //join categories in entities
+            //on subcategories.ParentCategoryID equals categories.Id into categoriesWithParent
+            //from cwp in categoriesWithParent.DefaultIfEmpty()
+            //select new Category
+            //{
+            //    Id = subcategories.Id,
+            //    Name = subcategories.Name,
+            //    ParentCategoryID = subcategories.ParentCategoryID,
+            //    DisplayedName = subcategories.ParentCategoryID == null
+            //        ? subcategories.Name
+            //        : subcategories.ParentCategory.Name + " <=> " + subcategories.Name
+            //};
 
             IQueryable<CategoryResponse> processedCategories;
 
-            if (options.SortPropertyName == $"{nameof(Category.ParentCategory)}.{nameof(Category.Name)}")
+            if (options.SortPropertyName == $"{nameof(Category.Name)}")
             {
-                processedCategories = options.DescendingOrder
-                    ? processing.ProcessQuery(query.OrderByDescending(c => c.Name))
-                        .Select(e => e.MapCategoryResponse())
-                    : processing.ProcessQuery(query.OrderBy(c => c.Name))
-                        .Select(e => e.MapCategoryResponse());
+                options.SortPropertyName = $"{nameof(Category.DisplayedName)}";
+                processedCategories = processing.ProcessQuery(query)
+                    .Select(e => e.MapCategoryResponse());
             }
             else
             {

@@ -10,5 +10,6 @@ namespace BooksStoreSPA.Data.DTO
         public string Name { get; set; }
         public long? ParentCategoryID { get; set; }
         public string ParentCategoryName { get; set; }
+        public string DisplayedName { get; set; }
     }
 }

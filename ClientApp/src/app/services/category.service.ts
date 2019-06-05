@@ -20,6 +20,4 @@ export class CategoryService extends BaseAdminService<Category, CategoryResponse
         this.updateUrl = urls.category_update;
         this.deleteUrl = urls.category_delete;
     }
-
-    categoryActions: boolean = false;
 }

@@ -13,6 +13,8 @@ namespace BooksStoreSPA.Data
         [Required(ErrorMessage = "Укажите название категории/подкатегории")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Название должно быть не меньше 2 и не больше 100 символов")]
         public string Name { get; set; } = string.Empty;
+        //для сортировки по имени родительской и текущей категории
+        public string DisplayedName { get; set; }
 
         //если свойство не равно null, тогда категория является подкатегорией
         public long? ParentCategoryID { get; set; }

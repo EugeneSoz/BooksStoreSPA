@@ -21,23 +21,23 @@ namespace BooksStoreSPA.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<Order> GetOrders()
-        {
-            return _context.Orders
-                .Include(o => o.Goods).Include(o => o.Payment);
-        }
+        //[HttpGet]
+        //public IEnumerable<Order> GetOrders()
+        //{
+        //    return _context.Orders
+        //        .Include(o => o.Goods).Include(o => o.Payment);
+        //}
 
-        [HttpPost("{id}")]
-        public void MarkShipped(long id)
-        {
-            Order order = _context.Orders.Find(id);
-            if (order != null)
-            {
-                order.Shipped = true;
-                _context.SaveChanges();
-            }
-        }
+        //[HttpPost("{id}")]
+        //public void MarkShipped(long id)
+        //{
+        //    Order order = _context.Orders.Find(id);
+        //    if (order != null)
+        //    {
+        //        order.Shipped = true;
+        //        _context.SaveChanges();
+        //    }
+        //}
 
         [HttpPost]
         //[AllowAnonymous]

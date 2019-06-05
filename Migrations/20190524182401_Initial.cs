@@ -14,6 +14,7 @@ namespace BooksStoreSPA.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
+                    DisplayedName = table.Column<string>(nullable: true),
                     ParentCategoryID = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
@@ -34,7 +35,7 @@ namespace BooksStoreSPA.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Country = table.Column<string>(nullable: true)
+                    Country = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

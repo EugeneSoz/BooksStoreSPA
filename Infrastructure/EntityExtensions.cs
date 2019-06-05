@@ -37,8 +37,9 @@ namespace BooksStoreSPA.Infrastructure
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentCategoryID = category.ParentCategory.Id,
-                ParentCategoryName = category.ParentCategory.Name
+                ParentCategoryID = category.ParentCategory?.Id ?? null,
+                ParentCategoryName = category.ParentCategory?.Name ?? "",
+                DisplayedName = category.DisplayedName
             };
         }
 

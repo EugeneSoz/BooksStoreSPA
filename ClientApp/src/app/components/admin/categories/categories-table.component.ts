@@ -24,21 +24,10 @@ export class CategoriesTableComponent extends BaseTable<Category, CategoryRespon
         let sprop = (new SortingProperties()).getCategoriesProp()
         super(categoryService, fprop, sprop, EntityType.Category, modalService);
 
-        this._categoryService = categoryService;
         this.subscription.add(
             deletionService.categoryDeleted.subscribe(deletion => {
                 let model: Category = deletion.entity as Category;
                 categoryService.deleteEntity(model);
             }));
-    }
-
-    private _categoryService: CategoryService;
-
-    get categoryActions(): boolean {
-        return this._categoryService.categoryActions;
-    }
-
-    onChangeActions() {
-        this._categoryService.categoryActions = !this._categoryService.categoryActions;
     }
 }

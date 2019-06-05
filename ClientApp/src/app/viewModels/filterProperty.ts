@@ -1,5 +1,4 @@
 import { Publisher } from '../models/dataDTO/publisher';
-import { Category } from '../models/dataDTO/category';
 import { BookResponse } from '../models/dataDTO/bookResponse';
 import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 
@@ -18,8 +17,7 @@ export class FilterProperties {
 
     getCategoriesProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
-            new FilterProperty(this.nameof<CategoryResponse>("parentCategoryName"), "Категория"),
-            new FilterProperty(this.nameof<CategoryResponse>("name"), "Подкатегория"));
+            new FilterProperty(this.nameof<CategoryResponse>("name"), "Категория"));
     }
 
     getBooksProp(): Array<FilterProperty> {
@@ -47,8 +45,7 @@ export class SortingProperties {
     getCategoriesProp(): Array<FilterProperty> {
         return new Array<FilterProperty>(
             new FilterProperty(this.nameof<CategoryResponse>("id"), "ID"),
-            new FilterProperty(this.nameof<CategoryResponse>("parentCategoryName"), "Категория"),
-            new FilterProperty(this.nameof<CategoryResponse>("name"), "Подкатегория"));
+            new FilterProperty(this.nameof<CategoryResponse>("name"), "Категория"))
     }
 
     getBooksProp(): Array<FilterProperty> {

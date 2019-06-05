@@ -3,5 +3,6 @@ export class CategoryResponse {
         public id?: number,
         public name?: string,
         public parentCategoryID?: number | null,
-        public parentCategoryName?: string) { }
+        public parentCategoryName?: string,
+        public displayedName?: string) { }
 }

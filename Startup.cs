@@ -42,11 +42,11 @@ namespace BooksStoreSPA
             services.AddTransient<IBookRepo, BookRepo>();
             services.AddTransient<MigrationsManager>();
 
-            services.AddDbContext<IdentityDataContext>(options => 
-                options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+            //services.AddDbContext<IdentityDataContext>(options => 
+            //    options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDataContext>();
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<IdentityDataContext>();
 
             services.AddDbContext<StoreDbContext>(options =>
             {

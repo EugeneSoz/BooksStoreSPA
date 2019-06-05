@@ -8,9 +8,7 @@ import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CategoryService } from '../../../services/category.service';
 
 @Component({
-    selector: 'app-category-form',
     templateUrl: './category-form.component.html',
-    providers: [CategoryService]
 })
 export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implements OnInit {
     constructor(
@@ -20,10 +18,6 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
 
         super(activeRoute);
         this.form = new CategoryFormGroup(this._nh, this.category);
-    }
-
-    get formTitle(): string {
-        return `${this.title} ${this._categoryService.categoryActions ? "категорию" : "подкатегорию"}`;
     }
 
     category: Category = new Category();
@@ -47,8 +41,9 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
 
     submitForm(): void {
         if (this.form.valid) {
-            this.category.name = "";// this.form.get(this._nh.nameof<Publisher>("name")).value;
-            this.category.parentCategoryID = null;// this.form.get(this._nh.nameof<Publisher>("country")).value;
+            this.category.name = this.form.get(this._nh.nameof<Category>("name")).value;
+            this.category.parentCategoryID =
+                this.form.get(this._nh.nameof<Category>("parentCategoryID")).value;
 
             if (this.editing) {
                 this._categoryService.updateEntity(this.category);
@@ -56,6 +51,7 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
             else {
                 this._categoryService.createEntity(this.category)
             }
+            this.isAlertVisible = true;
             this.form.reset();
         }
     }

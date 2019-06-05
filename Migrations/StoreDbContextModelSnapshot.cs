@@ -15,7 +15,7 @@ namespace BooksStoreSPA.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -60,30 +60,13 @@ namespace BooksStoreSPA.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BooksStoreSPA.Data.CartLine", b =>
-                {
-                    b.Property<long>("CartLineId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long?>("OrderId");
-
-                    b.Property<long>("ProductId");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("CartLineId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("CartLine");
-                });
-
             modelBuilder.Entity("BooksStoreSPA.Data.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DisplayedName");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -96,52 +79,6 @@ namespace BooksStoreSPA.Migrations
                     b.HasIndex("ParentCategoryID");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("BooksStoreSPA.Data.Order", b =>
-                {
-                    b.Property<long>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<long>("PaymentId");
-
-                    b.Property<bool>("Shipped");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("PaymentId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("BooksStoreSPA.Data.Payment", b =>
-                {
-                    b.Property<long>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthCode");
-
-                    b.Property<string>("CardExpiry")
-                        .IsRequired();
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired();
-
-                    b.Property<int>("CardSecurityCode");
-
-                    b.Property<decimal>("Total");
-
-                    b.HasKey("PaymentId");
-
-                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("BooksStoreSPA.Data.Publisher", b =>
@@ -175,27 +112,12 @@ namespace BooksStoreSPA.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("BooksStoreSPA.Data.CartLine", b =>
-                {
-                    b.HasOne("BooksStoreSPA.Data.Order")
-                        .WithMany("Goods")
-                        .HasForeignKey("OrderId");
-                });
-
             modelBuilder.Entity("BooksStoreSPA.Data.Category", b =>
                 {
                     b.HasOne("BooksStoreSPA.Data.Category", "ParentCategory")
                         .WithMany("ChildrenCategories")
                         .HasForeignKey("ParentCategoryID")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("BooksStoreSPA.Data.Order", b =>
-                {
-                    b.HasOne("BooksStoreSPA.Data.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
