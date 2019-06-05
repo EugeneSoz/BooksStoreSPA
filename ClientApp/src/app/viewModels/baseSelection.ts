@@ -1,34 +1,37 @@
+import { Subscription } from 'rxjs';
+
 import { BaseAdminService } from '../services/baseAdmin.service';
 import { Pagination } from '../models/pagination';
-import { FilterProperty } from './filterProperty';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { EntityType } from '../enums/entityType';
 import { DeleteMessageComponent } from '../components/modals/delete-message.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
+import { FilterSortingProps } from '../models/dataDTO/filterSortingProps';
 
 export class BaseTable<TEntity, TEntities> {
     constructor(
         private _service: BaseAdminService<TEntity, TEntities>,
-        fprop: Array<FilterProperty>,
-        sprop: Array<FilterProperty>,
         entityType: EntityType,
-        modalService: BsModalService) {
+        modalService: BsModalService,
+        link: string) {
 
-        this.filterProperties = fprop;
-        this.sortingProperties = sprop;
         this._entityType = entityType;
         this._modalService = modalService;
+        this.link = link;
     }
 
     private _entityType: EntityType;
     private _modalService: BsModalService;
     protected subscription: Subscription = new Subscription();
-    filterProperties: Array<FilterProperty>;
-    sortingProperties: Array<FilterProperty>;
 
-    get properties(): Array<FilterProperty> {
+    link: string = null;
+
+    get filterProperties(): Array<FilterSortingProps> {
         return this._service.filterProps;
+    }
+
+    get sortingProperties(): Array<FilterSortingProps> {
+        return this._service.sortingProps;
     }
 
     get adminEntities(): Array<TEntities> {
@@ -54,6 +57,7 @@ export class BaseTable<TEntity, TEntities> {
     ngOnInit(): void {
         this._service.getEntities();
         this._service.getFilterProps();
+        this._service.getSortingProps();
     }
 
     onChangePage(newPage: number): void {

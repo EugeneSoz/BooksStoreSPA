@@ -16,8 +16,7 @@
             get => _sortPropertyName;
             set
             {
-                _sortPropertyName = GetValueWithCapitalLetter(value);
-                _sortPropertyName = ResolveSearchSortingPropertyName(_sortPropertyName);
+                _sortPropertyName = ResolveSearchSortingPropertyName(value);
             }
         }
         //сортировка по убыванию
@@ -33,7 +32,6 @@
                 {
                     for (int i = 0; i < _searchPropertyNames.Length; i++)
                     {
-                        _searchPropertyNames[i] = GetValueWithCapitalLetter(_searchPropertyNames[i]);
                         _searchPropertyNames[i] = ResolveSearchSortingPropertyName(_searchPropertyNames[i]);
                     }
                 }
@@ -47,24 +45,11 @@
             get => _filterPropertyName;
             set
             {
-                _filterPropertyName = GetValueWithCapitalLetter(value);
-                _filterPropertyName = ResolveFilterPropertyName(_filterPropertyName);
+                _filterPropertyName = ResolveFilterPropertyName(value);
             }
         }
         //id категории книги
         public long FilterPropertyValue { get; set; }
-
-        private string GetValueWithCapitalLetter(string valueToChange)
-        {
-            if (!string.IsNullOrEmpty(valueToChange))
-            {
-                return valueToChange[0].ToString().ToUpper() + valueToChange.Substring(1);
-            }
-            else
-            {
-                return valueToChange;
-            }
-        }
 
         private string ResolveSearchSortingPropertyName(string valueToChange)
         {

@@ -10,7 +10,9 @@
                 <thead>
                     <tr>
                         <th *ngFor="let sortingProperty of sortingProperties">
-                            <table-head [property]="sortingProperty" [sortPropName]="sortPropertyName" (sortingEvent)="onSort($event)">
+                            <table-head [property]="sortingProperty" 
+                            [sortPropertyName]="sortPropertyName"
+                            (sortingEvent)="onSort($event)">
                             </table-head>
                         </th>
 

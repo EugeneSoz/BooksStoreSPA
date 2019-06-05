@@ -45,4 +45,8 @@ export class Urls {
     private basePropertyUrl: string = "api/properties";
     pub_filter: string = `${this.basePropertyUrl}/pub_filter`;
     pub_sorting: string = `${this.basePropertyUrl}/pub_sorting`;
+    cat_filter: string = `${this.basePropertyUrl}/cat_filter`;
+    cat_sorting: string = `${this.basePropertyUrl}/cat_sorting`;
+    book_filter: string = `${this.basePropertyUrl}/book_filter`;
+    book_sorting: string = `${this.basePropertyUrl}/book_sorting`;
 }

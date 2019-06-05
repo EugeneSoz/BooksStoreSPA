@@ -1,13 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from "@angular/core";
-import { FilterProperty } from '../../../viewModels/filterProperty';
 import { QueryOptions } from '../../../models/dataDTO/queryOptions';
+import { FilterSortingProps } from '../../../models/dataDTO/filterSortingProps';
 
 @Component({
     selector: 'admin-filter',
     templateUrl: './admin-filter.component.html',
 })
 export class AdminFilterComponent implements OnChanges {
-    @Input() properties: Array<FilterProperty> = null;
+    @Input() properties: Array<FilterSortingProps> = null;
     @Input() term: string = null;
     @Output() searchEvent = new EventEmitter<QueryOptions>();
 

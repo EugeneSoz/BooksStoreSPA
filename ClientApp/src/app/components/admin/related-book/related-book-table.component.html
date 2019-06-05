@@ -1,4 +1,4 @@
-﻿<h4 *ngIf="books == null">Нет связанных с данным объектом книг</h4>
+﻿<h4 *ngIf="books == null || books.length == 0">Нет связанных с данным объектом книг</h4>
 
 <table *ngIf="books != null && books.length > 0" class="table table-sm table-bordered table-striped">
     <thead class="bg-info text-white">

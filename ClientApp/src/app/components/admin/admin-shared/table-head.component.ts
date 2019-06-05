@@ -1,31 +1,24 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
 import { QueryOptions } from "../../../models/dataDTO/queryOptions";
-import { FilterProperty } from '../../../viewModels/filterProperty';
+import { FilterSortingProps } from '../../../models/dataDTO/filterSortingProps';
 
 @Component({
     selector: 'table-head',
     templateUrl: './table-head.component.html',
 })
 export class TableHeadComponent implements OnChanges {
-    @Input() property: FilterProperty = null;
-    @Input() sortPropName: string = null;
+    @Input() property: FilterSortingProps = null;
+    @Input() sortPropertyName: string = "";
     @Output() sortingEvent = new EventEmitter<QueryOptions>();
 
-    name: string = "";
-    sortPropertyName: string = null;
     descendingOrder: boolean = false;
     isActive: boolean = false;
 
     ngOnChanges(changes: SimpleChanges): void {
-        let fp = changes["property"];
-        let sp = changes["sortPropName"];
-        if (fp != undefined && fp.currentValue != fp.previousValue) {
-            this.name = this.property.displayName;
-            this.sortPropertyName = this.property.propertyName;
-        }
+        let p = changes["sortPropertyName"];
 
-        if (sp != undefined && sp.currentValue != sp.previousValue) {
-            this.isActive = sp.currentValue == this.sortPropertyName ? true : false;
+        if (p != null && p.currentValue != p.previousValue) {
+            this.isActive = p.currentValue == this.property.propertyName ? true : false;
             this.descendingOrder = false;
         }
     }
@@ -36,7 +29,7 @@ export class TableHeadComponent implements OnChanges {
         }
         
         let options: QueryOptions = new QueryOptions();
-        options.sortPropertyName = this.sortPropertyName;
+        options.sortPropertyName = this.property.propertyName;
         options.descendingOrder = this.descendingOrder;
 
         this.sortingEvent.emit(options);

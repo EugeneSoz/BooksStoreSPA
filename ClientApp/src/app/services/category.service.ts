@@ -19,5 +19,7 @@ export class CategoryService extends BaseAdminService<Category, CategoryResponse
         this.createUrl = urls.category_create;
         this.updateUrl = urls.category_update;
         this.deleteUrl = urls.category_delete;
+        this.fitlerPropUrl = urls.cat_filter;
+        this.sortingPropUrl = urls.cat_sorting;
     }
 }

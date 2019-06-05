@@ -19,5 +19,7 @@ export class BookService extends BaseAdminService<Book, BookResponse> {
         this.createUrl = urls.book_create;
         this.updateUrl = urls.book_update;
         this.deleteUrl = urls.book_delete;
+        this.fitlerPropUrl = urls.book_filter;
+        this.sortingPropUrl = urls.book_sorting;
     }
 }

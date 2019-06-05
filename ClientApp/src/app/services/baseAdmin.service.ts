@@ -4,7 +4,7 @@ import { RestDatasource } from '../helpers/restDatasource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { Pagination } from '../models/pagination';
-import { FilterProperty, FilterProperties } from '../viewModels/filterProperty';
+import { FilterSortingProps } from '../models/dataDTO/filterSortingProps';
 
 export class BaseAdminService<TEntity, TEntities> {
     constructor(
@@ -33,7 +33,8 @@ export class BaseAdminService<TEntity, TEntities> {
     sortPropertyName: string;
     searchTerm: string = null;
 
-    filterProps: Array<FilterProperty> = null;
+    filterProps: Array<FilterSortingProps> = null;
+    sortingProps: Array<FilterSortingProps> = null;
 
     get entity(): TEntity {
         return this._entity;
@@ -62,8 +63,13 @@ export class BaseAdminService<TEntity, TEntities> {
     }
 
     getFilterProps(): void {
-        this._rest.getAll<FilterProperty[]>(this.fitlerPropUrl)
+        this._rest.getAll<FilterSortingProps[]>(this.fitlerPropUrl)
             .subscribe(result => this.filterProps = result);
+    }
+
+    getSortingProps(): void {
+        this._rest.getAll<FilterSortingProps[]>(this.sortingPropUrl)
+            .subscribe(result => this.sortingProps = result);
     }
 
     createEntity(model: TEntity): void {

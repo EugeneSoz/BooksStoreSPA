@@ -20,12 +20,44 @@ namespace BooksStoreSPA.Controllers
             return filterProperties.GetPublisherFilterProps();
         }
 
+        [HttpGet("cat_filter")]
+        public List<FilterSortingProps> GetCategoryFilterProps()
+        {
+            FilterProperties filterProperties = new FilterProperties();
+
+            return filterProperties.GetCategoryFilterProps();
+        }
+
+        [HttpGet("book_filter")]
+        public List<FilterSortingProps> GetBookFilterProps()
+        {
+            FilterProperties filterProperties = new FilterProperties();
+
+            return filterProperties.GetBookFilterProps();
+        }
+
         [HttpGet("pub_sorting")]
         public List<FilterSortingProps> GetPublisherSortingProps()
         {
             SortingProperties sortingProperties = new SortingProperties();
 
             return sortingProperties.GetPublisherSortingProps();
+        }
+
+        [HttpGet("cat_sorting")]
+        public List<FilterSortingProps> GetCategorySortingProps()
+        {
+            SortingProperties sortingProperties = new SortingProperties();
+
+            return sortingProperties.GetCategorySortingProps();
+        }
+
+        [HttpGet("book_sorting")]
+        public List<FilterSortingProps> GetBookSortingProps()
+        {
+            SortingProperties sortingProperties = new SortingProperties();
+
+            return sortingProperties.GetBooksSortingProps();
         }
     }
 }

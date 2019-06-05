@@ -1,7 +1,7 @@
 <div id="admin-scrollable-content">
     <admin-toolbar [isButtonsVisible]="true" [link]="link"></admin-toolbar>
 
-    <admin-filter [properties]="properties" [term]="searchTerm" 
+    <admin-filter [properties]="filterProperties" [term]="searchTerm" 
         (searchEvent)="onSearch($event)"></admin-filter>
     <div class="card m-3">
         <div class="card-body">
@@ -10,7 +10,7 @@
                     <tr>
                         <th *ngFor="let sortingProperty of sortingProperties">
                             <table-head [property]="sortingProperty" 
-                            [sortPropName]="sortPropertyName"
+                            [sortPropertyName]="sortPropertyName"
                             (sortingEvent)="onSort($event)"></table-head>
                         </th>
                         

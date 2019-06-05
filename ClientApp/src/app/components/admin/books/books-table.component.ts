@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseTable } from '../../../viewModels/baseSelection';
 import { BookResponse } from '../../../models/dataDTO/bookResponse';
 import { BookService } from '../../../services/book.services';
-import { FilterProperties, SortingProperties } from '../../../viewModels/filterProperty';
 import { Book } from '../../../models/dataDTO/book';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -21,18 +20,12 @@ export class BooksTableComponent extends BaseTable<Book, BookResponse>
         modalService: BsModalService,
         deletionService: DeletionService) {
 
-        let fprop = (new FilterProperties()).getBooksProp();
-        let sprop = (new SortingProperties()).getBooksProp();
-        super(bookService, fprop, sprop, EntityType.Book, modalService);
+        super(bookService, EntityType.Book, modalService, `/${PageLink.admin_books}`);
 
         this.subscription.add(
             deletionService.bookDeleted.subscribe(deletion => {
                 let model: Book = deletion.entity as Book;
                 bookService.deleteEntity(model);
             }));
-
-        this.link = `/${PageLink.admin_books}`;
     }
-
-    link: string;
 }

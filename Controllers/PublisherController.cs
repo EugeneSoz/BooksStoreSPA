@@ -19,7 +19,7 @@ namespace BooksStoreSPA.Controllers
         public PublisherController(IPublisherRepo repo) => _repo = repo;
 
         [HttpGet("publisher/{id}")]
-        public async Task<Data.Publisher> GetPublisherAsync(long id)
+        public async Task<Publisher> GetPublisherAsync(long id)
         {
             return await _repo.GetPublisherAsync(id);
         }
@@ -35,7 +35,7 @@ namespace BooksStoreSPA.Controllers
             //}
 
             //return null;
-            PagedList<Data.Publisher> publishers = await _repo.GetPublishersAsync(options);
+            PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
 
             return publishers?.MapPagedResponse();
         }
