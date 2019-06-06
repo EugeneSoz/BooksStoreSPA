@@ -4,8 +4,8 @@ import { Validators } from '@angular/forms';
 import { NameOfHelper } from '../../helpers/nameofHelper';
 import { EntityType } from '../../enums/entityType';
 import { ValidationErrors } from "./validationErrors";
-import { Book } from '../dataDTO/book';
 import { RangeValidator } from './range.formvalidator';
+import { Book } from '../../data/book';
 
 export class BookFormGroup extends CustomFormGroup {
     constructor(

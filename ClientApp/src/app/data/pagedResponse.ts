@@ -1,4 +1,4 @@
-import { Pagination } from '../pagination';
+import { Pagination } from '../models/pagination';
 
 export class PagedResponse<T>{
     constructor(

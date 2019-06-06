@@ -1,9 +1,9 @@
 import { CustomFormGroup, CustomFormControl } from './form';
 import { NameOfHelper } from '../../helpers/nameofHelper';
-import { Order } from '../dataDTO/order';
 import { ValidationErrors } from "./validationErrors";
 import { Validators } from '@angular/forms';
 import { EntityType } from '../../enums/entityType';
+import { Order } from '../../data/order';
 
 export class CheckoutFormGroup extends CustomFormGroup {
     constructor(

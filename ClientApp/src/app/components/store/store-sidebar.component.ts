@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../../services/store.service';
-import { Category } from '../../models/dataDTO/category';
 import 'jquery';
 import 'bootstrap';
-import { BookResponse } from '../../models/dataDTO/bookResponse';
 import { NameOfHelper } from '../../helpers/nameofHelper';
+import { Category } from '../../data/category';
+import { BookResponse } from '../../data/DTO/bookResponse';
 
 @Component({
     selector: 'store-sidebar',

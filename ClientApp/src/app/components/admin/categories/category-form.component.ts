@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CategoryFormGroup } from '../../../models/forms/categoryForm';
-import { BaseForm } from '../../../viewModels/baseForm';
-import { Category } from '../../../models/dataDTO/category';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CategoryService } from '../../../services/category.service';
+import { BaseForm } from '../../../models/baseForm';
+import { Category } from '../../../data/category';
 
 @Component({
     templateUrl: './category-form.component.html',

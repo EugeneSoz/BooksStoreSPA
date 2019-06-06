@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Publisher } from '../../../models/dataDTO/publisher';
 import { PublisherService } from '../../../services/publisher.service';
 import { PublisherFormGroup } from '../../../models/forms/publisherForm';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { BaseForm } from '../../../viewModels/baseForm';
+import { BaseForm } from '../../../models/baseForm';
+import { Publisher } from '../../../data/publisher';
 
 @Component({
     selector: 'app-publisher-form',

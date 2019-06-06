@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
-import { QueryOptions } from '../../../models/dataDTO/queryOptions';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { BookResponse } from '../../../models/dataDTO/bookResponse';
+import { QueryOptions } from '../../../data/DTO/queryOptions';
+import { BookResponse } from '../../../data/DTO/bookResponse';
 
 @Component({
     selector: 'search-toolbar',

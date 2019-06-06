@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BaseAdminService } from './baseAdmin.service';
 import { RestDatasource } from '../helpers/restDatasource';
 import { Urls } from '../helpers/urls';
-import { Book } from '../models/dataDTO/book';
-import { BookResponse } from '../models/dataDTO/bookResponse';
+import { Book } from '../data/book';
+import { BookResponse } from '../data/DTO/bookResponse';
 
 @Injectable()
 export class BookService extends BaseAdminService<Book, BookResponse> {

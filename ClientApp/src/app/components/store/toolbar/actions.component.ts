@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StoreService } from '../../../services/store.service';
-import { ListItem, Dropdown } from '../../../viewModels/dropdown';
 import "jquery";
 import "bootstrap";
 import { BooksGridType } from '../../../enums/bookGridType';
-import { QueryOptions } from '../../../models/dataDTO/queryOptions';
+import { ListItem, Dropdown } from '../../../models/dropdown';
+import { QueryOptions } from '../../../data/DTO/queryOptions';
 
 @Component({
     selector: '.navbar-nav .mr-auto',

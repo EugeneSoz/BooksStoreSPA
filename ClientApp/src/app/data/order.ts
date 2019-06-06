@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CartService } from '../../services/cart.service';
 import { Router, NavigationStart } from '@angular/router';
+import { CartService } from '../services/cart.service';
 //import "rxjs/add/operator/filter";
 
 @Injectable()

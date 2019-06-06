@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { PublisherService } from '../../../services/publisher.service';
-import { Publisher } from '../../../models/dataDTO/publisher';
-import { BaseTable } from '../../../viewModels/baseSelection';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
 import { PageLink } from '../../../enums/pageLink';
+import { Publisher } from '../../../data/publisher';
+import { BaseTable } from '../../../models/baseSelection';
 
 @Component({
     templateUrl: './publishers-table.component.html',

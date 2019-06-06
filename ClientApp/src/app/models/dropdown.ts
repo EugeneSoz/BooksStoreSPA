@@ -1,6 +1,6 @@
-import { BookResponse } from '../models/dataDTO/bookResponse';
 import { BooksGridType } from '../enums/bookGridType';
 import { NameOfHelper } from '../helpers/nameofHelper';
+import { BookResponse } from '../data/DTO/bookResponse';
 
 //класс содержит элементы списка в панели Toolbar
 export class ListItem {

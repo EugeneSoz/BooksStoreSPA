@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Category } from '../../../models/dataDTO/category';
-import { BaseTable } from '../../../viewModels/baseSelection';
 import { CategoryService } from '../../../services/category.service';
-import { CategoryResponse } from '../../../models/dataDTO/categoryResponse';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeletionService } from '../../../services/deletion.service';
 import { PageLink } from '../../../enums/pageLink';
+import { BaseTable } from '../../../models/baseSelection';
+import { Category } from '../../../data/category';
+import { CategoryResponse } from '../../../data/DTO/categoryResponse';
 
 @Component({
     templateUrl: './categories-table.component.html',

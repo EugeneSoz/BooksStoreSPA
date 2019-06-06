@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
-import { QueryOptions } from '../models/dataDTO/queryOptions';
-import { Category } from '../models/dataDTO/category';
-import { BookResponse } from '../models/dataDTO/bookResponse';
-import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { Pagination } from "../models/pagination";
-import { Book } from '../models/dataDTO/book';
+import { QueryOptions } from '../data/DTO/queryOptions';
+import { Category } from '../data/category';
+import { BookResponse } from '../data/DTO/bookResponse';
+import { PagedResponse } from '../data/pagedResponse';
+import { Book } from '../data/book';
 
 @Injectable()
 export class StoreService {

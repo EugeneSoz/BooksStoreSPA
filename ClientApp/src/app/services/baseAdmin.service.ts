@@ -1,10 +1,10 @@
 import { Subject } from 'rxjs';
 
 import { RestDatasource } from '../helpers/restDatasource';
-import { QueryOptions } from '../models/dataDTO/queryOptions';
-import { PagedResponse } from '../models/dataDTO/pagedResponse';
 import { Pagination } from '../models/pagination';
-import { FilterSortingProps } from '../models/dataDTO/filterSortingProps';
+import { QueryOptions } from '../data/DTO/queryOptions';
+import { FilterSortingProps } from '../data/DTO/filterSortingProps';
+import { PagedResponse } from '../data/pagedResponse';
 
 export class BaseAdminService<TEntity, TEntities> {
     constructor(

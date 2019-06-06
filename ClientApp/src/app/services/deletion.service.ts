@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DeletionEventArgs } from '../models/events/DeletionEventArgs';
-import { Publisher } from '../models/dataDTO/publisher';
-import { Category } from '../models/dataDTO/category';
-import { Book } from '../models/dataDTO/book';
+import { Publisher } from '../data/publisher';
+import { Category } from '../data/category';
+import { Book } from '../data/book';
 
 @Injectable({providedIn: "root"})
 export class DeletionService {

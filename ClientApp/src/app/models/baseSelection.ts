@@ -2,11 +2,11 @@ import { Subscription } from 'rxjs';
 
 import { BaseAdminService } from '../services/baseAdmin.service';
 import { Pagination } from '../models/pagination';
-import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { EntityType } from '../enums/entityType';
 import { DeleteMessageComponent } from '../components/modals/delete-message.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { FilterSortingProps } from '../models/dataDTO/filterSortingProps';
+import { FilterSortingProps } from '../data/DTO/filterSortingProps';
+import { QueryOptions } from '../data/DTO/queryOptions';
 
 export class BaseTable<TEntity, TEntities> {
     constructor(

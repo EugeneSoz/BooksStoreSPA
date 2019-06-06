@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 
 import { BaseAdminService } from './baseAdmin.service';
-import { Publisher } from '../models/dataDTO/publisher';
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
+import { Publisher } from '../data/publisher';
 
 @Injectable()
 export class PublisherService extends BaseAdminService<Publisher, Publisher> {

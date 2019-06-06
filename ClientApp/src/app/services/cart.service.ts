@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { BookResponse } from '../models/dataDTO/bookResponse';
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
-import { ProductSelection } from '../models/dataDTO/productSelection';
-import { Order, OrderConfirmation } from '../models/dataDTO/order';
+import { ProductSelection } from '../data/productSelection';
+import { BookResponse } from '../data/DTO/bookResponse';
+import { Order } from '../data/order';
 
 @Injectable()
 export class CartService {

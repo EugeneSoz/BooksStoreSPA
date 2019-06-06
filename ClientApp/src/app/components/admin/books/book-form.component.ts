@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BookService } from '../../../services/book.services';
-import { BaseForm } from '../../../viewModels/baseForm';
 import { BookFormGroup } from '../../../models/forms/bookForm';
-import { Book } from '../../../models/dataDTO/book';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
+import { BaseForm } from '../../../models/baseForm';
+import { Book } from '../../../data/book';
 
 @Component({
     selector: 'app-book-form',

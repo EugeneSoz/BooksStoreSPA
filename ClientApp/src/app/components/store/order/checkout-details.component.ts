@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
-import { Order } from '../../../models/dataDTO/order';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { BaseForm } from '../../../viewModels/baseForm';
 import { CheckoutFormGroup } from '../../../models/forms/checkoutForm';
+import { BaseForm } from '../../../models/baseForm';
+import { Order } from '../../../data/order';
 
 @Component({
     templateUrl: './checkout-details.component.html',

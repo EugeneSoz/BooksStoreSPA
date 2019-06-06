@@ -34,6 +34,11 @@ namespace BooksStoreSPA.Models.Repo
 
         public async Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options)
         {
+            if (string.IsNullOrEmpty(options.SortPropertyName))
+            {
+                options.SortPropertyName = nameof(Category.Name);
+            }
+
             QueryProcessing<Category> processing = new QueryProcessing<Category>(options);
 
             IQueryable<Category> entities = GetEntities();

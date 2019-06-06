@@ -1,4 +1,4 @@
-export class BookResponse {
+export class BookDTO {
     constructor(
         public id?: number,
         public title?: string,
@@ -10,8 +10,5 @@ export class BookResponse {
         public price?: number,
         public bookCover?: string,
         public categoryID?: number | null,
-        public publisherID?: number | null,
-        public categoryName?: string,
-        public subcategoryName?: string,
-        public publisherName?: string) { }
+        public publisherID?: number | null) { }
 }

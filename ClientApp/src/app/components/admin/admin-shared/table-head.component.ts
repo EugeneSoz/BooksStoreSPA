@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
-import { QueryOptions } from "../../../models/dataDTO/queryOptions";
-import { FilterSortingProps } from '../../../models/dataDTO/filterSortingProps';
+import { FilterSortingProps } from '../../../data/DTO/filterSortingProps';
+import { QueryOptions } from '../../../data/DTO/queryOptions';
 
 @Component({
     selector: 'table-head',

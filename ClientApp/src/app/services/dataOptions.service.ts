@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
 import { Urls } from '../helpers/urls';
-import { MigrationsOptions } from '../models/dataDTO/migrationsOptions';
 import { RestDatasource } from '../helpers/restDatasource';
+import { MigrationsOptions } from '../data/DTO/migrationsOptions';
 
 @Injectable()
 export class DataOptionsService {

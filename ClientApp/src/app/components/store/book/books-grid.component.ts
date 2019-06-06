@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
-import { BookResponse } from 'src/app/models/dataDTO/bookResponse';
 import { Pagination } from '../../../models/pagination';
+import { BookResponse } from '../../../data/DTO/bookResponse';
 
 @Component({
     selector: '[id=store-main-content]',

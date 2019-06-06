@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { PaymentFormGroup } from '../../../models/forms/paymentForm';
-import { BaseForm } from '../../../viewModels/baseForm';
-import { Order, Payment } from '../../../models/dataDTO/order';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
+import { BaseForm } from '../../../models/baseForm';
+import { Order, Payment } from '../../../data/order';
 
 @Component({
     templateUrl: './checkout-payment.component.html',

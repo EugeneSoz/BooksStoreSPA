@@ -17,12 +17,12 @@ import { SharedModule } from '../shared/shared.module';
 import { EmptyToolbarComponent } from './toolbar/empty-toolbar.component';
 import { CartService } from '../../services/cart.service';
 import { CartDetailsComponent } from './cart/cart-details.component';
-import { Order } from '../../models/dataDTO/order';
 import { CheckoutDetailsComponent } from './order/checkout-details.component';
 import { CheckoutPaymentComponent } from './order/checkout-payment.component';
 import { CheckoutSummaryComponent } from './order/checkout-summary.component';
 import { OrderConfirmationComponent } from './order/order-confirmation.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Order } from '../../data/order';
 
 @NgModule({
     imports: [

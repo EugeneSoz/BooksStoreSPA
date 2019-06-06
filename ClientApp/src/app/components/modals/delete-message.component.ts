@@ -4,13 +4,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { PublisherService } from '../../services/publisher.service';
 import { EntityType } from '../../enums/entityType';
-import { Publisher } from '../../models/dataDTO/publisher';
 import { DeletionService } from '../../services/deletion.service';
 import { DeletionEventArgs } from '../../models/events/DeletionEventArgs';
 import { CategoryService } from '../../services/category.service';
 import { BookService } from '../../services/book.services';
-import { Category } from '../../models/dataDTO/category';
-import { Book } from '../../models/dataDTO/book';
+import { Publisher } from '../../data/publisher';
+import { Category } from '../../data/category';
+import { Book } from '../../data/book';
 
 @Component({
     selector: 'app-delete-message',

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from '@angular/router';
-import { Order } from '../../../models/dataDTO/order';
 import { CartService } from '../../../services/cart.service';
+import { Order } from '../../../data/order';
 
 @Component({
     templateUrl: './checkout-summary.component.html',

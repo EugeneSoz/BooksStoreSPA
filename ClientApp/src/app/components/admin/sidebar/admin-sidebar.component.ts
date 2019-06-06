@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminSidebarSection } from '../../../viewModels/adminSidebarSection';
 import { PageLink } from '../../../enums/pageLink';
+import { AdminSidebarSection } from '../../../models/adminSidebarSection';
 
 @Component({
     selector: 'admin-sidebar',

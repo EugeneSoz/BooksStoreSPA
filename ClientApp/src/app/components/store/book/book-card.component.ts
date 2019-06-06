@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { BookResponse } from 'src/app/models/dataDTO/bookResponse';
 import { CartService } from '../../../services/cart.service';
+import { BookResponse } from '../../../data/DTO/bookResponse';
 
 @Component({
   selector: 'book-card',

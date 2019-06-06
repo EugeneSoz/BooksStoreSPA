@@ -1,11 +1,11 @@
 import { CustomFormGroup, CustomFormControl } from './form';
 import { Validators } from '@angular/forms';
 
-import { Category } from '../dataDTO/category';
 import { NameOfHelper } from '../../helpers/nameofHelper';
 import { EntityType } from '../../enums/entityType';
 import { ValidationErrors } from "./validationErrors";
 import { RangeValidator } from './range.formvalidator';
+import { Category } from '../../data/category';
 
 export class CategoryFormGroup extends CustomFormGroup {
     constructor(

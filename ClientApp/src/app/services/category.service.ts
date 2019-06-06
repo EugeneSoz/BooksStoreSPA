@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { BaseAdminService } from './baseAdmin.service';
-import { Category } from '../models/dataDTO/category';
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
-import { CategoryResponse } from '../models/dataDTO/categoryResponse';
+import { Category } from '../data/category';
+import { CategoryResponse } from '../data/DTO/categoryResponse';
+
 
 @Injectable()
 export class CategoryService extends BaseAdminService<Category, CategoryResponse> {

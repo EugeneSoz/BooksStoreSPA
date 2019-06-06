@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from '@angular/router';
-import { Order } from '../../../models/dataDTO/order';
+import { Order } from '../../../data/order';
 
 @Component({
     templateUrl: './order-confirmation.component.html',

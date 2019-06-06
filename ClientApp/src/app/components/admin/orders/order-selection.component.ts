@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CartService } from '../../../services/cart.service';
-import { Order } from '../../../models/dataDTO/order';
+import { Order } from '../../../data/order';
 
 @Component({
     templateUrl: './order-selection.component.html',

@@ -1,10 +1,10 @@
 import { NameOfHelper } from '../../helpers/nameofHelper';
-import { Publisher } from '../dataDTO/publisher';
 import { EntityType } from '../../enums/entityType';
 import { ErrorAttributes } from '../../enums/errorAttributes';
-import { Category } from '../dataDTO/category';
-import { Book } from '../dataDTO/book';
-import { Order, Payment } from '../dataDTO/order';
+import { Publisher } from '../../data/publisher';
+import { Category } from '../../data/category';
+import { Book } from '../../data/book';
+import { Order, Payment } from '../../data/order';
 
 export class ValidationErrors {
 
