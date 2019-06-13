@@ -2,8 +2,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { CustomFormControl } from '../models/forms/form';
 import { OnDestroy } from '@angular/core';
+import { CustomFormControl } from './forms/customFormControl';
 
 export class BaseForm<TFormGroup extends FormGroup> implements OnDestroy {
     constructor(

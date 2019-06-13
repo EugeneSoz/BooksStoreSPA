@@ -13,7 +13,6 @@ import { CategoriesTableComponent } from './categories/categories-table.componen
 import { BooksSectionComponent } from './books/books-section.component';
 import { BooksTableComponent } from './books/books-table.component';
 import { PageLink } from '../../enums/pageLink';
-import { PublisherCreateEditComponent } from './publishers/publisher-create-edit.component';
 import { PublisherFormComponent } from './publishers/publisher-form.component';
 
 const routes: Routes = [

@@ -19,7 +19,7 @@ export class BookFormComponent extends BaseForm<BookFormGroup> implements OnInit
         activeRoute: ActivatedRoute) {
 
         super(activeRoute);
-        this.form = new BookFormGroup(this._nh, this.book);
+        this.form = new BookFormGroup(this.book);
     }
 
     book: Book = new Book();
@@ -33,7 +33,7 @@ export class BookFormComponent extends BaseForm<BookFormGroup> implements OnInit
             this._bookService.entityChanged.subscribe(changed => {
                 if (changed) {
                     Object.assign(this.book, this._bookService.entity);
-                    this.form = new BookFormGroup(this._nh, this.book);
+                    this.form = new BookFormGroup(this.book);
                 }
             }));
         if (this._id != null) {

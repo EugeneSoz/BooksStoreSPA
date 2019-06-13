@@ -4,21 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryFormGroup } from '../../../models/forms/categoryForm';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CategoryService } from '../../../services/category.service';
-import { BaseForm } from '../../../models/baseForm';
-import { Category } from '../../../data/category';
 import { CategoryDTO } from '../../../data/DTO/categoryDTO';
+import { BaseAdminFormComponent } from '../../../models/forms/baseAdminFormComponent';
 
 @Component({
     templateUrl: './category-form.component.html',
 })
-export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implements OnInit {
+export class CategoryFormComponent extends BaseAdminFormComponent<CategoryFormGroup> implements OnInit {
     constructor(
         private _categoryService: CategoryService,
         private _nh: NameOfHelper,
         activeRoute: ActivatedRoute) {
 
         super(activeRoute);
-        this.form = new CategoryFormGroup(this._nh, this.category);
+        this.form = new CategoryFormGroup(this.category);
     }
 
     category: CategoryDTO = new CategoryDTO();
@@ -28,11 +27,11 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
     }
 
     ngOnInit(): void {
-        this._subscription.add(
+        this._subscriptions.push(
             this._categoryService.entityChanged.subscribe(changed => {
                 if (changed) {
                     Object.assign(this.category, this._categoryService.entity);
-                    this.form = new CategoryFormGroup(this._nh, this.category);
+                    this.form = new CategoryFormGroup(this.category);
                 }
             }));
         if (this._id != null) {

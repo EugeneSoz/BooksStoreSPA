@@ -36,7 +36,7 @@ export class PublishersTableComponent extends BaseTable<Publisher, Publisher, Pu
         }
 
         this._subscriptions.push(
-            this.modalService.onHide.subscribe((reason: string) => {
+            this.modalService.onHide.subscribe(() => {
                 if (this.modalRef != null &&
                     (this.modalRef.content as DeleteMessageComponent).result == "delete") {
                     this._service.deleteEntity(this.publisherDTO);
@@ -45,7 +45,6 @@ export class PublishersTableComponent extends BaseTable<Publisher, Publisher, Pu
             })
         );
 
-        this._subscriptions.forEach((s, i) => console.log("subscription - " + i.toString()));
         this.modalRef = this.modalService.show(DeleteMessageComponent, { initialState });
     }
 

@@ -1,45 +1,51 @@
-import { CustomFormGroup, CustomFormControl } from './form';
 import { Validators } from '@angular/forms';
 
-import { NameOfHelper } from '../../helpers/nameofHelper';
 import { EntityType } from '../../enums/entityType';
-import { ValidationErrors } from "./validationErrors";
 import { RangeValidator } from './range.formvalidator';
 import { Category } from '../../data/category';
 import { CategoryDTO } from '../../data/DTO/categoryDTO';
+import { CustomFormControl, CustomFormGroup } from './customFormControl';
+import { ModelErrors } from './modelErrors';
+import { IPropertyName } from './ipropertyName';
 
-export class CategoryFormGroup extends CustomFormGroup {
+export class CategoryFormGroup extends CustomFormGroup implements IPropertyName<CategoryDTO> {
     constructor(
-        nh: NameOfHelper, category: Category) {
+        category: Category) {
 
         super();
-        this._ve = new ValidationErrors();
-        this.addControl(nh.nameof<CategoryDTO>("id"),
+
+        this._me = new ModelErrors();
+
+        this.addControl(this.getPropertyName("id"),
             new CustomFormControl(category.id,
                 undefined,
                 "ID",
-                nh.nameof<CategoryDTO>("id"),
+                this.getPropertyName("id"),
                 EntityType.Category,
-                this._ve));
+                this._me));
 
-        this.addControl(nh.nameof<CategoryDTO>("parentCategoryID"),
+        this.addControl(this.getPropertyName("parentCategoryID"),
             new CustomFormControl(category.parentCategoryID,
                 undefined,
                 "Родительская категория",
-                nh.nameof<CategoryDTO>("parentCategoryID"),
+                this.getPropertyName("parentCategoryID"),
                 EntityType.Category,
-                this._ve));
+                this._me));
 
 
-        this.addControl(nh.nameof<CategoryDTO>("name"),
+        this.addControl(this.getPropertyName("name"),
             new CustomFormControl(category.name,
                 Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
                 "Название категории",
-                nh.nameof<Category>("name"),
+                this.getPropertyName("name"),
                 EntityType.Category,
-                this._ve));
+                this._me));
 
     }
 
-    private _ve: ValidationErrors;
+    private _me: ModelErrors;
+
+    getPropertyName(key: keyof CategoryDTO): keyof CategoryDTO {
+        return key;
+    }
 }

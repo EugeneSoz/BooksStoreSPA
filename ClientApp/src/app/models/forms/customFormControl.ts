@@ -1,25 +1,24 @@
 import { FormControl, ValidatorFn, FormGroup } from "@angular/forms";
-import { ValidationErrors } from './validationErrors';
 import { EntityType } from '../../enums/entityType';
 import { ErrorAttributes } from '../../enums/errorAttributes';
-import { NameOfHelper } from '../../helpers/nameofHelper';
+import { ModelErrors } from './modelErrors';
 
 export class CustomFormControl extends FormControl {
     constructor(value: string | number | boolean, validator: ValidatorFn | ValidatorFn[],
         label: string, property: string,
-        entityType: EntityType, ve: ValidationErrors) {
+        entityType: EntityType, me: ModelErrors) {
 
         super(value, validator);
         this.label = label;
         this.property = property;
         this._entityType = entityType;
-        this._ve = ve;
+        this._me = me;
     }
 
     label: string;
     property: string;
     private _entityType: EntityType;
-    private _ve: ValidationErrors;
+    private _me: ModelErrors;
 
     getValidationMessages(): Array<string> {
         let messages: Array<string> = new Array<string>();
@@ -28,11 +27,11 @@ export class CustomFormControl extends FormControl {
             for (let errorName in this.errors) {
                 switch (errorName) {
                     case ErrorAttributes.required:
-                        messages.push(this._ve.getValidationErrors(this._entityType,
+                        messages.push(this._me.getValidationErrors(this._entityType,
                             this.property, errorName));
                         break;
                     case ErrorAttributes.range:
-                        messages.push(this._ve.getValidationErrors(this._entityType,
+                        messages.push(this._me.getValidationErrors(this._entityType,
                             this.property, errorName));
                         break;
                 }

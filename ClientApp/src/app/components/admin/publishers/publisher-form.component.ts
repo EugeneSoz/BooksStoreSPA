@@ -3,28 +3,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { PublisherService } from '../../../services/publisher.service';
 import { Publisher } from '../../../data/publisher';
-import { ModelErrors } from '../../../models/forms/modelErrors';
-import { EntityType } from '../../../enums/entityType';
 import { BaseAdminFormComponent } from '../../../models/forms/baseAdminFormComponent';
 import { PublisherDTO } from '../../../data/DTO/publisherDTO';
 import { NgForm } from '@angular/forms';
 import { PageLink } from '../../../enums/pageLink';
+import { PublisherFormGroup } from '../../../models/forms/publisherForm';
+import { Book } from '../../../data/book';
 
 @Component({
     selector: 'app-publisher-form',
     templateUrl: './publisher-form.component.html',
 })
-export class PublisherFormComponent extends BaseAdminFormComponent implements OnInit {
+export class PublisherFormComponent extends BaseAdminFormComponent<PublisherFormGroup> implements OnInit {
     constructor(
         private _publisherService: PublisherService,
         activeRoute: ActivatedRoute,
         private _router: Router) {
 
-        super(activeRoute, new ModelErrors(), EntityType.Publisher);
+        super(activeRoute);
+        this.form = new PublisherFormGroup(this.publisher);
         this.link = `/${PageLink.admin_publishers}`;
     }
 
     publisher: PublisherDTO = new PublisherDTO();
+    books: Array<Book> = null;
 
     get errors(): Array<string> {
         return this._publisherService.errors;
@@ -34,7 +36,9 @@ export class PublisherFormComponent extends BaseAdminFormComponent implements On
         this._subscriptions.push(
             this._publisherService.entityChanged.subscribe(changed => {
                 if (changed) {
+                    this.books = this._publisherService.entity.books;
                     this.publisher = this._ee.mapPublisherDTO(this._publisherService.entity);
+                    this.form = new PublisherFormGroup(this.publisher);
                 }
             })
         );
@@ -51,23 +55,22 @@ export class PublisherFormComponent extends BaseAdminFormComponent implements On
         }
     }
 
-    onSetCountry(value: string): void {
-        if (value.length == 4) {
-            this.publisher.country = `${value}-`;
+    onSubmit(): void {
+        if (!this.form.valid) {
+            return;
         }
-    }
 
-    onSubmit(form: NgForm): void {
+        this.publisher = this.form.value;
         //update
-        if (form.valid && this.editing) {
+        if (this.editing) {
             this._publisherService.updateEntity(this.publisher);
         }//create
-        else if (form.valid && !this.editing) {
+        else {
             this._publisherService.createEntity(this.publisher)
             this.isAlertVisible = true;
             this.publisher = new Publisher();
         }
 
-        form.reset();
+        this.form.reset();
     }
 }

@@ -1,23 +1,23 @@
-import { CustomFormGroup, CustomFormControl } from './form';
 import { NameOfHelper } from '../../helpers/nameofHelper';
-import { ValidationErrors } from "./validationErrors";
 import { Validators } from '@angular/forms';
 import { EntityType } from '../../enums/entityType';
 import { Payment, Order } from '../../data/order';
+import { ModelErrors } from './modelErrors';
+import { CustomFormGroup, CustomFormControl } from './customFormControl';
 
 export class PaymentFormGroup extends CustomFormGroup {
     constructor(
         nh: NameOfHelper, order: Order) {
 
         super();
-        this._ve = new ValidationErrors();
+        this._me = new ModelErrors();
         this.addControl(nh.nameof<Payment>("cardNumber"),
             new CustomFormControl(order.payment.cardNumber,
                 Validators.required,
                 "Номер банковской карты",
                 nh.nameof<Payment>("cardNumber"),
                 EntityType.Order,
-                this._ve));
+                this._me));
 
         this.addControl(nh.nameof<Payment>("cardExpiry"),
             new CustomFormControl(order.payment.cardExpiry,
@@ -25,7 +25,7 @@ export class PaymentFormGroup extends CustomFormGroup {
                 "Укажите срок действий карты",
                 nh.nameof<Payment>("cardExpiry"),
                 EntityType.Order,
-                this._ve));
+                this._me));
 
         this.addControl(nh.nameof<Payment>("cardSecurityCode"),
             new CustomFormControl(order.payment.cardExpiry,
@@ -33,8 +33,8 @@ export class PaymentFormGroup extends CustomFormGroup {
                 "Код безопасности карты",
                 nh.nameof<Payment>("cardSecurityCode"),
                 EntityType.Order,
-                this._ve));
+                this._me));
     }
 
-    private _ve: ValidationErrors;
+    private _me: ModelErrors;
 }
