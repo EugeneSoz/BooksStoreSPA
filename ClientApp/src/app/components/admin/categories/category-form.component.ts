@@ -6,6 +6,7 @@ import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CategoryService } from '../../../services/category.service';
 import { BaseForm } from '../../../models/baseForm';
 import { Category } from '../../../data/category';
+import { CategoryDTO } from '../../../data/DTO/categoryDTO';
 
 @Component({
     templateUrl: './category-form.component.html',
@@ -20,7 +21,7 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
         this.form = new CategoryFormGroup(this._nh, this.category);
     }
 
-    category: Category = new Category();
+    category: CategoryDTO = new CategoryDTO();
 
     get errors(): Array<string> {
         return this._categoryService.errors;
@@ -41,9 +42,10 @@ export class CategoryFormComponent extends BaseForm<CategoryFormGroup> implement
 
     submitForm(): void {
         if (this.form.valid) {
-            this.category.name = this.form.get(this._nh.nameof<Category>("name")).value;
-            this.category.parentCategoryID =
-                this.form.get(this._nh.nameof<Category>("parentCategoryID")).value;
+            this.category = this.form.value;
+            //this.category.name = this.form.get(this._nh.nameof<Category>("name")).value;
+            //this.category.parentCategoryID =
+            //    this.form.get(this._nh.nameof<Category>("parentCategoryID")).value;
 
             if (this.editing) {
                 this._categoryService.updateEntity(this.category);

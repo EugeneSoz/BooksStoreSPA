@@ -6,6 +6,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PaginationComponent } from './pagination.component';
 import { ValidationComponent } from './validation.component';
 import { ServerValidationComponent } from './server-validation.component';
+import { RangeValidatorDirective } from '../../directives/range.directive';
 
 @NgModule({
     imports: [
@@ -15,12 +16,14 @@ import { ServerValidationComponent } from './server-validation.component';
     exports: [
         PaginationComponent,
         ValidationComponent,
-        ServerValidationComponent
+        ServerValidationComponent,
+        RangeValidatorDirective
     ],
     declarations: [
         PaginationComponent,
         ValidationComponent,
-        ServerValidationComponent
+        ServerValidationComponent,
+        RangeValidatorDirective
     ],
     providers: [],
 })

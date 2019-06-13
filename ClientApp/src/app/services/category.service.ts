@@ -5,10 +5,11 @@ import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
 import { Category } from '../data/category';
 import { CategoryResponse } from '../data/DTO/categoryResponse';
+import { CategoryDTO } from '../data/DTO/categoryDTO';
 
 
 @Injectable()
-export class CategoryService extends BaseAdminService<Category, CategoryResponse> {
+export class CategoryService extends BaseAdminService<Category, CategoryResponse, CategoryDTO> {
 
     constructor(
         urls: Urls,

@@ -4,9 +4,10 @@ import { BaseAdminService } from './baseAdmin.service';
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDatasource';
 import { Publisher } from '../data/publisher';
+import { PublisherDTO } from '../data/DTO/publisherDTO';
 
 @Injectable()
-export class PublisherService extends BaseAdminService<Publisher, Publisher> {
+export class PublisherService extends BaseAdminService<Publisher, Publisher, PublisherDTO> {
 
     constructor(
         urls: Urls,

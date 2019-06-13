@@ -6,7 +6,7 @@ import { QueryOptions } from '../data/DTO/queryOptions';
 import { FilterSortingProps } from '../data/DTO/filterSortingProps';
 import { PagedResponse } from '../data/pagedResponse';
 
-export class BaseAdminService<TEntity, TEntities> {
+export class BaseAdminService<TEntity, TEntities, TEntityDTO> {
     constructor(
         private _rest: RestDatasource) {
 
@@ -23,9 +23,10 @@ export class BaseAdminService<TEntity, TEntities> {
     protected sortingPropUrl: string;
 
     entityChanged: Subject<boolean> = new Subject<boolean>();
+    entityUpdated: Subject<boolean> = new Subject<boolean>();
+
     entities: Array<TEntities> = null;
     protected _queryOptions: QueryOptions = null;
-    private _entity: TEntity = null;
     pagination: Pagination = null;
     pageNumbers: Array<number>;
     errors: Array<string> = null;
@@ -36,6 +37,7 @@ export class BaseAdminService<TEntity, TEntities> {
     filterProps: Array<FilterSortingProps> = null;
     sortingProps: Array<FilterSortingProps> = null;
 
+    private _entity: TEntity = null;
     get entity(): TEntity {
         return this._entity;
     }
@@ -72,20 +74,22 @@ export class BaseAdminService<TEntity, TEntities> {
             .subscribe(result => this.sortingProps = result);
     }
 
-    createEntity(model: TEntity): void {
-        this._rest.create<TEntity>(`${this.createUrl}`, model)
+    createEntity(model: TEntityDTO): void {
+        this._rest.create<TEntityDTO>(`${this.createUrl}`, model)
             .subscribe((result: boolean) => {},
             (errors) => this.errors = <string[]>errors);
     }
 
-    updateEntity(model: TEntity): void {
-        this._rest.update<TEntity>(`${this.updateUrl}`, model)
-            .subscribe((result: boolean) => { },
+    updateEntity(model: TEntityDTO): void {
+        this._rest.update<TEntityDTO>(`${this.updateUrl}`, model)
+            .subscribe((result: boolean) => {
+                this.entityUpdated.next(result);
+            },
             (errors) => this.errors = <string[]>errors);
     }
 
-    deleteEntity(model: TEntity): void {
-        this._rest.delete<TEntity>(this.deleteUrl, model)
+    deleteEntity(model: TEntityDTO): void {
+        this._rest.delete<TEntityDTO>(this.deleteUrl, model)
             .subscribe((result: boolean) => {
                 if (result) {
                     this.entity = null;

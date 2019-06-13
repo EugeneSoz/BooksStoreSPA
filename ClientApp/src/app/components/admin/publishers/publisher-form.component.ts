@@ -1,63 +1,73 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PublisherService } from '../../../services/publisher.service';
-import { PublisherFormGroup } from '../../../models/forms/publisherForm';
-import { NameOfHelper } from '../../../helpers/nameofHelper';
-import { BaseForm } from '../../../models/baseForm';
 import { Publisher } from '../../../data/publisher';
+import { ModelErrors } from '../../../models/forms/modelErrors';
+import { EntityType } from '../../../enums/entityType';
+import { BaseAdminFormComponent } from '../../../models/forms/baseAdminFormComponent';
+import { PublisherDTO } from '../../../data/DTO/publisherDTO';
+import { NgForm } from '@angular/forms';
+import { PageLink } from '../../../enums/pageLink';
 
 @Component({
     selector: 'app-publisher-form',
     templateUrl: './publisher-form.component.html',
 })
-export class PublisherFormComponent extends BaseForm<PublisherFormGroup> implements OnInit {
+export class PublisherFormComponent extends BaseAdminFormComponent implements OnInit {
     constructor(
         private _publisherService: PublisherService,
-        private _nh: NameOfHelper,
         activeRoute: ActivatedRoute,
         private _router: Router) {
 
-        super(activeRoute);
-        this.form = new PublisherFormGroup(this._nh, this.publisher);
+        super(activeRoute, new ModelErrors(), EntityType.Publisher);
+        this.link = `/${PageLink.admin_publishers}`;
     }
 
-    publisher: Publisher = new Publisher();
+    publisher: PublisherDTO = new PublisherDTO();
 
     get errors(): Array<string> {
         return this._publisherService.errors;
     }
 
     ngOnInit(): void {
-        this._subscription.add(
+        this._subscriptions.push(
             this._publisherService.entityChanged.subscribe(changed => {
                 if (changed) {
-                    Object.assign(this.publisher, this._publisherService.entity);
-                    this.form = new PublisherFormGroup(this._nh, this.publisher);
+                    this.publisher = this._ee.mapPublisherDTO(this._publisherService.entity);
                 }
-            }));
-        if (this._id != null) {
+            })
+        );
+        this._subscriptions.push(
+            this._publisherService.entityUpdated.subscribe(updated => {
+                if (updated) {
+                    this._router.navigateByUrl(PageLink.admin_publishers);
+                }
+            })
+        );
+
+        if (this._id != 0) {
             this._publisherService.getEntity(this._id);
         }
     }
 
-    onSubmit(): void {
-        if (this.form.valid) {
-            this.publisher.name = this.form.get(this._nh.nameof<Publisher>("name")).value;
-            this.publisher.country = this.form.get(this._nh.nameof<Publisher>("country")).value;
-
-            if (this.editing) {
-                this._publisherService.updateEntity(this.publisher);
-            }
-            else {
-                this._publisherService.createEntity(this.publisher)
-            }
-            this.publisher = new Publisher();
-            if (this.editing) {
-                this._router.navigateByUrl("admin/publishers");
-            }
-            this.isAlertVisible = true;
-            this.form.reset();
+    onSetCountry(value: string): void {
+        if (value.length == 4) {
+            this.publisher.country = `${value}-`;
         }
+    }
+
+    onSubmit(form: NgForm): void {
+        //update
+        if (form.valid && this.editing) {
+            this._publisherService.updateEntity(this.publisher);
+        }//create
+        else if (form.valid && !this.editing) {
+            this._publisherService.createEntity(this.publisher)
+            this.isAlertVisible = true;
+            this.publisher = new Publisher();
+        }
+
+        form.reset();
     }
 }

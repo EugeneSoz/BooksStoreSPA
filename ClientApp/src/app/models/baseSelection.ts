@@ -8,9 +8,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { FilterSortingProps } from '../data/DTO/filterSortingProps';
 import { QueryOptions } from '../data/DTO/queryOptions';
 
-export class BaseTable<TEntity, TEntities> {
+export class BaseTable<TEntity, TEntities, TEntityDTO> {
     constructor(
-        private _service: BaseAdminService<TEntity, TEntities>,
+        protected _service: BaseAdminService<TEntity, TEntities, TEntityDTO>,
         entityType: EntityType,
         modalService: BsModalService,
         link: string) {
@@ -22,9 +22,10 @@ export class BaseTable<TEntity, TEntities> {
 
     private _entityType: EntityType;
     private _modalService: BsModalService;
-    protected subscription: Subscription = new Subscription();
+    protected _subscriptions: Array<Subscription> = new Array<Subscription>();
 
     link: string = null;
+    entityId: number = 0;
 
     get filterProperties(): Array<FilterSortingProps> {
         return this._service.filterProps;
@@ -82,6 +83,6 @@ export class BaseTable<TEntity, TEntities> {
 
     ngOnDestroy(): void {
         //this._service.resetQueryOptionsToDefault();
-        this.subscription.unsubscribe();
+        this._subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 }

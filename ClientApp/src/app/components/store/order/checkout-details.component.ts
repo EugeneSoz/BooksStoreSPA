@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { CheckoutFormGroup } from '../../../models/forms/checkoutForm';
@@ -8,7 +8,7 @@ import { Order } from '../../../data/order';
 @Component({
     templateUrl: './checkout-details.component.html',
 })
-export class CheckoutDetailsComponent extends BaseForm<CheckoutFormGroup> {
+export class CheckoutDetailsComponent extends BaseForm<CheckoutFormGroup> implements OnInit {
     constructor(
         private _router: Router,
         private _order: Order,
@@ -19,7 +19,21 @@ export class CheckoutDetailsComponent extends BaseForm<CheckoutFormGroup> {
         this.form = new CheckoutFormGroup(_nh, _order);
         if (_order.products.length == 0) {
             this._router.navigateByUrl("/store/cart");
-        }
+        }       
+    }
+
+    ngOnInit(): void {
+        this.form.controls['name'].valueChanges.subscribe((value: string) => {
+            if (value.length == 4) {
+                let newValue: string = `${value}-`;
+                this.form.controls['name'].patchValue(newValue, { emitEvent: true });
+            }
+            //else {
+            //    this.form.controls['name'].patchValue(oldValue, { emitEvent: false });
+            //}
+
+            console.log(this.form.controls['name'].value);
+        });
     }
 
     onSubmitForm(): void {

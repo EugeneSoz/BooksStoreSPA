@@ -9,7 +9,7 @@
                    <form novalidate [formGroup]="form" (ngSubmit)="onSubmitForm()">
                         <div class="form-group" *ngFor="let control of form.customControls">
                             <label>{{control.label}}</label>
-                            <input type="text" class="form-control" 
+                            <input type="text" class="form-control" maxlength="10"
                                 formControlName="{{control.property}}" />
                             <app-validation [messages]="getErrors(control.property)"></app-validation>
                         </div>

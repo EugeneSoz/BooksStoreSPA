@@ -29,6 +29,7 @@ import { BooksTableComponent } from './books/books-table.component';
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        FormsModule,
         AdminRoutingModule,
         SharedModule,
         TooltipModule.forRoot()

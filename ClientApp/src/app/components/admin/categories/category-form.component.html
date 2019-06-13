@@ -29,7 +29,7 @@
                             <server-validation [errors]="errors"></server-validation>
                             <div class="form-group row" 
                                 *ngFor="let control of form.customControls; let i=index">
-                                <ng-container *ngIf="i == 0">
+                                <ng-container *ngIf="i == 1">
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
                                         <select class="form-control" formControlName="{{control.property}}">
@@ -39,7 +39,7 @@
                                         <app-validation [messages]="getErrors(control.property)"></app-validation>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngIf="i == 1">
+                                <ng-container *ngIf="i == 2">
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" formControlName="{{control.property}}" />
@@ -59,7 +59,7 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <related-book-table [books]="category.books"></related-book-table>
+                        <!-- <related-book-table></related-book-table> -->
                     </div>
                 </div>
             </div>

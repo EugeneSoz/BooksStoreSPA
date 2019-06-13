@@ -5,7 +5,6 @@ import { AdminLayoutComponent } from '../layouts/admin-layout.component';
 import { DbServicesComponent } from './dbServices/dbServices.component';
 import { PublishersTableComponent } from './publishers/publishers-table.component';
 import { OrderSelectionComponent } from './orders/order-selection.component';
-import { PublisherFormComponent } from './publishers/publisher-form.component';
 import { CategoryFormComponent } from './categories/category-form.component';
 import { BookFormComponent } from './books/book-form.component';
 import { PublishersSectionComponent } from './publishers/publishers-section.component';
@@ -14,6 +13,8 @@ import { CategoriesTableComponent } from './categories/categories-table.componen
 import { BooksSectionComponent } from './books/books-section.component';
 import { BooksTableComponent } from './books/books-table.component';
 import { PageLink } from '../../enums/pageLink';
+import { PublisherCreateEditComponent } from './publishers/publisher-create-edit.component';
+import { PublisherFormComponent } from './publishers/publisher-form.component';
 
 const routes: Routes = [
     {
