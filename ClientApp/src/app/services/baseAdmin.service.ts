@@ -8,7 +8,7 @@ import { PagedResponse } from '../data/pagedResponse';
 
 export class BaseAdminService<TEntity, TEntities, TEntityDTO> {
     constructor(
-        private _rest: RestDatasource) {
+        protected _rest: RestDatasource) {
 
         this._queryOptions = new QueryOptions();
         this._queryOptions.resetToDefault();

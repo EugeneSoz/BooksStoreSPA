@@ -13,6 +13,7 @@ export class Urls {
     private baseCategoryUrl: string = `/api/category`;
     storeCategories: string = `${this.baseCategoryUrl}/storecategories`;
     categories: string = `${this.baseCategoryUrl}/categories`;
+    parentCategories: string = `${this.baseCategoryUrl}/parentcategories`;
     category: string = `${this.baseCategoryUrl}/category`;
     category_create: string = `${this.baseCategoryUrl}/create`;
     category_update: string = `${this.baseCategoryUrl}/update`;

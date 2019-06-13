@@ -115,5 +115,29 @@ namespace BooksStoreSPA.Models.Repo
 
             return categories;
         }
+
+        public async Task<List<Category>> GetParentCategoriesAsync()
+        {
+            IQueryable<Category> query = GetEntities()
+                .Where(c => c.ParentCategoryID == null)
+                .OrderBy(c => c.Name);
+
+            return await query.ToListAsync();
+        }
+
+        //метод для удаления дочерних категорий
+        public async Task<bool> DeleteAsync(long parentCategoryId)
+        {
+            IQueryable<Category> query = GetEntities().Where(c => c.ParentCategoryID == parentCategoryId);
+            List<Category> categories = await query.ToListAsync();
+            if (categories.Any())
+            {
+                Context.RemoveRange(categories);
+                await Context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

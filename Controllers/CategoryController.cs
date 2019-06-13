@@ -9,7 +9,6 @@ using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Repo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BooksStoreSPA.Controllers
 {
@@ -40,6 +39,12 @@ namespace BooksStoreSPA.Controllers
             return await _repo.GetStoreCategoriesAsync();
         }
 
+        [HttpGet("parentcategories")]
+        public async Task<List<Category>> GetParentCategoriesAsync()
+        {
+            return await _repo.GetParentCategoriesAsync();
+        }
+
         [HttpPost("create")]
         public async Task<ActionResult> CreateCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
@@ -58,6 +63,17 @@ namespace BooksStoreSPA.Controllers
         public async Task<ActionResult> DeleteCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
             Category category = categoryDTO.MapCategory();
+            //если у категории есть дочернии, тогда удалить их
+            if (category.ParentCategoryID == null)
+            {
+                bool isOk = await _repo.DeleteAsync(category.Id);
+                //в случае успеха - удалить саму родительскую категорию
+                if (isOk)
+                {
+                    return await DeleteAsync(category, _repo.DeleteAsync);
+                }
+            }
+            //удалить любую категорию, у которой нет дочерних
             return await DeleteAsync(category, _repo.DeleteAsync);
         }
     }

@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PublisherService } from '../../../services/publisher.service';
-import { Publisher } from '../../../data/publisher';
 import { BaseAdminFormComponent } from '../../../models/forms/baseAdminFormComponent';
 import { PublisherDTO } from '../../../data/DTO/publisherDTO';
-import { NgForm } from '@angular/forms';
 import { PageLink } from '../../../enums/pageLink';
 import { PublisherFormGroup } from '../../../models/forms/publisherForm';
 import { Book } from '../../../data/book';
@@ -68,9 +66,14 @@ export class PublisherFormComponent extends BaseAdminFormComponent<PublisherForm
         else {
             this._publisherService.createEntity(this.publisher)
             this.isAlertVisible = true;
-            this.publisher = new Publisher();
+            this.publisher = new PublisherDTO();
         }
 
         this.form.reset();
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this._publisherService.entity = null;
     }
 }

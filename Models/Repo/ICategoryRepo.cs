@@ -12,5 +12,7 @@ namespace BooksStoreSPA.Models.Repo
         Task<Category> GetCategoryAsync(long id);
         Task<PagedList<CategoryResponse>> GetCategoriesAsync(QueryOptions options);
         Task<List<Category>> GetStoreCategoriesAsync();
+        Task<List<Category>> GetParentCategoriesAsync();
+        Task<bool> DeleteAsync(long parentCategoryId);
     }
 }

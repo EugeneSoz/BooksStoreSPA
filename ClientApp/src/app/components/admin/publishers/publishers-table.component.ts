@@ -19,7 +19,7 @@ export class PublishersTableComponent extends BaseTable<Publisher, Publisher, Pu
 
     constructor(
         publisherService: PublisherService,
-        public modalService: BsModalService) {
+        private modalService: BsModalService) {
 
         super(publisherService, EntityType.Publisher, modalService, `/${PageLink.admin_publishers}`);
     }
