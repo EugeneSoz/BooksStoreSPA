@@ -40,6 +40,14 @@ namespace BooksStoreSPA.Controllers
             return publishers?.MapPagedResponse();
         }
 
+        [HttpPost("publishersforselection")]
+        public async Task<List<Publisher>> GetPublishersForSelection([FromBody] QueryOptions options)
+        {
+            PagedList<Publisher> pagedPublishers = await _repo.GetPublishersAsync(options);
+
+            return pagedPublishers.Entities;
+        }
+
         [HttpPost("create")]
         public async Task<ActionResult> CreatePublisherAsync([FromBody] PublisherDTO publisherDTO)
         {

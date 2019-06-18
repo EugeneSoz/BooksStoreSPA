@@ -2,11 +2,11 @@ import { Validators } from '@angular/forms';
 
 import { EntityType } from '../../enums/entityType';
 import { RangeValidator } from './range.formvalidator';
-import { Book } from '../../data/book';
 import { CustomFormGroup, CustomFormControl } from './customFormControl';
 import { ModelErrors } from './modelErrors';
-import { BookDTO } from '../../data/DTO/bookDTO';
 import { IPropertyName } from './ipropertyName';
+import { BookDTO } from '../../data/DTO/bookDTO';
+import { Book } from '../../data/book';
 
 export class BookFormGroup extends CustomFormGroup implements IPropertyName<BookDTO> {
     constructor(
@@ -14,6 +14,14 @@ export class BookFormGroup extends CustomFormGroup implements IPropertyName<Book
 
         super();
         this._me = new ModelErrors();
+        this.addControl(this.getPropertyName("id"),
+            new CustomFormControl(book.id,
+                undefined,
+                "ID",
+                this.getPropertyName("id"),
+                EntityType.Book,
+                this._me));
+
         this.addControl(this.getPropertyName("title"),
             new CustomFormControl(book.title,
                 Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
@@ -64,29 +72,21 @@ export class BookFormGroup extends CustomFormGroup implements IPropertyName<Book
                 EntityType.Book,
                 this._me));
 
-        //this.addControl(nh.nameof<Book>("category"),
-        //    new CustomFormControl(book.title,
-        //        undefined,
-        //        "Категория",
-        //        nh.nameof<Book>("category"),
-        //        EntityType.Book,
-        //        this._me));
+        this.addControl(this.getPropertyName("categoryID"),
+            new CustomFormControl(book.categoryID,
+                undefined,
+                "Категория",
+                this.getPropertyName("categoryID"),
+                EntityType.Book,
+                this._me));
 
-        //this.addControl("subcategory",
-        //    new CustomFormControl(book.title,
-        //        undefined,
-        //        "Подкатегория",
-        //        "subcategory",
-        //        EntityType.Book,
-        //        this._me));
-
-        //this.addControl(this.getPropertyName("publisher"),
-        //    new CustomFormControl(book.title,
-        //        undefined,
-        //        "Издательство",
-        //        this.getPropertyName("publisher"),
-        //        EntityType.Book,
-        //        this._me));
+        this.addControl(this.getPropertyName("publisherID"),
+            new CustomFormControl(book.publisherID,
+                undefined,
+                "Издательство",
+                this.getPropertyName("publisherID"),
+                EntityType.Book,
+                this._me));
 
         this.addControl(this.getPropertyName("description"),
             new CustomFormControl(book.description,

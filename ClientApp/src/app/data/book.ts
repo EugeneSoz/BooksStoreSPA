@@ -4,8 +4,8 @@ import { BookDTO } from './DTO/bookDTO';
 
 export class Book extends BookDTO {
     constructor(
-        public category?: Category,
-        public publisher?: Publisher) {
+        public category: Category = null,
+        public publisher: Publisher = null) {
 
         super();
     }

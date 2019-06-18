@@ -18,29 +18,42 @@
                         <div class="bg-primary text-white p-2" [class.bg-warning]="editing">
                             <div class="d-flex flex-row justify-content-between">
                                 <h5>{{title}} книгу</h5>
-                                <button type="button" [class]="background" routerLink="/admin/books">
+                                <button type="button" [class]="background" [routerLink]="link">
                                     К списку книг</button>
                             </div>
                         </div>
-                        <form class="mt-3" novalidate [formGroup]="form" (ngSubmit)="submitForm()">
+                        <form class="mt-3" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
                             <server-validation [errors]="errors"></server-validation>
                             <div class="form-group row" 
                                 *ngFor="let control of form.customControls; let i=index">
-                                <ng-container *ngIf="i >= 6 && i <= 8">
+                                <ng-container *ngIf="i == 8">
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" formControlName="{{control.property}}">
-                                            <option>1</option>
-                                            <option>2</option>
-                                        </select>
+                                        <input class="form-control" 
+                                        [(ngModel)]="publisherName" 
+                                        [ngModelOptions]="{standalone: true}"
+                                        (ngModelChange)="onCategoryPublisherChanged($event)"
+                                        [typeaheadAsync]="true"
+                                        [typeahead]="publishers$" />
+                                        <!-- <datalist id="publishers_list">
+                                            <option *ngFor="let pub of publishers$ | async"
+                                                [value]="pub.name"></option>
+                                        </datalist> -->
                                         <app-validation [messages]="getErrors(control.property)"></app-validation>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngIf="i < 6 || i > 8">
+                                <ng-container *ngIf="i <= 6 && i >= 1">
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control"
                                             formControlName="{{control.property}}" />
+                                        <app-validation [messages]="getErrors(control.property)"></app-validation>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="i == 9">
+                                    <label class="col-sm-3 col-form-label">{{control.label}}</label>
+                                    <div class="col-sm-7">
+                                        <textarea class="form-control" formControlName="{{control.property}}" row="10" col="20"></textarea>
                                         <app-validation [messages]="getErrors(control.property)"></app-validation>
                                     </div>
                                 </ng-container>

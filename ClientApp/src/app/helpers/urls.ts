@@ -32,6 +32,7 @@ export class Urls {
     publisher_create: string = `${this.basePublisherUrl}/create`;
     publisher_update: string = `${this.basePublisherUrl}/update`;
     publisher_delete: string = `${this.basePublisherUrl}/delete`;
+    publishersForSelection: string = `${this.basePublisherUrl}/publishersforselection`;
 
     private baseSessionUrl: string = `/api/session`;
     session: string = `${this.baseSessionUrl}/cart`;

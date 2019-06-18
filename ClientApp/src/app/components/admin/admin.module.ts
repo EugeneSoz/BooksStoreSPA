@@ -32,7 +32,6 @@ import { BooksTableComponent } from './books/books-table.component';
         FormsModule,
         AdminRoutingModule,
         SharedModule,
-        TooltipModule.forRoot()
     ],
     declarations: [
         RelatedBookTableComponent,
