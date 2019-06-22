@@ -50,7 +50,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteTaskAsync(BookDTO bookDTO)
+        public async Task<ActionResult> DeleteTaskAsync([FromBody] BookDTO bookDTO)
         {
             Book book = bookDTO.MapBook();
             return await DeleteAsync(book, _repo.DeleteAsync);
