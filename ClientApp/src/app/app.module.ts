@@ -12,6 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import localeRu from "@angular/common/locales/ru";
 import { registerLocaleData } from '@angular/common';
 import { DeleteMessageComponent } from './components/modals/delete-message.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeRu, "ru");
 
@@ -25,9 +26,11 @@ registerLocaleData(localeRu, "ru");
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
-        TooltipModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        ModalModule.forRoot(),
+        // FormsModule,
+        // ReactiveFormsModule,
+        // TooltipModule.forRoot(),
+        // ModalModule.forRoot(),
+        // TypeaheadModule.forRoot(),
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru' }

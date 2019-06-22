@@ -2,9 +2,9 @@
 {
     public class QueryOptions
     {
-        private string _sortPropertyName;
-        private string _filterPropertyName;
-        private string[] _searchPropertyNames;
+        private string _sortPropertyName = string.Empty;
+        private string _filterPropertyName = string.Empty;
+        private string[] _searchPropertyNames = null;
 
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 12;
@@ -40,7 +40,7 @@
             }
         }
         //что ищем
-        public string SearchTerm { get; set; }
+        public string SearchTerm { get; set; } = string.Empty;
         //по какому св-ву фильтруем
         public string FilterPropertyName
         {

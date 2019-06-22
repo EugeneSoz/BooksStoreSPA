@@ -45,6 +45,22 @@ namespace BooksStoreSPA.Controllers
             return await _repo.GetParentCategoriesAsync();
         }
 
+        [HttpPost("categoriesforselection")]
+        public async Task<List<CategoryResponse>> GetCategoriesForSelectionAsync([FromBody] SearchTerm term)
+        {
+            QueryOptions options = new QueryOptions
+            {
+                SearchTerm = term.Value,
+                SearchPropertyNames = new string[] { nameof(Publisher.Name) },
+                SortPropertyName = nameof(Publisher.Name),
+                PageSize = 10
+            };
+
+            PagedList<CategoryResponse> pagedCategories = await _repo.GetCategoriesAsync(options);
+
+            return pagedCategories.Entities;
+        }
+
         [HttpPost("create")]
         public async Task<ActionResult> CreateCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {

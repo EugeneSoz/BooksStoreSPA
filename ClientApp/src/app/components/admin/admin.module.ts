@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-rooting.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { RelatedBookTableComponent } from './related-book/related-book-table.component';
 import { AdminSidebarComponent } from './sidebar/admin-sidebar.component';
@@ -25,13 +24,22 @@ import { CategoriesSectionComponent } from './categories/categories-section.comp
 import { BooksSectionComponent } from './books/books-section.component';
 import { BooksTableComponent } from './books/books-table.component';
 
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+
 @NgModule({
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
         AdminRoutingModule,
         SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
+        TypeaheadModule.forRoot(),
+
     ],
     declarations: [
         RelatedBookTableComponent,

@@ -18,6 +18,7 @@ export class Urls {
     category_create: string = `${this.baseCategoryUrl}/create`;
     category_update: string = `${this.baseCategoryUrl}/update`;
     category_delete: string = `${this.baseCategoryUrl}/delete`;
+    categoriesForSelection: string = `${this.baseCategoryUrl}/categoriesforselection`;
 
     private baseBookUrl: string = `/api/book`;
     books: string = `${this.baseBookUrl}/books`;

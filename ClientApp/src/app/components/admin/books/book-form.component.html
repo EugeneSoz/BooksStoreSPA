@@ -26,19 +26,29 @@
                             <server-validation [errors]="errors"></server-validation>
                             <div class="form-group row" 
                                 *ngFor="let control of form.customControls; let i=index">
+                                <ng-container *ngIf="i == 7">
+                                    <label class="col-sm-3 col-form-label">{{control.label}}</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" 
+                                        [(ngModel)]="categoryName" 
+                                        [ngModelOptions]="{standalone: true}"
+                                        [typeaheadAsync]="true" 
+                                        [typeahead]="categories$" 
+                                        typeaheadOptionField="displayedName"
+                                        (typeaheadOnSelect)="onSelectCategory($event)" />
+                                        <app-validation [messages]="getErrors(control.property)"></app-validation>
+                                    </div>
+                                </ng-container>
                                 <ng-container *ngIf="i == 8">
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
                                         <input class="form-control" 
                                         [(ngModel)]="publisherName" 
                                         [ngModelOptions]="{standalone: true}"
-                                        (ngModelChange)="onCategoryPublisherChanged($event)"
                                         [typeaheadAsync]="true"
-                                        [typeahead]="publishers$" />
-                                        <!-- <datalist id="publishers_list">
-                                            <option *ngFor="let pub of publishers$ | async"
-                                                [value]="pub.name"></option>
-                                        </datalist> -->
+                                        [typeahead]="publishers$"
+                                        typeaheadOptionField="name"
+                                        (typeaheadOnSelect)="onSelectPublisher($event)" />
                                         <app-validation [messages]="getErrors(control.property)"></app-validation>
                                     </div>
                                 </ng-container>

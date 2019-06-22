@@ -41,8 +41,16 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("publishersforselection")]
-        public async Task<List<Publisher>> GetPublishersForSelection([FromBody] QueryOptions options)
+        public async Task<List<Publisher>> GetPublishersForSelectionAsync([FromBody] SearchTerm term)
         {
+            QueryOptions options = new QueryOptions
+            {
+                SearchTerm = term.Value,
+                SearchPropertyNames = new string[] { nameof(Publisher.Name) },
+                SortPropertyName = nameof(Publisher.Name),
+                PageSize = 10
+            };
+
             PagedList<Publisher> pagedPublishers = await _repo.GetPublishersAsync(options);
 
             return pagedPublishers.Entities;

@@ -89,6 +89,14 @@ export class ModelErrors {
             && errorAttribute == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 1000 символов";
         }
+        else if (property == this._nh.nameof<Book>("categoryID")
+            && errorAttribute == ErrorAttributes.notNullMin) {
+            msg = "Книга должна принадлежать к какой-либо категории"
+        }
+        else if (property == this._nh.nameof<Book>("publisherID")
+            && errorAttribute == ErrorAttributes.notNullMin) {
+            msg = "У книги должно быть издательство"
+        }
 
         return msg;
     }

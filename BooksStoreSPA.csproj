@@ -24,6 +24,16 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\data\DTO\searchTerm.ts" />
+    <None Remove="ClientApp\src\app\models\forms\notNullMin.formvalidator.ts" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\data\DTO\searchTerm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\forms\notNullMin.formvalidator.ts" />
   </ItemGroup>  
       
   <ItemGroup>

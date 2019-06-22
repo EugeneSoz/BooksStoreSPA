@@ -7,10 +7,11 @@ import { ModelErrors } from './modelErrors';
 import { IPropertyName } from './ipropertyName';
 import { BookDTO } from '../../data/DTO/bookDTO';
 import { Book } from '../../data/book';
+import { NotNullMinValidator } from './notNullMin.formvalidator';
 
 export class BookFormGroup extends CustomFormGroup implements IPropertyName<BookDTO> {
     constructor(
-        book: Book) {
+        book: BookDTO) {
 
         super();
         this._me = new ModelErrors();
@@ -74,7 +75,7 @@ export class BookFormGroup extends CustomFormGroup implements IPropertyName<Book
 
         this.addControl(this.getPropertyName("categoryID"),
             new CustomFormControl(book.categoryID,
-                undefined,
+                NotNullMinValidator.notNullMin(1),
                 "Категория",
                 this.getPropertyName("categoryID"),
                 EntityType.Book,
@@ -82,7 +83,7 @@ export class BookFormGroup extends CustomFormGroup implements IPropertyName<Book
 
         this.addControl(this.getPropertyName("publisherID"),
             new CustomFormControl(book.publisherID,
-                undefined,
+                NotNullMinValidator.notNullMin(1),
                 "Издательство",
                 this.getPropertyName("publisherID"),
                 EntityType.Book,
