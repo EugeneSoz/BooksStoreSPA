@@ -21,7 +21,7 @@ namespace BooksStoreSPA.Controllers
         public BookController(IBookRepo repo) => _repo = repo;
 
         [HttpGet("book/{id}")]
-        public async Task<Book> GetBookAsync(long id)
+        public async Task<BookResponse> GetBookAsync(long id)
         {
             return await _repo.GetBookAsync(id);
         }

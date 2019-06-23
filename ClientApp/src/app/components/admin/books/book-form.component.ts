@@ -5,7 +5,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { BookService } from '../../../services/book.services';
 import { BookFormGroup } from '../../../models/forms/bookForm';
-import { Book } from '../../../data/book';
 import { BaseAdminFormComponent } from '../../../models/forms/baseAdminFormComponent';
 import { PageLink } from '../../../enums/pageLink';
 import { Publisher } from '../../../data/publisher';
@@ -14,6 +13,7 @@ import { NameOfHelper } from '../../../helpers/nameofHelper';
 import { BookDTO } from '../../../data/DTO/bookDTO';
 import { AbstractControl } from '@angular/forms';
 import { CategoryResponse } from '../../../data/DTO/categoryResponse';
+import { BookResponse } from '../../../data/DTO/bookResponse';
 
 @Component({
     selector: 'app-book-form',
@@ -27,11 +27,11 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
         private _nh: NameOfHelper) {
 
         super(activeRoute);
-        this.form = new BookFormGroup(this.book);
+        this.form = new BookFormGroup(this.bookDTO);
         this.link = `/${PageLink.admin_books}`;
     }
 
-    book: BookDTO = new BookDTO();
+    bookDTO: BookDTO = new BookDTO();
     private publisherId: number = 0;
     publisherName: string = "";
     private categoryId: number = 0;
@@ -39,6 +39,10 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
 
     publishers$: Observable<Array<Publisher>> = null;
     categories$: Observable<Array<CategoryResponse>> = null;
+
+    get book(): BookResponse {
+        return this._bookService.entity;
+    }
 
     get errors(): Array<string> {
         return this._bookService.errors;
@@ -48,8 +52,10 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
         this._subscriptions.push(
             this._bookService.entityChanged.subscribe(changed => {
                 if (changed) {
-                    Object.assign(this.book, this._bookService.entity);
-                    this.form = new BookFormGroup(this.book);
+                    this.bookDTO = this._ee.mapBookDTO(this._bookService.entity);
+                    this.publisherName = this._bookService.entity.publisherName;
+                    this.categoryName = this._bookService.entity.categoryName;
+                    this.form = new BookFormGroup(this.bookDTO);
                 }
             }));
 
@@ -95,15 +101,15 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
             return;
         }
 
-        this.book = this.form.value;
+        this.bookDTO = this.form.value;
         //update
         if (this.editing) {
-            this._bookService.updateEntity(this.book);
+            this._bookService.updateEntity(this.bookDTO);
         }//create
         else {
-            this._bookService.createEntity(this.book)
+            this._bookService.createEntity(this.bookDTO)
             this.isAlertVisible = true;
-            this.book = new BookDTO();
+            this.bookDTO = new BookDTO();
         }
 
         this.categoryName = "";

@@ -5,7 +5,6 @@ import { BookService } from '../../../services/book.services';
 import { EntityType } from '../../../enums/entityType';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PageLink } from '../../../enums/pageLink';
-import { Book } from '../../../data/book';
 import { BaseTable } from '../../../models/baseSelection';
 import { BookResponse } from '../../../data/DTO/bookResponse';
 import { BookDTO } from '../../../data/DTO/bookDTO';
@@ -15,7 +14,7 @@ import { DeleteMessageComponent } from '../../modals/delete-message.component';
 @Component({
     templateUrl: './books-table.component.html',
 })
-export class BooksTableComponent extends BaseTable<Book, BookResponse, BookDTO>
+export class BooksTableComponent extends BaseTable<BookResponse, BookResponse, BookDTO>
     implements OnInit, OnDestroy {
 
     constructor(

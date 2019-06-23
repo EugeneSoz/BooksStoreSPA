@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { BaseAdminService } from './baseAdmin.service';
 import { RestDatasource } from '../helpers/restDatasource';
 import { Urls } from '../helpers/urls';
-import { Book } from '../data/book';
 import { BookResponse } from '../data/DTO/bookResponse';
 import { BookDTO } from '../data/DTO/bookDTO';
 import { Publisher } from '../data/publisher';
@@ -12,7 +11,7 @@ import { SearchTerm } from '../data/DTO/searchTerm';
 import { CategoryResponse } from '../data/DTO/categoryResponse';
 
 @Injectable()
-export class BookService extends BaseAdminService<Book, BookResponse, BookDTO> {
+export class BookService extends BaseAdminService<BookResponse, BookResponse, BookDTO> {
 
     constructor(
         urls: Urls,

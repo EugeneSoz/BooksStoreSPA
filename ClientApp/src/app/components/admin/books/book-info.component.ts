@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../../../data/book';
+import { BookResponse } from '../../../data/DTO/bookResponse';
 
 @Component({
     selector: 'app-book-info',
     templateUrl: './book-info.component.html',
 })
 export class BookInfoComponent {
-    @Input() book: Book = null;
+    @Input() book: BookResponse = null;
 }
