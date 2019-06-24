@@ -7,4 +7,6 @@ import { Component, Input } from "@angular/core";
 export class AdminToolbarComponent {
     @Input() isButtonsVisible: boolean = false;
     @Input() link: string = "";
+
+    isCollapsed: boolean = true;
 }

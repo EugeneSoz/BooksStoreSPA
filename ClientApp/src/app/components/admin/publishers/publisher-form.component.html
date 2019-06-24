@@ -4,17 +4,8 @@
 
         <div class="card m-2">
             <div class="card-body">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                           aria-controls="nav-home" aria-selected="true">Издательство</a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                           aria-controls="nav-profile" aria-selected="false">Связанные книги</a>
-
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <tabset>
+                    <tab heading="Издательство">
                         <div class="bg-primary text-white p-2" [class.bg-warning]="editing">
                             <div class="d-flex flex-row justify-content-between">
                                 <h5>{{title}} издательство</h5>
@@ -33,28 +24,26 @@
                                     <label class="col-sm-3 col-form-label">{{control.label}}</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" 
-                                        formControlName="{{control.property}}" />
-                                        <app-validation 
-                                        [messages]="getErrors(control.property)"></app-validation>
+                                            formControlName="{{control.property}}" />
+                                        <app-validation [messages]="getErrors(control.property)"></app-validation>
                                     </div>
                                 </ng-container>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-7">
-                                    <button type="submit"
-                                            [class]="background" [disabled]="form.invalid">
+                                    <button type="submit" [class]="background" [disabled]="form.invalid">
                                         {{title}}
                                     </button>
                                 </div>
-
+                        
                             </div>
                         </form>
-                    </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    </tab>
+                    <tab heading="Связанные книги">
                         <related-book-table [books]="books"></related-book-table>
-                    </div>
-                </div>
+                    </tab>
+                </tabset>
             </div>
         </div>
     </div>

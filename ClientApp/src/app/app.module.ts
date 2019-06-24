@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +28,8 @@ registerLocaleData(localeRu, "ru");
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
+        BrowserAnimationsModule,
+
         // FormsModule,
         // ReactiveFormsModule,
         // TooltipModule.forRoot(),

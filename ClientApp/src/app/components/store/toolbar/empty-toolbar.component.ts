@@ -4,4 +4,6 @@ import { Component } from "@angular/core";
     selector: 'empty-toolbar',
     templateUrl: './empty-toolbar.component.html'
 })
-export class EmptyToolbarComponent { }
+export class EmptyToolbarComponent { 
+    isCollapsed: boolean = true;
+}

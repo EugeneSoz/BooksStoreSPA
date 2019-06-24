@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PageLink } from './enums/pageLink';
 
 const routes: Routes = [
     {
-        path: "",
+        path: PageLink.base,
         loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
     },
     {
-        path: "store",
+        path: PageLink.store,
         loadChildren: () => import('./components/store/store.module').then(m => m.StoreModule)
     },
 ];

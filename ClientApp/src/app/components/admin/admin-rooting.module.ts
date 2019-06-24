@@ -17,10 +17,10 @@ import { PublisherFormComponent } from './publishers/publisher-form.component';
 
 const routes: Routes = [
     {
-        path: "", component: AdminLayoutComponent,
+        path: PageLink.base, component: AdminLayoutComponent,
         children: [
             { path: PageLink.admin_services, component: DbServicesComponent },
-            { path: "", component: DbServicesComponent },
+            { path: PageLink.base, component: DbServicesComponent },
             {
                 path: PageLink.admin_books, component: BooksSectionComponent,
                 children: [
@@ -34,7 +34,7 @@ const routes: Routes = [
                 children: [
                     { path: ":mode/:id", component: CategoryFormComponent },
                     { path: ":mode", component: CategoryFormComponent },
-                    { path: "", component: CategoriesTableComponent }
+                    { path: PageLink.base, component: CategoriesTableComponent }
                 ]
             },
             {
@@ -42,7 +42,7 @@ const routes: Routes = [
                 children: [
                     { path: ":mode/:id", component: PublisherFormComponent },
                     { path: ":mode", component: PublisherFormComponent },
-                    { path: "", component: PublishersTableComponent},
+                    { path: PageLink.base, component: PublishersTableComponent},
                 ]
             },
             { path: PageLink.admin_orders, component: OrderSelectionComponent }

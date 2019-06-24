@@ -24,12 +24,18 @@ import { OrderConfirmationComponent } from './order/order-confirmation.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../data/order';
 
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
+
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         StoreRoutingModule,
-        SharedModule
+        SharedModule,
+        CollapseModule.forRoot(),
+        BsDropdownModule.forRoot(),
     ],
     exports: [],
     declarations: [

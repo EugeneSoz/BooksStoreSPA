@@ -24,9 +24,12 @@ import { CategoriesSectionComponent } from './categories/categories-section.comp
 import { BooksSectionComponent } from './books/books-section.component';
 import { BooksTableComponent } from './books/books-table.component';
 
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 @NgModule({
@@ -36,10 +39,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
+        CollapseModule.forRoot(),
+        BsDropdownModule.forRoot(),
         TooltipModule.forRoot(),
         ModalModule.forRoot(),
         TypeaheadModule.forRoot(),
-
+        TabsModule.forRoot(),
     ],
     declarations: [
         RelatedBookTableComponent,
