@@ -1,0 +1,27 @@
+<admin-toolbar></admin-toolbar>
+<table *ngIf="orders?.length > 0; else nodata" class="table table-striped">
+    <tr>
+        <th>Покупатель</th>
+        <th>Адрес</th>
+        <th>Товары</th>
+        <th>На сумму</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let o of orders">
+        <td>{{o.name}}</td>
+        <td>{{o.address}}</td>
+        <td>{{o.products.length}}</td>
+        <td>{{o.payment | currency:"RUB":"symbol":"2.2-2":"ru"}}</td>
+        <td *ngIf="!o.shipped; else shipped">
+            <button class="btn btn-sm btn-primary" (click)="markShipped(o)">
+                Ship
+            </button>
+        </td>
+    </tr>
+</table>
+<ng-template #shipped>
+    <td>Отправлен</td>
+</ng-template>
+<ng-template #nodata>
+    <h3 class="text-center">Заказов нет</h3>
+</ng-template>

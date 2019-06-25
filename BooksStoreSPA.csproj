@@ -27,13 +27,11 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Remove="ClientApp\src\app\data\DTO\searchTerm.ts" />
     <None Remove="ClientApp\src\app\models\forms\notNullMin.formvalidator.ts" />
   </ItemGroup>
   
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\data\DTO\searchTerm.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\forms\notNullMin.formvalidator.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\validation\notNullMin.formvalidator.ts" />
   </ItemGroup>  
       
   <ItemGroup>
