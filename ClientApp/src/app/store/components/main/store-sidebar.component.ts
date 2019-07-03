@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import 'jquery';
 import 'bootstrap';
-import { StoreService } from '../shared/store.service';
-import { Category } from '../../models/domain/category.model';
-import { BookResponse } from '../../models/domain/DTO/book-response.model';
-import { nameof } from '../../core/shared/helper-functions';
+import { StoreService } from '../../shared/store.service';
+import { Category } from '../../../models/domain/category.model';
+import { BookResponse } from '../../../models/domain/DTO/book-response.model';
+import { nameof } from '../../../core/shared/helper-functions';
+import { PageLink } from '../../../models/enums/page-link.enum';
 
 @Component({
     selector: 'store-sidebar',
@@ -16,6 +17,7 @@ export class StoreSidebarComponent implements OnInit {
     constructor(
         private _storeService: StoreService) { }
 
+    link: string = PageLink.admin;
     private _selectedCategoryId: number = 0;
     private _selectedSubCategoryId: number = 0;
 

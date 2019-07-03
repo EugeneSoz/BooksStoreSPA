@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreRoutingModule } from './store-routing.module';
 
@@ -16,9 +17,9 @@ import { BookDetailsComponent } from './components/book/book-details.component';
 import { CartSummaryComponent } from './components/toolbar/cart-summary.component';
 import { MainToolbarComponent } from './components/toolbar/main-toolbar.component';
 import { SearchToolbarComponent } from './components/toolbar/search-toolbar.component';
-import { MainComponent } from './components/main.component';
+import { MainComponent } from './components/main/main.component';
 import { EmptyToolbarComponent } from './components/toolbar/empty-toolbar.component';
-import { StoreSidebarComponent } from './components/store-sidebar.component';
+import { StoreSidebarComponent } from './components/main/store-sidebar.component';
 import { CartDetailsComponent } from './components/cart/cart-details.component';
 import { CheckoutPaymentComponent } from './components/order/checkout-payment.component';
 import { CheckoutSummaryComponent } from './components/order/checkout-summary.component';
@@ -26,6 +27,8 @@ import { OrderConfirmationComponent } from './components/order/order-confirmatio
 import { StoreService } from './shared/store.service';
 import { CartService } from './shared/cart.service';
 import { Order } from '../models/domain/order.model';
+import { StoreLayoutComponent } from './layouts/store-layout.component';
+import { OrderLayoutComponent } from './layouts/order-layout.component';
 
 
 @NgModule({
@@ -53,7 +56,9 @@ import { Order } from '../models/domain/order.model';
         CheckoutDetailsComponent,
         CheckoutPaymentComponent,
         CheckoutSummaryComponent,
-        OrderConfirmationComponent
+        OrderConfirmationComponent,
+        StoreLayoutComponent,
+        OrderLayoutComponent
     ],
     providers: [
         StoreService,

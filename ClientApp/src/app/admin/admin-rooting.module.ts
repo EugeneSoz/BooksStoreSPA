@@ -15,45 +15,50 @@ import { BooksTableComponent } from './components/books/books-table.component';
 import { PublisherFormComponent } from './components/publishers/publisher-form.component';
 import { PageLink } from '../models/enums/page-link.enum';
 
-const booksChildren: Routes = [
+const booksChild: Routes = [
     { path: ":mode/:id", component: BookFormComponent },
     { path: ":mode", component: BookFormComponent },
-    { path: "", component: BooksTableComponent }
+    { path: PageLink.empty, component: BooksTableComponent }
 ];
 
-const categoriesChildren: Routes = [
+const categoriesChild: Routes = [
     { path: ":mode/:id", component: CategoryFormComponent },
     { path: ":mode", component: CategoryFormComponent },
-    { path: PageLink.base, component: CategoriesTableComponent }
+    { path: PageLink.empty, component: CategoriesTableComponent }
 ];
 
-const publishersChildren: Routes = [
+const publishersChild: Routes = [
     { path: ":mode/:id", component: PublisherFormComponent },
     { path: ":mode", component: PublisherFormComponent },
-    { path: PageLink.base, component: PublishersTableComponent },
+    { path: PageLink.empty, component: PublishersTableComponent },
 ];
 
 const routes: Routes = [
     {
-        path: PageLink.base, component: AdminLayoutComponent,
+        path: PageLink.empty, component: AdminLayoutComponent,
         children: [
-            { path: PageLink.admin_services, component: DbServicesComponent },
-            { path: PageLink.base, component: DbServicesComponent },
             {
-                path: PageLink.admin_books, component: BooksSectionComponent,
-                children: booksChildren
-            },
-            {
-                path: PageLink.admin_categories, component: CategoriesSectionComponent,
-                children: categoriesChildren
-            },
-            {
-                path: PageLink.admin_publishers, component: PublishersSectionComponent,
-                children: publishersChildren
-            },
-            { path: PageLink.admin_orders, component: OrderSelectionComponent }
-        ],
+                path: "", children: [
+                    { path: PageLink.empty, component: DbServicesComponent },
+                    { path: PageLink.admin_services, component: DbServicesComponent },
+                    {
+                        path: PageLink.admin_books, component: BooksSectionComponent,
+                        children: booksChild
+                    },
+                    {
+                        path: PageLink.admin_categories, component: CategoriesSectionComponent,
+                        children: categoriesChild
+                    },
+                    {
+                        path: PageLink.admin_publishers, component: PublishersSectionComponent,
+                        children: publishersChild
+                    },
+                    { path: PageLink.admin_orders, component: OrderSelectionComponent }
+                ]
+            }
+        ]
     },
+    //{ path: PageLink.admin, redirectTo: PageLink.admin_services, pathMatch: "full" }
 ];
 
 @NgModule({

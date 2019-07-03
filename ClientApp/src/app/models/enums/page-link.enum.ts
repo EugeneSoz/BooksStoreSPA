@@ -1,9 +1,10 @@
 export enum PageLink {
-    base = "",
+    empty = "",
+    admin = "admin",
     admin_services = "admin/services",
     admin_publishers = "admin/publishers",
     admin_books = "admin/books",
-    admin_categories = "admin/categories",
-    admin_orders = "admin/orders",
+    admin_categories = "categories",
+    admin_orders = "orders",
     store = "store"
 }
