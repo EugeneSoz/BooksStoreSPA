@@ -1,9 +1,10 @@
 import { Validators } from '@angular/forms';
+
 import { CustomFormGroup, CustomFormControl } from './custom-form-control.model';
 import { Order } from '../domain/order.model';
 import { ModelErrors } from '../validation/model-errors.model';
 import { EntityType } from '../enums/entity-type.enum';
-import { nameof } from '../../core/shared/helper-functions';
+import { nameof } from '../../core/helper-functions';
 
 export class CheckoutFormGroup extends CustomFormGroup {
     constructor(

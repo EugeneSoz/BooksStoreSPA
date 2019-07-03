@@ -3,8 +3,8 @@ import { BaseAdminService } from './base-admin.service';
 import { Category } from '../../models/domain/category.model';
 import { CategoryResponse } from '../../models/domain/DTO/category-response.model';
 import { CategoryDTO } from '../../models/domain/DTO/categoryDTO.model';
-import { RestDatasource } from '../../core/shared/rest-datasource.service';
 import { Url } from '../../models/url.model';
+import { RestDatasource } from '../../core/rest-datasource.service';
 
 @Injectable()
 export class CategoryService extends BaseAdminService<Category, CategoryResponse, CategoryDTO> {

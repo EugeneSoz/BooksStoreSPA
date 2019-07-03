@@ -4,7 +4,7 @@ import { ErrorAttributes } from '../enums/error-attributes.enum';
 import { Category } from '../domain/category.model';
 import { Book } from '../domain/book.model';
 import { Order, Payment } from '../domain/order.model';
-import { nameof } from '../../core/shared/helper-functions';
+import { nameof } from '../../core/helper-functions';
 
 export class ModelErrors {
 

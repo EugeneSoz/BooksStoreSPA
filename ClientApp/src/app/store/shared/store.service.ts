@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 
-import { RestDatasource } from '../../core/shared/rest-datasource.service';
 import { QueryOptions } from '../../models/domain/DTO/query-options.model';
 import { Category } from '../../models/domain/category.model';
 import { Book } from '../../models/domain/book.model';
@@ -8,6 +7,7 @@ import { BookResponse } from '../../models/domain/DTO/book-response.model';
 import { Pagination } from '../../models/pagination.model';
 import { Url } from '../../models/url.model';
 import { PagedResponse } from '../../models/paged-response.model';
+import { RestDatasource } from '../../core/rest-datasource.service';
 
 @Injectable()
 export class StoreService {

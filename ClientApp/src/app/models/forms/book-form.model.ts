@@ -6,7 +6,7 @@ import { BookDTO } from '../domain/DTO/bookDTO.model';
 import { EntityType } from '../enums/entity-type.enum';
 import { RangeValidator } from '../validation/range.formvalidator';
 import { NotNullMinValidator } from '../validation/notNullMin.formvalidator';
-import { nameof } from '../../core/shared/helper-functions';
+import { nameof } from '../../core/helper-functions';
 
 export class BookFormGroup extends CustomFormGroup {
     constructor(

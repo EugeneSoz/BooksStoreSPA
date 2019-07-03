@@ -1,10 +1,9 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 
-import { PaginationComponent } from './components/pagination.component';
-import { ValidationComponent } from './components/validation.component';
-import { ServerValidationComponent } from './components/server-validation.component';
-import { RangeValidatorDirective } from './directives/range.directive';
+import { PaginationComponent } from './pagination/pagination.component';
+import { ValidationComponent } from './validation/validation.component';
+import { ServerValidationComponent } from './server-validation/server-validation.component';
 
 @NgModule({
     imports: [
@@ -14,13 +13,11 @@ import { RangeValidatorDirective } from './directives/range.directive';
         PaginationComponent,
         ValidationComponent,
         ServerValidationComponent,
-        RangeValidatorDirective,
     ],
     declarations: [
         PaginationComponent,
         ValidationComponent,
         ServerValidationComponent,
-        RangeValidatorDirective,
     ],
     providers: [],
 })

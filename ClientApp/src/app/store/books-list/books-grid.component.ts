@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../shared/store.service';
+import { BookResponse } from '../../models/domain/DTO/book-response.model';
+import { Pagination } from '../../models/pagination.model';
+
+@Component({
+    selector: '[id=store-main-content]',
+    templateUrl: './books-grid.component.html',
+})
+export class BooksGridComponent implements OnInit
+{
+    constructor(
+        private _storeService: StoreService) {}
+
+    get books(): Array<BookResponse> {
+        return this._storeService.books;
+    }
+
+    //кол-во книжных карт в строке
+    get cardsCountInRow(): number {
+        return this._storeService.cardsCountInRow;
+    }
+
+    //общее кол-во отображаемых книг на странице
+    get displayedBooksCount(): number  {
+        return this._storeService.displayedBooksCount;
+    }
+
+    get rows(): Array<number> {
+        return this._storeService.rows;
+    }
+
+    get cols(): Array<number> {
+        return this._storeService.cols;
+    }
+
+    get pagination(): Pagination {
+        return this._storeService.pagination;
+    }
+
+    get pageNumbers(): Array<number> {
+        return this._storeService.pageNumbers;
+    }
+
+    ngOnInit(): void {
+        this._storeService.getBooks();
+    }
+
+    //получить книгу из массива исходя из номера строки и столбца
+    getBookIndex(row: number, column: number): number {
+        return this.cardsCountInRow * row + column;
+    }
+
+    isColEmpty(row: number, column: number): boolean {
+        return this.getBookIndex(row, column) < this.displayedBooksCount
+            ? false
+            : true;
+    }
+
+    onChangePage(newPage: number): void {
+        this._storeService.changePage(newPage);
+    }
+}

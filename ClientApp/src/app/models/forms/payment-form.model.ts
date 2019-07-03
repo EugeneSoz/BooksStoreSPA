@@ -4,7 +4,7 @@ import { CustomFormGroup, CustomFormControl } from './custom-form-control.model'
 import { Order, Payment } from '../domain/order.model';
 import { ModelErrors } from '../validation/model-errors.model';
 import { EntityType } from '../enums/entity-type.enum';
-import { nameof } from '../../core/shared/helper-functions';
+import { nameof } from '../../core/helper-functions';
 
 export class PaymentFormGroup extends CustomFormGroup {
     constructor(

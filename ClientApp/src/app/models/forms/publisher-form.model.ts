@@ -5,7 +5,7 @@ import { PublisherDTO } from '../domain/DTO/publisherDTO.model';
 import { ModelErrors } from '../validation/model-errors.model';
 import { EntityType } from '../enums/entity-type.enum';
 import { RangeValidator } from '../validation/range.formvalidator';
-import { nameof } from '../../core/shared/helper-functions';
+import { nameof } from '../../core/helper-functions';
 
 export class PublisherFormGroup extends CustomFormGroup {
     constructor(
