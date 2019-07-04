@@ -7,6 +7,7 @@ import { PublisherService } from '../shared/publisher.service';
 import { PageLink } from '../../models/enums/page-link.enum';
 import { PublisherDTO } from '../../models/domain/DTO/publisherDTO.model';
 import { Book } from '../../models/domain/book.model';
+import { createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './publisher-form.component.html',
@@ -19,7 +20,7 @@ export class PublisherFormComponent extends BaseAdminFormComponent<PublisherForm
 
         super(activeRoute);
         this.form = new PublisherFormGroup(this.publisher);
-        this.link = `/${PageLink.admin_publishers}`;
+        this.pageLink = createPageLink(true, PageLink.admin, PageLink.publishers);
     }
 
     publisher: PublisherDTO = new PublisherDTO();
@@ -42,7 +43,7 @@ export class PublisherFormComponent extends BaseAdminFormComponent<PublisherForm
         this._subscriptions.push(
             this._publisherService.entityUpdated.subscribe(updated => {
                 if (updated) {
-                    this._router.navigateByUrl(PageLink.admin_publishers);
+                    this._router.navigateByUrl(PageLink.publishers);
                 }
             })
         );

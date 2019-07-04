@@ -35,22 +35,22 @@ const publishersChild: Routes = [
 
 const routes: Routes = [
     {
-        path: PageLink.admin, component: AdminComponent,
+        path: "", component: AdminComponent,
         children: [
             { path: "", component: HomeComponent },
             {
-                path: PageLink.admin_books, component: BooksSectionComponent,
+                path: PageLink.books, component: BooksSectionComponent,
                 children: booksChild
             },
             {
-                path: PageLink.admin_categories, component: CategoriesSectionComponent,
+                path: PageLink.categories, component: CategoriesSectionComponent,
                 children: categoriesChild
             },
             {
-                path: PageLink.admin_publishers, component: PublishersSectionComponent,
+                path: PageLink.publishers, component: PublishersSectionComponent,
                 children: publishersChild
             },
-            { path: PageLink.admin_orders, component: OrderSectionComponent }
+            { path: PageLink.orders, component: OrderSectionComponent }
         ]
     },
 ];

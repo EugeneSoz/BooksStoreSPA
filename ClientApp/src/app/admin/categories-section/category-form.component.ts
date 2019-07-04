@@ -8,6 +8,7 @@ import { PageLink } from '../../models/enums/page-link.enum';
 import { CategoryDTO } from '../../models/domain/DTO/categoryDTO.model';
 import { Book } from '../../models/domain/book.model';
 import { Category } from '../../models/domain/category.model';
+import { createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './category-form.component.html',
@@ -20,7 +21,7 @@ export class CategoryFormComponent extends BaseAdminFormComponent<CategoryFormGr
 
         super(activeRoute);
         this.form = new CategoryFormGroup(this.category);
-        this.link = `/${PageLink.admin_categories}`;
+        this.pageLink = createPageLink(true, PageLink.admin, PageLink.categories);
     }
 
     category: CategoryDTO = new CategoryDTO();
@@ -47,7 +48,7 @@ export class CategoryFormComponent extends BaseAdminFormComponent<CategoryFormGr
         this._subscriptions.push(
             this._categoryService.entityUpdated.subscribe(updated => {
                 if (updated) {
-                    this._router.navigateByUrl(PageLink.admin_categories);
+                    this._router.navigateByUrl(PageLink.categories);
                 }
             })
         );

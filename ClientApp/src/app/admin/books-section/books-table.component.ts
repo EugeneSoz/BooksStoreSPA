@@ -10,6 +10,7 @@ import { EntityType } from '../../models/enums/entity-type.enum';
 import { PageLink } from '../../models/enums/page-link.enum';
 import { EntityExtensions } from '../../models/entity-extensions.model';
 import { DeleteMessageComponent } from '../shared/delete-message/delete-message.component';
+import { createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './books-table.component.html',
@@ -21,7 +22,11 @@ export class BooksTableComponent extends BaseTableComponent<BookResponse, BookRe
         bookService: BookService,
         private modalService: BsModalService) {
 
-        super(bookService, EntityType.Book, modalService, `/${PageLink.admin_books}`);
+        super(
+            bookService,
+            EntityType.Book,
+            modalService,
+            createPageLink(true, PageLink.admin, PageLink.books));
     }
 
     bookDTO: BookDTO = null;

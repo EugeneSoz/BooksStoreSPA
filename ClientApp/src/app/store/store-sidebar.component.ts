@@ -13,9 +13,12 @@ import { BookResponse } from '../models/domain/DTO/book-response.model';
 export class StoreSidebarComponent implements OnInit {
 
     constructor(
-        private _storeService: StoreService) { }
+        private _storeService: StoreService) {
+        this.pageLink = `/${PageLink.admin}`;
+    }
 
-    link: string = PageLink.admin;
+    pageLink: string;
+    isCollapsed: boolean = true;
     private _selectedCategoryId: number = 0;
     private _selectedSubCategoryId: number = 0;
 

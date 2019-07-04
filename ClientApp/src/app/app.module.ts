@@ -10,8 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import localeRu from "@angular/common/locales/ru";
 import { registerLocaleData } from '@angular/common';
 import { DeleteMessageComponent } from './admin/shared/delete-message/delete-message.component';
-import { StoreModule } from './store/store.module';
-import { AdminModule } from './admin/admin.module';
 
 registerLocaleData(localeRu, "ru");
 
@@ -25,8 +23,6 @@ registerLocaleData(localeRu, "ru");
         RouterModule,
         HttpClientModule,
         AppRoutingModule,
-        StoreModule,
-        AdminModule,
         BrowserAnimationsModule,
     ],
     providers: [

@@ -19,7 +19,7 @@ export class BaseAdminFormComponent<TFormGroup extends FormGroup> extends BaseFo
 
     protected _id: number = 0;
     protected _ee: EntityExtensions = new EntityExtensions();
-    link: string; 
+    pageLink: string; 
 
     //редактируется ли форма
     editing: boolean = false;

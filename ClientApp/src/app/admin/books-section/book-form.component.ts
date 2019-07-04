@@ -13,7 +13,7 @@ import { BookDTO } from '../../models/domain/DTO/bookDTO.model';
 import { Publisher } from '../../models/domain/publisher.model';
 import { CategoryResponse } from '../../models/domain/DTO/category-response.model';
 import { BookResponse } from '../../models/domain/DTO/book-response.model';
-import { nameof } from '../../core/helper-functions';
+import { nameof, createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './book-form.component.html',
@@ -25,7 +25,7 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
 
         super(activeRoute);
         this.form = new BookFormGroup(this.bookDTO);
-        this.link = `/${PageLink.admin_books}`;
+        this.pageLink = createPageLink(true, PageLink.admin, PageLink.books);
     }
 
     bookDTO: BookDTO = new BookDTO();

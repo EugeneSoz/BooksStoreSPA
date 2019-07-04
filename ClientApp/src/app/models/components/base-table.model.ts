@@ -13,18 +13,18 @@ export abstract class BaseTableComponent<TEntity, TEntities, TEntityDTO> {
         protected _service: BaseAdminService<TEntity, TEntities, TEntityDTO>,
         entityType: EntityType,
         modalService: BsModalService,
-        link: string) {
+        pageLink: string) {
 
         this._entityType = entityType;
         this._modalService = modalService;
-        this.link = link;
+        this.pageLink = pageLink;
     }
 
     private _entityType: EntityType;
     private _modalService: BsModalService;
     protected _subscriptions: Array<Subscription> = new Array<Subscription>();
 
-    link: string = null;
+    pageLink: string = null;
     entityId: number = 0;
 
     get filterProperties(): Array<FilterSortingProps> {

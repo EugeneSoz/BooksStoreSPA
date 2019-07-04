@@ -11,6 +11,7 @@ import { EntityType } from '../../models/enums/entity-type.enum';
 import { PageLink } from '../../models/enums/page-link.enum';
 import { EntityExtensions } from '../../models/entity-extensions.model';
 import { DeleteMessageComponent } from '../shared/delete-message/delete-message.component';
+import { createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './categories-table.component.html',
@@ -22,7 +23,11 @@ export class CategoriesTableComponent extends BaseTableComponent<Category, Categ
         categoryService: CategoryService,
         private modalService: BsModalService) {
 
-        super(categoryService, EntityType.Category, modalService, `/${PageLink.admin_categories}`);
+        super(
+            categoryService,
+            EntityType.Category,
+            modalService,
+            createPageLink(true, PageLink.admin, PageLink.categories));
     }
 
     categoryDTO: CategoryDTO = null;

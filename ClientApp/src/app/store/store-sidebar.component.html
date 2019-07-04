@@ -1,5 +1,5 @@
 <div class="sidebar-header">
-    <h5><a style="cursor: pointer" [routerLink]="link">Личный кабинет</a></h5>
+    <h5><a style="cursor: pointer" [routerLink]="pageLink">Личный кабинет</a></h5>
 </div>
 
 <ul *ngIf="categories != null" class="list-unstyled components">
@@ -15,13 +15,14 @@
 
         <ng-container *ngIf="category.childrenCategories?.length > 0">
             <a [ngClass]="'dropdown-toggle' + getCategoryClass(category.id)"
-               data-toggle="collapse"
-               role="button"
-               aria-expanded="false"
+               href="#"
+               [attr.aria-expanded]="!isCollapsed"
                [attr.aria-controls]="getControlId(category.id)"
-               (click)="onFilterByCategory(category.id); false">{{category.name}}</a>
+               (click)="onFilterByCategory(category.id); isCollapsed = !isCollapsed; false">
+                {{category.name}}
+            </a>
 
-            <ul class="collapse list-unstyled" [id]="getControlId(category.id)">
+            <ul class="collapse list-unstyled" [id]="getControlId(category.id)" [collapse]="isCollapsed" [isAnimated]="true">
                 <li *ngFor="let subcategory of category.childrenCategories">
                     <a [ngClass]="getSubCategoryClass(subcategory.id)"
                         (click)="onFilterBySubcategory(category.id, subcategory.id); false">

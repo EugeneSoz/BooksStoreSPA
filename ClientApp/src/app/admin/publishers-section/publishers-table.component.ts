@@ -10,6 +10,7 @@ import { EntityType } from '../../models/enums/entity-type.enum';
 import { PageLink } from '../../models/enums/page-link.enum';
 import { EntityExtensions } from '../../models/entity-extensions.model';
 import { DeleteMessageComponent } from '../shared/delete-message/delete-message.component';
+import { createPageLink } from '../../core/helper-functions';
 
 @Component({
     templateUrl: './publishers-table.component.html',
@@ -21,7 +22,11 @@ export class PublishersTableComponent extends BaseTableComponent<Publisher, Publ
         publisherService: PublisherService,
         private modalService: BsModalService) {
 
-        super(publisherService, EntityType.Publisher, modalService, `/${PageLink.admin_publishers}`);
+        super(
+            publisherService,
+            EntityType.Publisher,
+            modalService,
+            createPageLink(true, PageLink.admin, PageLink.publishers));
     }
 
     publisherDTO: PublisherDTO = null;

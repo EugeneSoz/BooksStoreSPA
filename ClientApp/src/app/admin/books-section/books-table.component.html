@@ -1,4 +1,4 @@
-<bs-admin-toolbar [isButtonsVisible]="true" [link]="link"></bs-admin-toolbar>
+<bs-admin-toolbar [isButtonsVisible]="true" [link]="pageLink"></bs-admin-toolbar>
 <bs-admin-filter [properties]="filterProperties" [term]="searchTerm" (searchEvent)="onSearch($event)"></bs-admin-filter>
 
 <div class="card m-3">
@@ -29,7 +29,7 @@
                         <td>
                             <div class="d-inline-flex">
                                 <button type="button" class="btn btn-sm btn-warning text-white ml-1"
-                                    [routerLink]="[link, 'edit', book.id]" tooltip="Редактировать">
+                                    [routerLink]="[pageLink, 'edit', book.id]" tooltip="Редактировать">
                                     <i class='fas fa-pencil-alt fa-lg'></i>
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger ml-1"

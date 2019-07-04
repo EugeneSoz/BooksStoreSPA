@@ -14,11 +14,11 @@ import { BooksListComponent } from './books-list/books-list.component';
 
 const routes: Routes = [
     {
-        path: PageLink.store, component: StoreComponent,
+        path: "", component: StoreComponent,
         children: [
             { path: "", component: BooksListComponent },
-            { path: "details/:id", component: BookDetailComponent },
-            { path: "cart", component: CartDetailsComponent },
+            { path: `${PageLink.detail}/:id`, component: BookDetailComponent },
+            { path: PageLink.cart, component: CartDetailsComponent },
             { path: "checkout", component: CheckoutDetailsComponent },
             { path: "payment", component: CheckoutPaymentComponent },
             { path: "summary", component: CheckoutSummaryComponent },
