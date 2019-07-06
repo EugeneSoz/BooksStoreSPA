@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BooksStoreSPA.Data.DTO;
 using BooksStoreSPA.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,12 @@ namespace BooksStoreSPA.Controllers
             SortingProperties sortingProperties = new SortingProperties();
 
             return sortingProperties.GetBooksSortingProps();
+        }
+
+        [HttpGet("dropdown")]
+        public Dropdown GetDropdowns()
+        {
+            return new Dropdown();
         }
     }
 }

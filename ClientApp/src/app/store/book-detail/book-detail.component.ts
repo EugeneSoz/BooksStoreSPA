@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { StoreService } from '../shared/store.service';
-import { Book } from '../../models/domain/book.model';
+import { Subscription } from 'rxjs';
+import { BookResponse } from '../../models/domain/DTO/book-response.model';
 
 @Component({
     templateUrl: './book-detail.component.html',
@@ -17,11 +19,16 @@ export class BookDetailComponent implements OnInit
 
     private _id: number = 0;
 
-    get book(): Book {
-        return this._storeService.book || null;
-    }
+    book: BookResponse = null;
 
     ngOnInit(): void {
-        this._storeService.getBook(this._id);
+        this.getBook();
+    }
+
+    private getBook(): void {
+        this._storeService.getBook(this._id)
+            .subscribe(result => {
+                this.book = result;
+        });
     }
 }

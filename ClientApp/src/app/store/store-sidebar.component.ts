@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { StoreService } from './shared/store.service';
 import { PageLink } from '../models/enums/page-link.enum';
-import { Category } from '../models/domain/category.model';
 import { nameof } from '../core/helper-functions';
 import { BookResponse } from '../models/domain/DTO/book-response.model';
+import { StoreCategoryResponse } from '../models/domain/DTO/store-category-response.model';
 
 @Component({
     selector: 'bs-store-sidebar',
@@ -18,52 +19,43 @@ export class StoreSidebarComponent implements OnInit {
     }
 
     pageLink: string;
-    isCollapsed: boolean = true;
     private _selectedCategoryId: number = 0;
     private _selectedSubCategoryId: number = 0;
 
-    get categories(): Array<Category> {
-        return this._storeService.categories;
-    }
+    categories$: Observable<Array<StoreCategoryResponse>>;
 
     ngOnInit(): void {
-        this._storeService.getCategories();
+        this.categories$ = this._storeService.getCategories();
     }
 
-    onFilterByCategory(id: number): void
-    {
-        this._selectedCategoryId = id;
-        this._selectedSubCategoryId = 0;
-        //$(`#c_${id}`).collapse('toggle');
-
-        if (id == 0) {
-            this._storeService.filterBy("", id);
+    onFilter(category: StoreCategoryResponse = null): void {
+        let filterPropertyName: string = "";
+        if (category == null) {
+            this._selectedCategoryId = 0;
+            this._selectedSubCategoryId = 0;
+            category = new StoreCategoryResponse();
+        }
+        else if (category.isParent) {
+            this._selectedCategoryId = category.id;
+            this._selectedSubCategoryId = 0;
+            filterPropertyName = nameof<BookResponse>("categoryName");
         }
         else {
-            this._storeService.filterBy(nameof<BookResponse>("categoryName"), id);
+            this._selectedCategoryId = category.parentCategoryID;
+            this._selectedSubCategoryId = category.id;
+            filterPropertyName = nameof<BookResponse>("subcategoryName");
         }
+
+        category.isCollapsed = !category.isCollapsed;
+        this._storeService.filterBy(filterPropertyName, category.id);
     }
 
-    onFilterBySubcategory(categoryId: number, subcategoryId: number): void
-    {
-        this._selectedCategoryId = categoryId;
-        this._selectedSubCategoryId = subcategoryId;
-
-        this._storeService.filterBy(nameof<BookResponse>("subcategoryName"),
-            subcategoryId);
-    }
-
-    getCategoryClass(id: number)
-    {
-        return this._selectedCategoryId == id ? " selected" : "";
-    }
-
-    getSubCategoryClass(id: number)
-    {
-        return this._selectedSubCategoryId == id ? " selected" : "";
-    }
-
-    getControlId(id: number): string {
-        return `c_${id}`;
+    checkOnSelection(category: StoreCategoryResponse): boolean {
+        if (category.id == this._selectedCategoryId || category.id == this._selectedSubCategoryId) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

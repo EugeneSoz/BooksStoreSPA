@@ -34,7 +34,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpGet("storecategories")]
-        public async Task<List<Category>> GetStoreCategoriesAsync()
+        public async Task<List<StoreCategoryResponse>> GetStoreCategoriesAsync()
         {
             return await _repo.GetStoreCategoriesAsync();
         }

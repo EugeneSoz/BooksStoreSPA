@@ -1,41 +1,31 @@
-<li *ngIf="storeView != null" class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle active"
-       [href]="storeView[0].href" id="navbarDropdown1" role="button"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-       (click)="onShowGrid()">
-        {{storeView[0].name}}
+<li dropdown *ngIf="gridSizeProperties$ | async as gsp" class="nav-item dropdown" placement="bottom right">
+    <a class="nav-link dropdown-toggle active" dropdownToggle
+       [href]="gsp[0].href" id="basic-link1" aria-controls="basic-link-dropdown1" (click)="false">
+        {{gsp[0].name}}
     </a>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
-        <ng-container *ngFor="let listItem of storeView">
-            <ng-container *ngIf="listItem.name != storeView[0].name">
-                <a [ngClass]="setElementCssClass(listItem)"
-                   [href]="listItem.href"
-                   (click)="onChangeBooksGridSize(listItem); false">{{listItem.name}}</a>
+    <ul id="basic-link-dropdown1" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="basic-link1">
+        <li *ngFor="let listItem of gsp">
+            <ng-container *ngIf="listItem.name != gsp[0].name">
+                <a [ngClass]="setElementCssClass(listItem)" [href]="listItem.href"
+                    (click)="onChangeBooksGridSize(listItem); false">{{listItem.name}}</a>
             </ng-container>
-
-            <div *ngIf="listItem?.hasDivider" class="dropdown-divider"></div>
-        </ng-container>
-
-    </div>
+        </li>
+    </ul>
 </li>
 
-<li *ngIf="storeSorting != null" class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle active"
-       [href]="storeSorting[0].href" id="navbarDropdown2" role="button"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-       (click)="onShowSorting()">
-        {{storeSorting[0].name}}
+<li dropdown *ngIf="sortingProperties$ | async as sp" class="nav-item dropdown" placement="bottom right">
+    <a class="nav-link dropdown-toggle active" dropdownToggle [href]="sp[0].href" id="basic-link2"
+        aria-controls="basic-link-dropdown2" (click)="false">
+        {{sp[0].name}}
     </a>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-        <ng-container *ngFor="let listItem of storeSorting">
-            <ng-container *ngIf="listItem.name != storeSorting[0].name">
-                <a [ngClass]="setElementCssClass(listItem)"
-                   [href]="listItem.href" (click)="onSort(listItem); false">{{listItem.name}}</a>
+    <ul id="basic-link-dropdown2" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="basic-link2">
+        <li *ngFor="let listItem of sp">
+            <ng-container *ngIf="listItem.name != sp[0].name">
+                <a [ngClass]="setElementCssClass(listItem)" [href]="listItem.href"
+                    (click)="onSort(listItem); false">{{listItem.name}}</a>
             </ng-container>
-        <div *ngIf="listItem?.hasDivider" class="dropdown-divider"></div>
-
-        </ng-container>
-    </div>
+        </li>
+    </ul>
 </li>

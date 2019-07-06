@@ -49,4 +49,5 @@ export class Url {
     static cat_sorting: string = `${Url.basePropertyUrl}/cat_sorting`;
     static book_filter: string = `${Url.basePropertyUrl}/book_filter`;
     static book_sorting: string = `${Url.basePropertyUrl}/book_sorting`;
+    static dropdown: string = `${Url.basePropertyUrl}/dropdown`;
 }

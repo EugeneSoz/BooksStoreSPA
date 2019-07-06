@@ -54,6 +54,7 @@ export class BaseAdminService<TEntity, TEntities, TEntityDTO> {
                 this.entities = result.entities;
                 this.pagination = result.pagination;
                 this.pageNumbers = result.pageNumbers;
+                console.log('subscription emitted');
             });
     }
 

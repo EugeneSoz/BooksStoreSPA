@@ -96,7 +96,7 @@ namespace BooksStoreSPA.Models.Repo
             return pagedList;
         }
 
-        public async Task<List<Category>> GetStoreCategoriesAsync()
+        public async Task<List<StoreCategoryResponse>> GetStoreCategoriesAsync()
         {
             IQueryable<Category> query = GetEntities();
             IQueryable<Category> processedCategories = query
@@ -112,8 +112,8 @@ namespace BooksStoreSPA.Models.Repo
                 });
 
             List<Category> categories = await processedCategories.ToListAsync();
-
-            return categories;
+            
+            return CreateStoreCategoryResponses(categories);
         }
 
         public async Task<List<Category>> GetParentCategoriesAsync()
@@ -138,6 +138,48 @@ namespace BooksStoreSPA.Models.Repo
             }
 
             return false;
+        }
+
+        private List<StoreCategoryResponse> CreateStoreCategoryResponses(List<Category> categories)
+        {
+            List<StoreCategoryResponse> storeCategories = new List<StoreCategoryResponse>();
+
+            foreach (Category category in categories)
+            {
+                bool hasChildren = category.ChildrenCategories.Any();
+                StoreCategoryResponse storeCategory = new StoreCategoryResponse
+                {
+                    Id = category.Id,
+                    ControlId = $"c_{category.Id}",
+                    Name = category.Name,
+                    IsParent = hasChildren,
+                    HasChildren = hasChildren,
+                };
+
+                if (hasChildren)
+                {
+                    List<StoreCategoryResponse> children = new List<StoreCategoryResponse>();
+                    foreach (Category child in category.ChildrenCategories)
+                    {
+                        StoreCategoryResponse storeChildCategory = new StoreCategoryResponse
+                        {
+                            Id = child.Id,
+                            ControlId = $"c_{child.Id}",
+                            ParentCategoryID = category.Id,
+                            Name = child.Name,
+                            IsParent = false,
+                            HasChildren = false,
+                        };
+
+                        children.Add(storeChildCategory);
+                    }
+                    storeCategory.Children = children;
+                }
+
+                storeCategories.Add(storeCategory);
+            }
+
+            return storeCategories;
         }
     }
 }
