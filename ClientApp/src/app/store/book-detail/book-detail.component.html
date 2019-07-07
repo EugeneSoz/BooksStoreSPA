@@ -1,6 +1,7 @@
 <div class="container-fluid px-0">
     <div id="store-content">
-        <bs-empty-toolbar></bs-empty-toolbar>
+        <bs-store-toolbar [isToolbarActionsVisible]="false" 
+        [isSearchToolbarVisible]="false"></bs-store-toolbar>
         <div id="store-scrollable-content">
             <div *ngIf="book != null" class="card m-3">
                 <div class="card-body">

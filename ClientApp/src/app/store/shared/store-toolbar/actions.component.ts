@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../../shared/store.service';
 import { BooksGridType } from '../../../models/enums/book-grid-type.enum';
 import { QueryOptions } from '../../../models/domain/DTO/query-options.model';
-import { Observable } from 'rxjs';
 import { ListItem } from '../../../models/domain/DTO/dropdown.model';
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: '.navbar-nav .mr-auto',
@@ -16,24 +14,25 @@ export class ActionsComponent implements OnInit {
     constructor(
         private _storeService: StoreService) { }
 
-    gridSizeProperties$: Observable<Array<ListItem>>;
-    sortingProperties$: Observable<Array<ListItem>>;
+    gridSizeProperties: Array<ListItem>;
+    sortingProperties: Array<ListItem>;
     gridSizeName: string = BooksGridType.ThreeByFour;
 
-    get sortPropertyName(): string {
-        return this._storeService.sortPropertyName;
-    }
+    private _sortPropertyName: string = "";
 
     private _descendingOrder: boolean = false;
 
     ngOnInit() {
-        this.sortingProperties$ = this._storeService.getDropdownProps().pipe(
-            map(d => d.sortingProperties));
-        this.gridSizeProperties$ = this._storeService.getDropdownProps().pipe(
-            map(d => d.gridSizeProperties));
+        this.getDropdownProps();
     }
 
-        //выделить в выпадающем списке свойство
+    private getDropdownProps(): void {
+        this._storeService.getDropdownProps().subscribe((result) => {
+            this.gridSizeProperties = result.gridSizeProperties;
+            this.sortingProperties = result.sortingProperties;
+        });
+    }
+    //выделить в выпадающем списке свойство
     setElementCssClass(listItem: ListItem): string
     {
         let cssClass: string = "";
@@ -42,7 +41,7 @@ export class ActionsComponent implements OnInit {
             cssClass = " active";
         }
 
-        if (listItem.propertyName == this.sortPropertyName
+        if (listItem.propertyName == this._sortPropertyName
             && listItem.descendingOrder == this._descendingOrder) {
             cssClass = " active";
         }
@@ -72,6 +71,7 @@ export class ActionsComponent implements OnInit {
     onSort(listItem: ListItem): void {
         this._descendingOrder = listItem.descendingOrder;
         let options: QueryOptions = new QueryOptions();
+        this._sortPropertyName = listItem.propertyName;
         options.sortPropertyName = listItem.propertyName;
         options.descendingOrder = listItem.descendingOrder;
 

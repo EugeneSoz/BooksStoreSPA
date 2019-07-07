@@ -6,8 +6,8 @@
     </button>
 
     <div class="collapse navbar-collapse row" id="navbarSupportedContent" [collapse]="isCollapsed">
-        <div *ngIf="isSearchToolbarVisible" class="col-lg">
-            <bs-search-toolbar></bs-search-toolbar>
+        <div class="col-lg">
+            <bs-search-toolbar *ngIf="isSearchToolbarVisible"></bs-search-toolbar>
         </div>
         <div class="col-lg-auto d-flex flex-row">
             <ul *ngIf="isToolbarActionsVisible" class="navbar-nav mr-auto">

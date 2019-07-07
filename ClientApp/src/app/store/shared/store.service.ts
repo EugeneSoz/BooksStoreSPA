@@ -1,16 +1,14 @@
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { QueryOptions } from '../../models/domain/DTO/query-options.model';
-import { Book } from '../../models/domain/book.model';
 import { BookResponse } from '../../models/domain/DTO/book-response.model';
-import { Pagination } from '../../models/pagination.model';
 import { Url } from '../../models/url.model';
 import { PagedResponse } from '../../models/paged-response.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
 import { StoreCategoryResponse } from '../../models/domain/DTO/store-category-response.model';
-import { Observable, of, Subject } from 'rxjs';
 import { Dropdown } from '../../models/domain/DTO/dropdown.model';
-import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable()
 export class StoreService {
@@ -30,17 +28,11 @@ export class StoreService {
     rows: Array<number> = new Array<number>();
     cols: Array<number> = new Array<number>();
 
-    book: Book = null;
+    //уведомляет об получении новых объектов книг от сервера
     private _booksChanged: Subject<void> = new Subject<void>();
     get booksChanged(): Observable<void> {
         return this._booksChanged.asObservable();
     }
-
-    pagination: Pagination = null;
-    pageNumbers: Array<number>;
-
-    sortPropertyName: string;
-    searchTerm: string = null;
 
     private _receivedFromServerBooksCount: number = 0;
     get cardsCountInRow(): number {
@@ -91,7 +83,6 @@ export class StoreService {
         this._queryOptions.currentPage = 1;
         this._queryOptions.searchPropertyNames = options.searchPropertyNames;
         this._queryOptions.searchTerm = options.searchTerm;
-        this.searchTerm = options.searchTerm;
 
         this._booksChanged.next();
     }
@@ -99,7 +90,6 @@ export class StoreService {
     sort(options: QueryOptions): void {
         this._queryOptions.sortPropertyName = options.sortPropertyName;
         this._queryOptions.descendingOrder = options.descendingOrder;
-        this.sortPropertyName = options.sortPropertyName;
 
         this._booksChanged.next();
     }
@@ -123,7 +113,7 @@ export class StoreService {
         this.rows = new Array<number>();
 
         this._cardsCountInRow = cardsCountInRow;
-        this.displayedBooksCount = this._receivedFromServerBooksCount;// this.books != null ? this.books.length : 0;
+        this.displayedBooksCount = this._receivedFromServerBooksCount;
         for (let i = 0; i < cardsCountInRow; i++)
         {
             this.cols.push(i);

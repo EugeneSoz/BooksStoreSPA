@@ -22,10 +22,15 @@ export class StoreSidebarComponent implements OnInit {
     private _selectedCategoryId: number = 0;
     private _selectedSubCategoryId: number = 0;
 
-    categories$: Observable<Array<StoreCategoryResponse>>;
+    categories: Array<StoreCategoryResponse>;
 
     ngOnInit(): void {
-        this.categories$ = this._storeService.getCategories();
+        this.getCategories();
+    }
+
+    private getCategories(): void {
+        this._storeService.getCategories()
+            .subscribe(result => this.categories = result)
     }
 
     onFilter(category: StoreCategoryResponse = null): void {

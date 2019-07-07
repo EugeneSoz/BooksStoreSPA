@@ -2,12 +2,12 @@
     <h5><a style="cursor: pointer" [routerLink]="pageLink">Личный кабинет</a></h5>
 </div>
 
-<ul *ngIf="(categories$ | async) != null" class="list-unstyled components">
+<ul *ngIf="categories != null" class="list-unstyled components">
     <li>
         <a href="#" (click)="onFilter(); false">Все категории</a>
     </li>
 
-    <li *ngFor="let category of categories$ | async">
+    <li *ngFor="let category of categories">
         <ng-container *ngIf="!category.hasChildren">
             <a href="#" (click)="onFilter(category); false">
                 {{category.name}}

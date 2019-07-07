@@ -13,11 +13,10 @@ export class SearchToolbarComponent {
     constructor(
         private _storeService: StoreService) { }
 
-    searchProperyName: string;
     searchTerm: string = null;
 
     get isClearBtnVisible(): boolean {
-        return this._storeService.searchTerm == null ? false : true;
+        return this.searchTerm == null ? false : true;
     }
 
     onInputSearchValue(value: string): void {
@@ -27,6 +26,7 @@ export class SearchToolbarComponent {
     onSearch(clear: boolean = false): void {
         let options: QueryOptions = new QueryOptions();
         if (clear) {
+            this.searchTerm = null;
             options.searchPropertyNames = null;
             options.searchTerm = null;
         }
