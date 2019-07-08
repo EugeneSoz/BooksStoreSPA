@@ -68,31 +68,6 @@ export class CartService {
         return this._rest.getAll<Array<CartLine>>(Url.session)
     }
 
-    getOrders(): void {
-        //this._rest.getAll<Array<Order>>(this._urls.orders)
-        //    .subscribe(response => {
-        //        this.orders = this._rest.getResponseBody(response, HttpMethod.POST);
-        //    });
-    }
-
-    createOrder(order: Order): void {
-        //this._rest.createObject <{}, OrderConfirmation>(this._urls.orders, {
-        //    name: order.name,
-        //    address: order.address,
-        //    payment: order.payment,
-        //    products: order.products
-        //}).subscribe(response => {
-        //    order.orderConfirmation = this._rest.getResponseBody(response, HttpMethod.POST);
-        //    this.clear();
-        //    order.clear();
-        //});
-    }
-
-    shipOrder(order: Order) {
-        //this._rest.createObject<Order, void>(`${this._urls.orders}/${order.orderId}`, order)
-        //    .subscribe(response => this.getOrders());
-    }
-
     private update(storeCart: boolean = true): void {
         this.itemCount = this.lines.map(l => l.quantity)
             .reduce((prev, curr) => prev + curr, 0);

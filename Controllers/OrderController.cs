@@ -12,42 +12,46 @@ using Microsoft.EntityFrameworkCore;
 namespace BooksStoreSPA.Controllers
 {
     [Route("api/orders")]
+    [Produces("application/json")]
     //[Authorize(Roles = "Administrator")]
     public class OrderController : ControllerBase
     {
-        private StoreDbContext _context;
+        private readonly StoreDbContext _context;
 
         public OrderController(StoreDbContext context)
         {
             _context = context;
         }
 
-        //[HttpGet]
-        //public IEnumerable<Order> GetOrders()
-        //{
-        //    return _context.Orders
-        //        .Include(o => o.Goods).Include(o => o.Payment);
-        //}
+        [HttpGet]
+        public async Task<List<Order>> GetOrdersAsync()
+        {
+            return await _context.Orders
+                .Include(o => o.Goods)
+                .Include(o => o.Payment)
+                .ToListAsync();
+        }
 
-        //[HttpPost("{id}")]
-        //public void MarkShipped(long id)
-        //{
-        //    Order order = _context.Orders.Find(id);
-        //    if (order != null)
-        //    {
-        //        order.Shipped = true;
-        //        _context.SaveChanges();
-        //    }
-        //}
+        [HttpPost("{id}")]
+        public async Task MarkShipped(long id)
+        {
+            Order order = await _context.Orders.FindAsync(id);
+            if (order != null)
+            {
+                order.Shipped = true;
+                await _context.SaveChangesAsync();
+            }
+        }
 
         [HttpPost]
         //[AllowAnonymous]
-        public IActionResult CreateOrder([FromBody] Order order)
+        public ActionResult CreateOrder([FromBody] Order order)
         {
             if (ModelState.IsValid)
             {
                 order.OrderId = 0;
                 order.Shipped = false;
+                //не доверяем информации о сумме заказа, присланного с клиента
                 order.Payment.Total = GetPrice(order.Goods);
                 ProcessPayment(order.Payment);
                 if (order.Payment.AuthCode != null)
@@ -70,9 +74,11 @@ namespace BooksStoreSPA.Controllers
             return BadRequest(ModelState);
         }
 
-        private decimal GetPrice(IEnumerable<OrderLine> lines)
+        private decimal GetPrice(List<OrderLine> lines)
         {
+            //получить id всех книг в заказе
             IEnumerable<long> ids = lines.Select(l => l.ProductId);
+
             return _context.Books
                 .Where(b => ids.Contains(b.Id))
                 .Select(b => lines.First(l => l.ProductId == b.Id).Quantity * b.Price)
