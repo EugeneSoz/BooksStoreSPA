@@ -17,9 +17,9 @@ export class CheckoutDetailsComponent extends BaseFormComponent<CheckoutFormGrou
 
         super();
         this.form = new CheckoutFormGroup(_order);
-        if (_order.products.length == 0) {
-            this._router.navigateByUrl("/store/cart");
-        }       
+        // if (_order.products.length == 0) {
+        //     this._router.navigateByUrl("/store/cart");
+        // }       
     }
 
     ngOnInit(): void {

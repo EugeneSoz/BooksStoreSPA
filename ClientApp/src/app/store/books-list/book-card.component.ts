@@ -11,7 +11,7 @@ import { PageLink } from '../../models/enums/page-link.enum';
 })
 export class BookCardComponent {
     constructor(
-        private _cart: CartService) {
+        private _cartService: CartService) {
         this.pageLink = createPageLink(true, PageLink.store, PageLink.detail);
     }
 
@@ -20,6 +20,6 @@ export class BookCardComponent {
     pageLink: string;
 
     onAddToCart(): void {
-        this._cart.addProduct(this.book);
+        this._cartService.addToCart(this.book);
     }
 }

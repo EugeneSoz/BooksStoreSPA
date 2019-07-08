@@ -12,7 +12,7 @@ export class OrderSectionComponent {
         private _cart: CartService) { }
 
     get orders(): Array<Order> {
-        return this._cart.orders;
+        return new Array()
     }
 
     markShipped(order: Order) {

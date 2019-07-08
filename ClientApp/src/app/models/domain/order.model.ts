@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { CartService } from '../../store/shared/cart.service';
+import { CartLine } from '../cart-line.model';
 //import "rxjs/add/operator/filter";
 
 @Injectable()
@@ -40,10 +41,10 @@ export class Order {
     shipped: boolean = false;
     orderConfirmation: OrderConfirmation;
 
-    get products(): Array<CartLine> {
-        return this._cart.selections
-            .map(p => new CartLine(p.itemId, p.quantity));
-    }
+    //get products(): Array<CartLine> {
+    //    return this._cart.selections
+    //        .map(p => new CartLine(p.itemId, p.quantity));
+    //}
 
     clear(): void {
         this.name = null;
@@ -65,11 +66,11 @@ export class Payment {
     cardSecurityCode: string;
 }
 
-export class CartLine {
-    constructor(
-        private productId: number,
-        private quantity: number) { }
-}
+//export class CartLine {
+//    constructor(
+//        private productId: number,
+//        private quantity: number) { }
+//}
 
 export class OrderConfirmation {
     constructor(

@@ -1,61 +1,70 @@
 import { Injectable } from '@angular/core';
 
-import { ProductSelection } from '../../models/product-selection.model';
 import { Order } from '../../models/domain/order.model';
 import { BookResponse } from '../../models/domain/DTO/book-response.model';
 import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
+import { Cart } from '../../models/cart.model';
+import { CartLine } from '../../models/cart-line.model';
 
 @Injectable()
 export class CartService {
     constructor(
         private _rest: RestDatasource) {
-
+        this._cart = new Cart();
         this.getCartData();
     }
 
-    selections: Array<ProductSelection> = new Array<ProductSelection>();
-    orders: Array<Order> = new Array<Order>();
-    itemCount: number = 0;
-    totalPrice: number = 0;
+    private _cart: Cart;
+    get itemCount(): number {
+        return this._cart.itemCount;
+    }
 
-    addProduct(book: BookResponse): void {
-        let selection = this.selections.find(ps => ps.itemId == book.id);
-        if (selection) {
-            selection.quantity++;
+    get totalPrice(): number {
+        return this._cart.totalPrice;
+    }
+
+    get lines(): Array<CartLine> {
+        return this._cart.lines;
+    }
+
+    addToCart(book: BookResponse): void {
+        let line = this._cart.lines.find(ps => ps.itemId == book.id);
+        if (line) {
+            line.quantity++;
         }
         else {
-            this.selections.push(new ProductSelection(book.id, book.title, book.price, 1));
+            this._cart.lines.push(new CartLine(book.id, book.title, book.price, 1));
         }
         this.update();
     }
 
     updateQuantity(bookId: number, quantity: number): void {
         if (quantity > 0) {
-            let selection = this.selections.find(ps => ps.itemId == bookId);
-            if (selection) {
-                selection.quantity = quantity;
+            let line = this._cart.lines.find(ps => ps.itemId == bookId);
+            if (line) {
+                line.quantity = quantity;
             }
         }
         else {
             //если количество равно нулю, то удаляем товар из корзины
-            let index = this.selections.findIndex(ps => ps.itemId == bookId);
+            let index = this._cart.lines.findIndex(ps => ps.itemId == bookId);
             if (index != -1) {
-                this.selections.splice(index, 1);
+                this._cart.lines.splice(index, 1);
             }
         }
         this.update();
     }
 
     clear(): void {
-        this.selections = new Array<ProductSelection>();
+        this._cart.lines = new Array<CartLine>();
         this.update();
     }
 
-    storeCartData(): void {
-        this._rest.create(Url.session, this.selections)
-            .subscribe(response => { });
-    }
+    //storeCartData(): void {
+    //    this._rest.create(Url.session, this.selections)
+    //        .subscribe(response => { });
+    //}
 
     getCartData(): void {
         //this._rest.getAll<Array<ProductSelection>>(this._urls.session)
@@ -96,14 +105,14 @@ export class CartService {
     }
 
     private update(storeCart: boolean = true): void {
-        this.itemCount = this.selections.map(ps => ps.quantity)
+        this._cart.itemCount = this._cart.lines.map(l => l.quantity)
             .reduce((prev, curr) => prev + curr, 0);
 
-        this.totalPrice = this.selections.map(ps => ps.quantity * ps.price)
+        this._cart.totalPrice = this._cart.lines.map(l => l.quantity * l.price)
             .reduce((prev, curr) => prev + curr, 0);
 
         if (storeCart) {
-            this.storeCartData();
+            //this.storeCartData();
         }
     }
 }

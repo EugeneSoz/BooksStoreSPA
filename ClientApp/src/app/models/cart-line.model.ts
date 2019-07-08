@@ -1,4 +1,4 @@
-export class ProductSelection {
+export class CartLine {
     constructor(
         public itemId?: number,
         public name?: string,
