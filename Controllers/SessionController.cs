@@ -23,12 +23,13 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost("cart")]
-        public ActionResult StoreCart([FromBody] ProductSelection[] products)
+        public ActionResult StoreCart([FromBody] CartLine[] products)
         {
             string jsonData = JsonConvert.SerializeObject(products, 
                 new JsonSerializerSettings {
                     ContractResolver = new CamelCasePropertyNamesContractResolver() });
             HttpContext.Session.SetString("cart", jsonData);
+
             return Ok(null);
         }
 

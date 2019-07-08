@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BooksStoreSPA.Data;
+using BooksStoreSPA.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,13 +64,13 @@ namespace BooksStoreSPA.Controllers
                 }
                 else
                 {
-                    return BadRequest("Payment rejected");
+                    return BadRequest("Платёж отклонён");
                 }
             }
             return BadRequest(ModelState);
         }
 
-        private decimal GetPrice(IEnumerable<CartLine> lines)
+        private decimal GetPrice(IEnumerable<OrderLine> lines)
         {
             IEnumerable<long> ids = lines.Select(l => l.ProductId);
             return _context.Books
@@ -80,7 +81,6 @@ namespace BooksStoreSPA.Controllers
 
         private void ProcessPayment(Payment payment)
         {
-            // integrate your payment system here
             payment.AuthCode = "12345";
         }
     }

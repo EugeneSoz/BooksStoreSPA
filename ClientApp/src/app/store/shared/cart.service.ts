@@ -5,14 +5,23 @@ import { BookResponse } from '../../models/domain/DTO/book-response.model';
 import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
 import { Cart } from '../../models/cart.model';
-import { CartLine } from '../../models/cart-line.model';
+import { CartLine } from '../../models/domain/DTO/cart-line.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CartService {
     constructor(
         private _rest: RestDatasource) {
         this._cart = new Cart();
-        this.getCartData();
+        this.getCartData().subscribe(response => {
+            let cartData = response;
+            if (cartData != null) {
+                for (let item of cartData) {
+                    this._cart.lines.push(item);
+                }
+                this.update(false);
+            }
+        });
     }
 
     private _cart: Cart;
@@ -61,22 +70,13 @@ export class CartService {
         this.update();
     }
 
-    //storeCartData(): void {
-    //    this._rest.create(Url.session, this.selections)
-    //        .subscribe(response => { });
-    //}
+    private storeCartData(): void {
+        this._rest.create(Url.session, this._cart.lines)
+            .subscribe(response => { });
+    }
 
-    getCartData(): void {
-        //this._rest.getAll<Array<ProductSelection>>(this._urls.session)
-        //    .subscribe(response => {
-        //        let cartData = this._rest.getResponseBody(response, HttpMethod.POST);
-        //        if (cartData != null) {
-        //            for (let item of cartData) {
-        //                this.selections.push(item);
-        //            }
-        //            this.update(false);
-        //        }
-        //    });
+    private getCartData(): Observable<Array<CartLine>> {
+        return this._rest.getAll<Array<CartLine>>(Url.session)
     }
 
     getOrders(): void {
@@ -112,7 +112,7 @@ export class CartService {
             .reduce((prev, curr) => prev + curr, 0);
 
         if (storeCart) {
-            //this.storeCartData();
+            this.storeCartData();
         }
     }
 }

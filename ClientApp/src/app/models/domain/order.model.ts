@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { CartService } from '../../store/shared/cart.service';
-import { CartLine } from '../cart-line.model';
 //import "rxjs/add/operator/filter";
 
 @Injectable()

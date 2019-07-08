@@ -1,6 +1,6 @@
 ﻿namespace BooksStoreSPA.Data.DTO
 {
-    public class ProductSelection
+    public class CartLine
     {
         public long ItemId { get; set; }
         public string Name { get; set; }

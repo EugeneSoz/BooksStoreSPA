@@ -1,4 +1,4 @@
-import { CartLine } from './cart-line.model';
+import { CartLine } from './domain/DTO/cart-line.model';
 
 export class Cart {
     lines: Array<CartLine> = new Array<CartLine>();
