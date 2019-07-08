@@ -19,10 +19,10 @@ const routes: Routes = [
             { path: "", component: BooksListComponent },
             { path: `${PageLink.detail}/:id`, component: BookDetailComponent },
             { path: PageLink.cart, component: CartDetailsComponent },
-            { path: "checkout", component: CheckoutDetailsComponent },
-            { path: "payment", component: CheckoutPaymentComponent },
-            { path: "summary", component: CheckoutSummaryComponent },
-            { path: "confirmation", component: OrderConfirmationComponent }
+            { path: PageLink.checkout, component: CheckoutDetailsComponent },
+            { path: PageLink.payment, component: CheckoutPaymentComponent },
+            { path: PageLink.summary, component: CheckoutSummaryComponent },
+            { path: PageLink.confirmation, component: OrderConfirmationComponent }
         ]
     },
 ];

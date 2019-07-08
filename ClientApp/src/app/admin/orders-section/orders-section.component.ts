@@ -1,21 +1,32 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
-import { CartService } from '../../store/shared/cart.service';
 import { Order } from '../../models/domain/order.model';
+import { OrderService } from '../../store/shared/order.service';
+import { CartService } from '../../store/shared/cart.service';
 
 @Component({
     templateUrl: './orders-section.component.html',
-    providers: [CartService]
+    providers: [
+        OrderService,
+        CartService
+    ]
 })
-export class OrderSectionComponent {
+export class OrderSectionComponent implements OnInit {
     constructor(
-        private _cart: CartService) { }
+        private _orderService: OrderService) { }
 
-    get orders(): Array<Order> {
-        return new Array()
+    orders: Array<Order>;
+
+    ngOnInit(): void {
+        this.getOrders();
+    }
+
+    private getOrders(): void {
+        this._orderService.getOrders()
+            .subscribe(response => this.orders = response);
     }
 
     markShipped(order: Order) {
-        this._cart.shipOrder(order);
+        //this._cart.shipOrder(order);
     }
 }

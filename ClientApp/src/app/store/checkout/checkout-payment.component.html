@@ -13,7 +13,7 @@
                             <bs-validation [messages]="getErrors(control.property)"></bs-validation>
                         </div>
                         <div class="text-center mt-2">
-                            <button class="btn btn-outline-primary" routerLink="/store/checkout">Назад
+                            <button class="btn btn-outline-primary" (click)="onGoToCheckout()">Назад
                             </button>
                             <button type="submit" class="btn btn-success ml-2" 
                                 [disabled]="form.invalid">

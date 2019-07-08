@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { BaseFormComponent } from '../../models/components/base-form.model';
 import { CheckoutFormGroup } from '../../models/forms/checkout-form.model';
 import { Order } from '../../models/domain/order.model';
-import { nameof } from '../../core/helper-functions';
+import { nameof, createPageLink } from '../../core/helper-functions';
+import { OrderService } from '../shared/order.service';
+import { PageLink } from '../../models/enums/page-link.enum';
 
 @Component({
     templateUrl: './checkout-details.component.html',
@@ -12,36 +14,28 @@ import { nameof } from '../../core/helper-functions';
 export class CheckoutDetailsComponent extends BaseFormComponent<CheckoutFormGroup> implements OnInit {
     constructor(
         private _router: Router,
-        private _order: Order,
-        activeRoute: ActivatedRoute) {
+        private _orderService: OrderService) {
 
         super();
-        this.form = new CheckoutFormGroup(_order);
-        // if (_order.products.length == 0) {
-        //     this._router.navigateByUrl("/store/cart");
-        // }       
     }
 
     ngOnInit(): void {
-        this.form.controls['name'].valueChanges.subscribe((value: string) => {
-            if (value.length == 4) {
-                let newValue: string = `${value}-`;
-                this.form.controls['name'].patchValue(newValue, { emitEvent: true });
-            }
-            //else {
-            //    this.form.controls['name'].patchValue(oldValue, { emitEvent: false });
-            //}
-
-            console.log(this.form.controls['name'].value);
-        });
+        this.form = new CheckoutFormGroup(this._orderService.order);
+         if (this._orderService.orderHasNotBeenCreated) {
+             this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.detail));
+         }       
     }
 
     onSubmitForm(): void {
         if (this.form.valid) {
-            this._order.name = this.form.get(nameof<Order>("name")).value;
-            this._order.address = this.form.get(nameof<Order>("address")).value;
+            this._orderService.order.name = this.form.get(nameof<Order>("name")).value;
+            this._orderService.order.address = this.form.get(nameof<Order>("address")).value;
 
-            this._router.navigateByUrl("/store/payment");
+            this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.payment));
         }
+    }
+
+    onGoToStore(): void {
+        this._router.navigateByUrl(createPageLink(true, PageLink.store));
     }
 }

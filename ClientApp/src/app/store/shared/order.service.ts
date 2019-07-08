@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { OrderLine } from '../../models/order-line.model';
 import { CartService } from './cart.service';
-import { Observable } from 'rxjs';
 import { Order } from '../../models/domain/order.model';
 import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
@@ -38,11 +38,48 @@ export class OrderService {
         //})
     }
 
-    submitted: boolean = false;
+    orderSubmitted: boolean = false;
+    order: Order = new Order();
+    orderConfirmation: OrderConfirmation = new OrderConfirmation();
 
-    //все заказы
-    get goods(): Array<OrderLine> {
-        return this._cart.lines
+    get orderHasNotBeenCreated(): boolean {
+        return this.order.goods.length > 0 ? false : true;
+    }
+
+    get checkoutFormHasNotBeenFilled(): boolean {
+        return this.order.name == "" || this.order.address == "" ? true : false;
+    }
+
+    get paymentFormHasNotBeenFilled(): boolean {
+        return this.order.payment.cardNumber == null
+            || this.order.payment.cardExpiry == null
+            || this.order.payment.cardSecurityCode == null
+            ? true
+            : false;
+    }
+
+    get orderHasBeenPlaced(): boolean {
+        return this.orderConfirmation.orderId != 0
+            && this.orderConfirmation.amount != 0
+            && this.orderConfirmation.authCode != ""
+            ? true
+            : false;
+    }
+
+    set cardNumber(value: string) {
+        this.order.payment.cardNumber = value;
+    }
+
+    set cardExpiry(value: string) {
+        this.order.payment.cardExpiry = value;
+    }
+
+    set cardSecurityCode(value: string) {
+        this.order.payment.cardSecurityCode = value;
+    }
+
+    createOrder(): void {
+        this.order.goods = this._cart.lines
             .map(p => new OrderLine(p.itemId, p.quantity));
     }
 
@@ -50,24 +87,21 @@ export class OrderService {
         return this._rest.getAll<Array<Order>>(Url.orders);
     }
 
-    createOrder(order: Order): Observable<OrderConfirmation> {
-        return this._rest.receiveAll<OrderConfirmation, Order>(Url.orders, order);
+    placeOrder(): void {
+        this._rest.receiveAll<OrderConfirmation, Order>(Url.orders, this.order)
+            .subscribe(response => {
+                this.orderConfirmation = response;
+                this.clear();
+            });
     }
 
     shipOrder(order: Order): Observable<void> {
         return this._rest.getOne<void>(`${Url.orders}/${order.orderId}`);
     }
 
-    clear(): void {
-        //this.name = null;
-        //this.address = null;
-        //this.payment = new Payment();
+    private clear(): void {
+        this.order = new Order();
         this._cart.clear();
-        this.submitted = false;
-    }
-
-    submit() {
-        this.submitted = true;
-        //this._cart.createOrder(this);
+        this.orderSubmitted = false;
     }
 }

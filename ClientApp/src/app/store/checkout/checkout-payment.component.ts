@@ -1,35 +1,54 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { BaseFormComponent } from '../../models/components/base-form.model';
 import { PaymentFormGroup } from '../../models/forms/payment-form.model';
-import { Order, Payment } from '../../models/domain/order.model';
-import { nameof } from '../../core/helper-functions';
+import { nameof, createPageLink } from '../../core/helper-functions';
+import { OrderService } from '../shared/order.service';
+import { Payment } from '../../models/payment.model';
+import { PageLink } from '../../models/enums/page-link.enum';
 
 @Component({
     templateUrl: './checkout-payment.component.html',
 })
-export class CheckoutPaymentComponent extends BaseFormComponent<PaymentFormGroup> {
+export class CheckoutPaymentComponent extends BaseFormComponent<PaymentFormGroup> implements OnInit {
     constructor(
         private _router: Router,
-        private _order: Order,
-        activeRoute: ActivatedRoute) {
+        private _orderService: OrderService) {
 
         super();
-        this.form = new PaymentFormGroup(_order);
+    }
 
-        if (_order.name == null || _order.address == null) {
-            _router.navigateByUrl("/store/checkout");
+    ngOnInit(): void {
+                //this.form.controls['name'].valueChanges.subscribe((value: string) => {
+        //    if (value.length == 4) {
+        //        let newValue: string = `${value}-`;
+        //        this.form.controls['name'].patchValue(newValue, { emitEvent: true });
+        //    }
+        //    //else {
+        //    //    this.form.controls['name'].patchValue(oldValue, { emitEvent: false });
+        //    //}
+
+        //    console.log(this.form.controls['name'].value);
+        //});
+        this.form = new PaymentFormGroup(this._orderService.order);
+
+        if (this._orderService.checkoutFormHasNotBeenFilled) {
+            this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.checkout));
         }
     }
 
     onSubmitForm(): void {
         if (this.form.valid) {
-            this._order.payment.cardNumber = this.form.get(nameof<Payment>("cardNumber")).value;
-            this._order.payment.cardExpiry = this.form.get(nameof<Payment>("cardExpiry")).value;
-            this._order.payment.cardSecurityCode = this.form.get(nameof<Payment>("cardSecurityCode")).value;
+            this._orderService.cardNumber = this.form.get(nameof<Payment>("cardNumber")).value;
+            this._orderService.cardExpiry = this.form.get(nameof<Payment>("cardExpiry")).value;
+            this._orderService.cardSecurityCode = this.form.get(nameof<Payment>("cardSecurityCode")).value;
 
-            this._router.navigateByUrl("/store/summary");
+            this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.summary));
         }
+    }
+
+    onGoToCheckout(): void {
+        this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.checkout));
     }
 }

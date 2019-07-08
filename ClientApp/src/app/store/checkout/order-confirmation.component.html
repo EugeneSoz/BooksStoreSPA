@@ -6,20 +6,26 @@
                 <div class="card-body">
                     <h2 class="text-center">Подтверждение заказа</h2>
 
-                    <table *ngIf="order.orderConfirmation" class="table m-2">
+                    <table *ngIf="orderHasBeenPlaced" class="table m-2">
                         <tr>
                             <th>Заказ</th>
-                            <td>{{order.orderConfirmation.orderId}}</td>
+                            <td>{{orderConfirmation.orderId}}</td>
                         </tr>
                         <tr>
                             <th>Цена</th>
-                            <td>{{order.orderConfirmation.amount}}</td>
+                            <td>{{orderConfirmation.amount | currency:"RUB":"symbol":"2.2-2"}}</td>
                         </tr>
                         <tr>
                             <th>Код платежа</th>
-                            <td>{{order.orderConfirmation.authCode}}</td>
+                            <td>{{orderConfirmation.authCode}}</td>
                         </tr>
                     </table>
+
+                    <h3 *ngIf="!orderHasBeenPlaced" class="text-center">Заказ подтверждается...</h3>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary" (click)="onGoToStore()">В магазин</button>
+                    </div>
                 </div>
             </div>
 

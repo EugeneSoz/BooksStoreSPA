@@ -1,25 +1,38 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+
 import { Order } from '../../models/domain/order.model';
 import { CartService } from '../shared/cart.service';
+import { PageLink } from '../../models/enums/page-link.enum';
+import { createPageLink } from '../../core/helper-functions';
+import { OrderService } from '../shared/order.service';
 
 @Component({
     templateUrl: './checkout-summary.component.html',
 })
-export class CheckoutSummaryComponent {
+export class CheckoutSummaryComponent implements OnInit {
     constructor(
         private _router: Router,
-        public order: Order,
+        private _orderService: OrderService,
         public cart: CartService) {
-        if (order.payment.cardNumber == null
-            || order.payment.cardExpiry == null
-            || order.payment.cardSecurityCode == null) {
-            _router.navigateByUrl("/checkout/payment");
+    }
+
+    get order(): Order {
+        return this._orderService.order;
+    }
+
+    ngOnInit(): void {
+        if (this._orderService.paymentFormHasNotBeenFilled) {
+            this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.payment));
         }
     }
 
     onSubmitOrder() {
-        this.order.submit();
-        this._router.navigateByUrl("/store/confirmation");
+        this._orderService.orderSubmitted = true;
+        this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.confirmation));
+    }
+
+    onGoToPayment(): void {
+        this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.payment));
     }
 }

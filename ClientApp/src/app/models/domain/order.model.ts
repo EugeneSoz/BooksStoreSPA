@@ -8,5 +8,9 @@ export class Order {
         public address: string = "",
         public payment: Payment = null,
         public shipped: boolean = false,
-        public goods: Array<OrderLine> = null) { }
+        public goods: Array<OrderLine> = null) {
+
+        this.payment = new Payment();
+        this.goods = new Array<OrderLine>();
+    }
 }

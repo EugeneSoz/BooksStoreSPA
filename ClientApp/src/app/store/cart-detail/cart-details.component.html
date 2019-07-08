@@ -55,9 +55,9 @@
                     
                     <div class="text-center">
                         <button class="btn btn-primary" [routerLink]="storePageLink">Продолжить покупки</button>
-                        <button class="btn btn-secondary ml-2" routerLink="/store/checkout" 
-                        [disabled]="isCartEmpty">
-                            Оплатить
+                        <button class="btn btn-secondary ml-2" 
+                        [disabled]="isCartEmpty" (click)="onPlaceAnOrder()">
+                            Оплатить заказ
                         </button>
                     </div>
                 </div>
