@@ -36,6 +36,9 @@ export class CheckoutPaymentComponent extends BaseFormComponent<PaymentFormGroup
         if (this._orderService.checkoutFormHasNotBeenFilled) {
             this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.checkout));
         }
+        else {
+            this._orderService.storeSessionData();
+        }
     }
 
     onSubmitForm(): void {

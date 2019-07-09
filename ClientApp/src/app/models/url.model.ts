@@ -33,7 +33,8 @@ export class Url {
     static publishersForSelection: string = `${Url.basePublisherUrl}/publishersforselection`;
 
     private static baseSessionUrl: string = `/api/session`;
-    static session: string = `${Url.baseSessionUrl}/cart`;
+    static cart_session: string = `${Url.baseSessionUrl}/cart`;
+    static checkout_session: string = `${Url.baseSessionUrl}/checkout`;
 
     private static baseOrderUrl: string = `/api/orders`;
     static orders: string = `${Url.baseOrderUrl}`;

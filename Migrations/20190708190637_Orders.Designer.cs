@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooksStoreSPA.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20190708115211_Orders")]
+    [Migration("20190708190637_Orders")]
     partial class Orders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

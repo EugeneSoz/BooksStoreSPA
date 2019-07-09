@@ -22,7 +22,7 @@ export class CheckoutDetailsComponent extends BaseFormComponent<CheckoutFormGrou
     ngOnInit(): void {
         this.form = new CheckoutFormGroup(this._orderService.order);
          if (this._orderService.orderHasNotBeenCreated) {
-             this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.detail));
+             this._router.navigateByUrl(createPageLink(true, PageLink.store, PageLink.cart));
          }       
     }
 

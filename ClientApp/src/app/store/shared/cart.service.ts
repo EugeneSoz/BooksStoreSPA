@@ -60,12 +60,12 @@ export class CartService {
     }
 
     private storeCartData(): void {
-        this._rest.create(Url.session, this.lines)
+        this._rest.create(Url.cart_session, this.lines)
             .subscribe(response => { });
     }
 
     private getCartData(): Observable<Array<CartLine>> {
-        return this._rest.getAll<Array<CartLine>>(Url.session)
+        return this._rest.getAll<Array<CartLine>>(Url.cart_session);
     }
 
     private update(storeCart: boolean = true): void {

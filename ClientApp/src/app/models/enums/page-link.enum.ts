@@ -9,8 +9,8 @@ export enum PageLink {
     store = "store",
     detail = "detail",
     cart = "cart",
-    checkout = "checkout/step1",
-    payment = "checkout/step2",
-    summary = "checkout/step3",
-    confirmation = "checkout/confirmation"
+    checkout = "checkout",
+    payment = "payment",
+    summary = "summary",
+    confirmation = "confirmation"
 }

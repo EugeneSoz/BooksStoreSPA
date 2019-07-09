@@ -26,10 +26,12 @@ namespace BooksStoreSPA.Controllers
         [HttpGet]
         public async Task<List<Order>> GetOrdersAsync()
         {
-            return await _context.Orders
+            List<Order> orders = await _context.Orders
                 .Include(o => o.Goods)
                 .Include(o => o.Payment)
                 .ToListAsync();
+
+            return orders;
         }
 
         [HttpPost("{id}")]

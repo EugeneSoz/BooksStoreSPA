@@ -16,13 +16,13 @@ const routes: Routes = [
     {
         path: "", component: StoreComponent,
         children: [
-            { path: "", component: BooksListComponent },
             { path: `${PageLink.detail}/:id`, component: BookDetailComponent },
-            { path: PageLink.cart, component: CartDetailsComponent },
             { path: PageLink.checkout, component: CheckoutDetailsComponent },
             { path: PageLink.payment, component: CheckoutPaymentComponent },
             { path: PageLink.summary, component: CheckoutSummaryComponent },
-            { path: PageLink.confirmation, component: OrderConfirmationComponent }
+            { path: PageLink.confirmation, component: OrderConfirmationComponent },
+            { path: PageLink.cart, component: CartDetailsComponent },
+            { path: "", component: BooksListComponent },
         ]
     },
 ];

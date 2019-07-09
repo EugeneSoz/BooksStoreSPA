@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Router, NavigationStart } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { OrderLine } from '../../models/order-line.model';
 import { CartService } from './cart.service';
@@ -7,35 +9,24 @@ import { Order } from '../../models/domain/order.model';
 import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
 import { OrderConfirmation } from '../../models/order.confirmation.model';
+import { CheckoutState } from '../../models/domain/DTO/checkout-state.model';
+import { createPageLink } from '../../core/helper-functions';
+import { PageLink } from '../../models/enums/page-link.enum';
 
 @Injectable()
 export class OrderService {
     constructor(
         private _cart: CartService,
         private _rest: RestDatasource) {
-        //router.events
-        //    .filter(event => event instanceof NavigationStart)
-        //    .subscribe(event => {
-        //        if (router.url.startsWith("/checkout")
-        //            && this.name != null && this.address != null) {
-        //            repo.storeSessionData("checkout", {
-        //                name: this.name,
-        //                address: this.address,
-        //                cardNumber: this.payment.cardNumber,
-        //                cardExpiry: this.payment.cardExpiry,
-        //                cardSecurityCode: this.payment.cardSecurityCode
-        //            });
-        //        }
-        //    });
-        //repo.getSessionData("checkout").subscribe(data => {
-        //    if (data != null) {
-        //        this.name = data.name;
-        //        this.address = data.address;
-        //        this.payment.cardNumber = data.cardNumber;
-        //        this.payment.cardExpiry = data.cardExpiry;
-        //        this.payment.cardSecurityCode = data.cardSecurityCode;
-        //    }
-        //})
+        this.getSessionData().subscribe(data => {
+            if (data != null) {
+                this.order.name = data.name;
+                this.order.address = data.address;
+                this.cardNumber = data.cardNumber;
+                this.cardExpiry = data.cardExpiry;
+                this.cardSecurityCode = data.cardSecurityCode;
+            }
+        })
     }
 
     orderSubmitted: boolean = false;
@@ -85,6 +76,18 @@ export class OrderService {
 
     getOrders(): Observable<Array<Order>> {
         return this._rest.getAll<Array<Order>>(Url.orders);
+    }
+
+    private getSessionData(): Observable<CheckoutState> {
+        return this._rest.getAll<CheckoutState>(Url.checkout_session);
+    }
+
+    storeSessionData(): void {
+        let state: CheckoutState = new CheckoutState(this.order.name, this.order.address,
+            this.order.payment.cardNumber, this.order.payment.cardExpiry, this.order.payment.cardSecurityCode);
+
+        this._rest.receiveAll<void, CheckoutState>(Url.checkout_session, state)
+            .subscribe(response => { });
     }
 
     placeOrder(): void {

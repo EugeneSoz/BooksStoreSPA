@@ -15,7 +15,7 @@ export class OrderSectionComponent implements OnInit {
     constructor(
         private _orderService: OrderService) { }
 
-    orders: Array<Order>;
+    orders: Array<Order> = null;
 
     ngOnInit(): void {
         this.getOrders();
