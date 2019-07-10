@@ -2,6 +2,7 @@
 using BooksStoreSPA.Data;
 using BooksStoreSPA.Models.Database;
 using BooksStoreSPA.Models.Repo;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ namespace BooksStoreSPA
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "ClientApp/dist/ClientApp";
             });
 
             services.AddTransient<IPublisherRepo, PublisherRepo>();
@@ -40,11 +41,12 @@ namespace BooksStoreSPA
             services.AddTransient<IBookRepo, BookRepo>();
             services.AddTransient<MigrationsManager>();
 
-            //services.AddDbContext<IdentityDataContext>(options =>
-            //    options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+            services.AddDbContext<IdentityDataContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
 
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<IdentityDataContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>()
+                .AddDefaultTokenProviders();
 
             services.AddDbContext<StoreDbContext>(options =>
             {
@@ -64,9 +66,17 @@ namespace BooksStoreSPA
                 options.IdleTimeout = TimeSpan.FromHours(24);
                 options.Cookie.HttpOnly = false;
             });
+
+            services.AddAntiforgery(options => {
+                options.HeaderName = "X-XSRF-TOKEN";
+            });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            IdentityDataContext identityContext,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +92,17 @@ namespace BooksStoreSPA
             app.UseSpaStaticFiles();
             app.UseSession();
             app.UseAuthentication();
+
+            app.Use(nextDelegate => requestContext => {
+                if (requestContext.Request.Path.StartsWithSegments("/api")
+                        || requestContext.Request.Path.StartsWithSegments("/"))
+                {
+                    requestContext.Response.Cookies.Append("XSRF-TOKEN",
+                    antiforgery.GetAndStoreTokens(requestContext).RequestToken);
+                }
+                return nextDelegate(requestContext);
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -96,8 +117,7 @@ namespace BooksStoreSPA
 
             app.UseSpa(spa =>
             {
-
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "ClientApp/dist/ClientApp";
 
                 if (env.IsDevelopment())
                 {
@@ -106,7 +126,8 @@ namespace BooksStoreSPA
                 }
             });
 
-            //IdentitySeedData.SeedDatabase(app);
+            IdentitySeedData.SeedDatabase(identityContext,
+                userManager, roleManager).GetAwaiter().GetResult();
         }
     }
 }

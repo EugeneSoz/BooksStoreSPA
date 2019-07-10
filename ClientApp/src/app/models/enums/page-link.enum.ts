@@ -12,5 +12,8 @@ export enum PageLink {
     checkout = "checkout",
     payment = "payment",
     summary = "summary",
-    confirmation = "confirmation"
+    confirmation = "confirmation",
+
+    login = "login",
+    logout = "logout"
 }

@@ -5,6 +5,7 @@ import { map, catchError } from "rxjs/operators";
 import { HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { HttpMethod } from '../models/http-method.model';
 import { HttpStatusCode } from '../models/enums/http-status-code.enum';
+import { Login } from '../models/login.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -66,6 +67,12 @@ export class RestDatasource {
                     this.getBoolResult(response, HttpMethod.delete)));
 
         return entities$;
+    }
+
+    login(userLogin: Login, url: string): Observable<HttpResponse<{}>> {
+        let result$ = this.sendRequest<{}, Login>(HttpMethod.post, url, userLogin);
+
+        return result$;
     }
 
     private getResult<TBody>(response: HttpResponse<TBody>, method: HttpMethod): TBody {

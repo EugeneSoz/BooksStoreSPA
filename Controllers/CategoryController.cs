@@ -7,11 +7,14 @@ using BooksStoreSPA.Data.DTO;
 using BooksStoreSPA.Infrastructure;
 using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStoreSPA.Controllers
 {
+    [Authorize(Roles = "Administrator")]
+    [AutoValidateAntiforgeryToken]
     public class CategoryController : BaseController
     {
         private readonly ICategoryRepo _repo;
@@ -34,6 +37,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpGet("storecategories")]
+        [AllowAnonymous]
         public async Task<List<StoreCategoryResponse>> GetStoreCategoriesAsync()
         {
             return await _repo.GetStoreCategoriesAsync();
@@ -79,7 +83,7 @@ namespace BooksStoreSPA.Controllers
         public async Task<ActionResult> DeleteCategoryAsync([FromBody] CategoryDTO categoryDTO)
         {
             Category category = categoryDTO.MapCategory();
-            //если у категории есть дочернии, тогда удалить их
+            //если у категории есть дочерние, тогда удалить их
             if (category.ParentCategoryID == null)
             {
                 bool isOk = await _repo.DeleteAsync(category.Id);

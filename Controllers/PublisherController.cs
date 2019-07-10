@@ -7,11 +7,14 @@ using BooksStoreSPA.Data.DTO;
 using BooksStoreSPA.Infrastructure;
 using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStoreSPA.Controllers
 {
+    [Authorize(Roles = "Administrator")]
+    [ValidateAntiForgeryToken]
     public class PublisherController : BaseController
     {
         private readonly IPublisherRepo _repo;
@@ -27,14 +30,6 @@ namespace BooksStoreSPA.Controllers
         [HttpPost("publishers")]
         public async Task<PagedResponse<Publisher>> GetPublishersAsync([FromBody] QueryOptions options)
         {
-            //if (HttpContext.User.IsInRole("Administrator"))
-            //{
-            //    PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
-
-            //    return publishers?.MapPagedResponse();
-            //}
-
-            //return null;
             PagedList<Publisher> publishers = await _repo.GetPublishersAsync(options);
 
             return publishers?.MapPagedResponse();

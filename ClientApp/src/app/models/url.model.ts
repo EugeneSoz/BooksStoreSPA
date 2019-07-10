@@ -39,7 +39,7 @@ export class Url {
     private static baseOrderUrl: string = `/api/orders`;
     static orders: string = `${Url.baseOrderUrl}`;
 
-    private static baseAccountUrl: string = `/api/acount`;
+    private static baseAccountUrl: string = `/api/account`;
     static login: string = `${Url.baseAccountUrl}/login`;
     static logout: string = `${Url.baseAccountUrl}/logout`;
 

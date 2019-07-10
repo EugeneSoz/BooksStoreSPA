@@ -8,8 +8,8 @@
     <div class="collapse navbar-collapse row" id="navbarSupportedContent" 
         [collapse]="isCollapsed">
         <div class="col-lg d-flex flex-row">
-            <span class="text-white">Eugene</span>
-            <span class="text-white ml-2">Выйти</span>
+            <span class="text-white"><b>Пользователь: </b>{{userName}}</span>
+            <button class="btn btn-sm btn-warning ml-2" (click)="logout()">Выйти</button>
         </div>
         <div *ngIf="isButtonsVisible" class="col-lg-auto d-flex flex-row">
             <button class="btn btn-primary" [routerLink]="[link, 'create']">Новая</button>

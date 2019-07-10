@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 namespace BooksStoreSPA.Controllers
 {
     [Route("api/session")]
+    [AutoValidateAntiforgeryToken]
     public class SessionController : ControllerBase
     {
         [HttpGet("cart")]

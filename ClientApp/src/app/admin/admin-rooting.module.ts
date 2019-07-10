@@ -14,6 +14,7 @@ import { CategoriesTableComponent } from './categories-section/categories-table.
 import { CategoryFormComponent } from './categories-section/category-form.component';
 import { PublishersTableComponent } from './publishers-section/publishers-table.component';
 import { PublisherFormComponent } from './publishers-section/publisher-form.component';
+import { AuthenticationGuard } from '../authentication/shared/authentication.guard';
 
 const booksChild: Routes = [
     { path: ":mode/:id", component: BookFormComponent },
@@ -36,6 +37,7 @@ const publishersChild: Routes = [
 const routes: Routes = [
     {
         path: "", component: AdminComponent,
+        canActivateChild: [AuthenticationGuard],
         children: [
             { path: "", component: HomeComponent },
             {

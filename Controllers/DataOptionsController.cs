@@ -7,6 +7,7 @@ using BooksStoreSPA.Data.DTO;
 using BooksStoreSPA.Models;
 using BooksStoreSPA.Models.Database;
 using BooksStoreSPA.Models.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ namespace BooksStoreSPA.Controllers
     [Route("api/options")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(Roles = "Administrator")]
+    [AutoValidateAntiforgeryToken]
     public class DataOptionsController : ControllerBase
     {
         private readonly MigrationsManager _manager;

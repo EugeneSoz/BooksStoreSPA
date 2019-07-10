@@ -13,7 +13,8 @@ namespace BooksStoreSPA.Controllers
 {
     [Route("api/orders")]
     [Produces("application/json")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
+    [AutoValidateAntiforgeryToken]
     public class OrderController : ControllerBase
     {
         private readonly StoreDbContext _context;
@@ -46,7 +47,7 @@ namespace BooksStoreSPA.Controllers
         }
 
         [HttpPost]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult CreateOrder([FromBody] Order order)
         {
             if (ModelState.IsValid)

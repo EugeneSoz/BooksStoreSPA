@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksStoreSPA.Controllers
 {
+    [Authorize(Roles = "Administrator")]
+    [AutoValidateAntiforgeryToken]
     public class BookController : BaseController
     {
         private readonly IBookRepo _repo;
@@ -21,6 +23,7 @@ namespace BooksStoreSPA.Controllers
         public BookController(IBookRepo repo) => _repo = repo;
 
         [HttpGet("book/{id}")]
+        [AllowAnonymous]
         public async Task<BookResponse> GetBookAsync(long id)
         {
             return await _repo.GetBookAsync(id);

@@ -99,15 +99,6 @@ export class StoreService {
         return this._rest.getOne<Dropdown>(Url.dropdown);
     }
 
-    //login(name: string, password: string): void {
-    //    this._rest.createObject<{}, void>(this._urls.login, { name: name, password: password });
-    //}
-
-    //logout(): void {
-    //    this._rest.createObject<{}, void>(this._urls.logout, null)
-    //        .subscribe(response => { });
-    //}
-
     private setBooksRowsAndCol(cardsCountInRow: number) {
         this.cols = new Array<number>();
         this.rows = new Array<number>();
