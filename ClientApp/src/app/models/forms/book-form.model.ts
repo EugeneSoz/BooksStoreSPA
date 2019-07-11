@@ -13,6 +13,13 @@ export class BookFormGroup extends CustomFormGroup {
         book: BookDTO) {
 
         super();
+
+        let titleRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я0-9_ ]+$");
+        let authorsRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я .]+$");
+        let languageRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я]+$");
+        let yearRegExp: RegExp = new RegExp("^[1-9][0-9][0-9][0-9]$");
+        let pageRegExp: RegExp = new RegExp("^[1-9][0-9]*$");
+        let priceRegExp: RegExp = new RegExp("^[1-9][0-9]*\.?[0-9]?[0-9]?$");
         this._me = new ModelErrors();
         this.addControl(nameof<BookDTO>("id"),
             new CustomFormControl(book.id,
@@ -24,7 +31,8 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("title"),
             new CustomFormControl(book.title,
-                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
+                Validators.compose([Validators.required, Validators.pattern(titleRegExp),
+                RangeValidator.range(3, 100)]),
                 "Название книги",
                 nameof<BookDTO>("title"),
                 EntityType.Book,
@@ -32,7 +40,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("authors"),
             new CustomFormControl(book.authors,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(authorsRegExp)]),
                 "Авторы",
                 nameof<BookDTO>("authors"),
                 EntityType.Book,
@@ -41,7 +49,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("language"),
             new CustomFormControl(book.language,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(languageRegExp)]),
                 "Язык",
                 nameof<BookDTO>("language"),
                 EntityType.Book,
@@ -49,7 +57,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("year"),
             new CustomFormControl(book.year,
-                undefined,
+                Validators.compose([Validators.required, Validators.pattern(yearRegExp)]),
                 "Дата публикации",
                 nameof<BookDTO>("year"),
                 EntityType.Book,
@@ -58,7 +66,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("pageCount"),
             new CustomFormControl(book.pageCount,
-                undefined,
+                Validators.compose([Validators.required, Validators.pattern(pageRegExp)]),
                 "Количество сраниц",
                 nameof<BookDTO>("pageCount"),
                 EntityType.Book,
@@ -66,7 +74,7 @@ export class BookFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<BookDTO>("price"),
             new CustomFormControl(book.price,
-                undefined,
+                Validators.compose([Validators.required, Validators.pattern(priceRegExp)]),
                 "Цена",
                 nameof<BookDTO>("price"),
                 EntityType.Book,
@@ -93,6 +101,14 @@ export class BookFormGroup extends CustomFormGroup {
                 Validators.compose([Validators.required, RangeValidator.range(3, 1000)]),
                 "Описание",
                 nameof<BookDTO>("description"),
+                EntityType.Book,
+                this._me));
+
+        this.addControl(nameof<BookDTO>("bookCover"),
+            new CustomFormControl(book.description,
+                undefined,
+                "Обложка книги",
+                nameof<BookDTO>("bookCover"),
                 EntityType.Book,
                 this._me));
     }

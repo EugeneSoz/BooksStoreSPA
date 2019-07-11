@@ -1,5 +1,5 @@
 export class Payment {
-    cardNumber: string;
-    cardExpiry: string;
-    cardSecurityCode: string;
+    cardNumber: string = "";
+    cardExpiry: string = "";
+    cardSecurityCode: string = "";
 }

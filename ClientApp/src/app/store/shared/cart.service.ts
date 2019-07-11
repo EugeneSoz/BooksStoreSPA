@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Order } from '../../models/domain/order.model';
 import { BookResponse } from '../../models/domain/DTO/book-response.model';
 import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';

@@ -11,10 +11,12 @@ export class CheckoutFormGroup extends CustomFormGroup {
         order: Order) {
 
         super();
+        let nameRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я ]+$");
+        let addressRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я .]+$");
         this._me = new ModelErrors();
         this.addControl(nameof<Order>("name"),
             new CustomFormControl(order.name,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(nameRegExp)]),
                 "Ваше имя",
                 nameof<Order>("name"),
                 EntityType.Order,
@@ -22,7 +24,7 @@ export class CheckoutFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<Order>("address"),
             new CustomFormControl(order.address,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(addressRegExp)]),
                 "Адрес доставки",
                 nameof<Order>("address"),
                 EntityType.Order,

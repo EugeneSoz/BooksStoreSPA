@@ -7,6 +7,8 @@ import { nameof, createPageLink } from '../../core/helper-functions';
 import { OrderService } from '../shared/order.service';
 import { Payment } from '../../models/payment.model';
 import { PageLink } from '../../models/enums/page-link.enum';
+import { CustomFormControl } from '../../models/forms/custom-form-control.model';
+import { FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
     templateUrl: './checkout-payment.component.html',
@@ -17,6 +19,18 @@ export class CheckoutPaymentComponent extends BaseFormComponent<PaymentFormGroup
         private _orderService: OrderService) {
 
         super();
+    }
+
+    get numberCtrl(): CustomFormControl {
+        return this.form.customControls[0];
+    }
+
+    get expiryCtrl(): CustomFormControl {
+        return this.form.customControls[1];
+    }
+
+    get securityCtrl(): CustomFormControl {
+        return this.form.customControls[2];
     }
 
     ngOnInit(): void {

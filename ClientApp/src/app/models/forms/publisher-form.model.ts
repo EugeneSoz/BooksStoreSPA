@@ -13,6 +13,8 @@ export class PublisherFormGroup extends CustomFormGroup {
 
         super();
 
+        let nameRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я0-9_ ]+$");
+        let countryRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я ]+$");
         this._me = new ModelErrors();
 
         this.addControl(nameof<PublisherDTO>("id"),
@@ -25,7 +27,8 @@ export class PublisherFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<PublisherDTO>("name"),
             new CustomFormControl(publisher.name,
-                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
+                Validators.compose([Validators.required, Validators.pattern(nameRegExp),
+                RangeValidator.range(3, 100)]),
                 "Название издательства",
                 nameof<PublisherDTO>("name"),
                 EntityType.Publisher,
@@ -33,7 +36,7 @@ export class PublisherFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<PublisherDTO>("country"),
             new CustomFormControl(publisher.country,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(countryRegExp)]),
                 "Страна нахождения издательства",
                 nameof<PublisherDTO>("country"),
                 EntityType.Publisher,

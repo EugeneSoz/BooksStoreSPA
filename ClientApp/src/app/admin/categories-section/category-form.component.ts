@@ -48,7 +48,7 @@ export class CategoryFormComponent extends BaseAdminFormComponent<CategoryFormGr
         this._subscriptions.push(
             this._categoryService.entityUpdated.subscribe(updated => {
                 if (updated) {
-                    this._router.navigateByUrl(PageLink.categories);
+                    this._router.navigateByUrl(this.pageLink);
                 }
             })
         );

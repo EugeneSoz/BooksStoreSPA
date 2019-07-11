@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Router, NavigationStart } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { OrderLine } from '../../models/order-line.model';
 import { CartService } from './cart.service';
@@ -10,8 +8,6 @@ import { Url } from '../../models/url.model';
 import { RestDatasource } from '../../core/rest-datasource.service';
 import { OrderConfirmation } from '../../models/order.confirmation.model';
 import { CheckoutState } from '../../models/domain/DTO/checkout-state.model';
-import { createPageLink } from '../../core/helper-functions';
-import { PageLink } from '../../models/enums/page-link.enum';
 
 @Injectable()
 export class OrderService {

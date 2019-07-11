@@ -31,12 +31,20 @@ export class ModelErrors {
             msg = "Укажите название издательства";
         }
         else if (property == nameof<Publisher>("name")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода издательства";
+        }
+        else if (property == nameof<Publisher>("name")
             && errorAttribute == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 100 символов";
         }
         else if (property == nameof<Publisher>("country")
             && errorAttribute == ErrorAttributes.required) {
             msg = "Укажите название страны нахождения издательства";
+        }
+        else if (property == nameof<Publisher>("country")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода страны нахождения издательства";
         }
         else if (property == nameof<Publisher>("country")
             && errorAttribute == ErrorAttributes.range) {
@@ -54,6 +62,10 @@ export class ModelErrors {
             msg = "Укажите название категории/подкатегории";
         }
         else if (property == nameof<Category>("name")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода категории/подкатегории";
+        }
+        else if (property == nameof<Category>("name")
             && errorAttribute == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 100 символов";
         }
@@ -69,6 +81,10 @@ export class ModelErrors {
             msg = "Укажите название книги";
         }
         else if (property == nameof<Book>("title")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат название книги";
+        }
+        else if (property == nameof<Book>("title")
             && errorAttribute == ErrorAttributes.range) {
             msg = "Название должно быть не меньше 2 и не больше 250 символов";
         }
@@ -76,9 +92,40 @@ export class ModelErrors {
             && errorAttribute == ErrorAttributes.required) {
             msg = "Укажите автора или авторов";
         }
+        else if (property == nameof<Book>("authors")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода автора или авторов";
+        }
         else if (property == nameof<Book>("language")
             && errorAttribute == ErrorAttributes.required) {
             msg = "Укажите язык книги";
+        } else if (property == nameof<Book>("language")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода языка книги";
+        }
+        else if (property == nameof<Book>("year")
+            && errorAttribute == ErrorAttributes.required) {
+            msg = "Укажите год издания книги в правильном формате";
+        }
+        else if (property == nameof<Book>("year")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Укажите год издания книги в правильном формате";
+        }
+        else if (property == nameof<Book>("pageCount")
+            && errorAttribute == ErrorAttributes.required) {
+            msg = "Укажите количество страниц в правильном формате";
+        }
+        else if (property == nameof<Book>("pageCount")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Укажите количество страниц в правильном формате";
+        }
+        else if (property == nameof<Book>("price")
+            && errorAttribute == ErrorAttributes.required) {
+            msg = "Укажите цену книги в правильном формате";
+        }
+        else if (property == nameof<Book>("price")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Укажите цену книги в правильном формате";
         }
         if (property == nameof<Book>("description")
             && errorAttribute == ErrorAttributes.required) {
@@ -103,25 +150,45 @@ export class ModelErrors {
     private getOrdersValidationErrors(property: string, errorAttribute: string): string {
         let msg: string = null;
 
-        if (property == nameof<Order>("name")
+       if (property == nameof<Order>("name")
             && errorAttribute == ErrorAttributes.required) {
             msg = "Введите ваше имя";
+        }
+        else if (property == nameof<Order>("name")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Имя содержит недопустимые символы";
         }
         else if (property == nameof<Order>("address")
             && errorAttribute == ErrorAttributes.required) {
             msg = "Укажите адрес доставки";
         }
+        else if (property == nameof<Order>("address")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неверный формат ввода адреса";
+        }
         else if (property == nameof<Payment>("cardNumber")
             && errorAttribute == ErrorAttributes.required) {
-            msg = "Введите номер банковской карты";
-        }
+            msg = "Неправильный номер банковской карты";
+       }
+       else if (property == nameof<Payment>("cardNumber")
+           && errorAttribute == ErrorAttributes.pattern) {
+           msg = "Неправильный номер банковской карты";
+       }
         else if (property == nameof<Payment>("cardExpiry")
             && errorAttribute == ErrorAttributes.required) {
-            msg = "Введите срок окончания банковской карты";
+            msg = "Неправильный срок окончания банковской карты";
         }
+       else if (property == nameof<Payment>("cardExpiry")
+           && errorAttribute == ErrorAttributes.pattern) {
+           msg = "Неправильный срок окончания банковской карты";
+       }
         if (property == nameof<Payment>("cardSecurityCode")
             && errorAttribute == ErrorAttributes.required) {
-            msg = "Укажите код безопасности карты";
+            msg = "Неправильный код безопасности карты";
+        }
+        if (property == nameof<Payment>("cardSecurityCode")
+            && errorAttribute == ErrorAttributes.pattern) {
+            msg = "Неправильный код безопасности карты";
         }
 
         return msg;

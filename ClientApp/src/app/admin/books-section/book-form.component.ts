@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
@@ -21,7 +21,8 @@ import { nameof, createPageLink } from '../../core/helper-functions';
 export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> implements OnInit {
     constructor(
         private _bookService: BookService,
-        activeRoute: ActivatedRoute) {
+        activeRoute: ActivatedRoute,
+        private _router: Router) {
 
         super(activeRoute);
         this.form = new BookFormGroup(this.bookDTO);
@@ -53,6 +54,14 @@ export class BookFormComponent extends BaseAdminFormComponent<BookFormGroup> imp
                     this.form = new BookFormGroup(this.bookDTO);
                 }
             }));
+
+        this._subscriptions.push(
+            this._bookService.entityUpdated.subscribe(updated => {
+                if (updated) {
+                    this._router.navigateByUrl(this.pageLink);
+                }
+            })
+        );
 
         //для значений выпадающего списка издательств
         this.publishers$ = Observable.create((observer: Subject<string>) => {

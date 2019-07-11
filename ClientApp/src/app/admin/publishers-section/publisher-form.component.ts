@@ -43,7 +43,7 @@ export class PublisherFormComponent extends BaseAdminFormComponent<PublisherForm
         this._subscriptions.push(
             this._publisherService.entityUpdated.subscribe(updated => {
                 if (updated) {
-                    this._router.navigateByUrl(PageLink.publishers);
+                    this._router.navigateByUrl(this.pageLink);
                 }
             })
         );

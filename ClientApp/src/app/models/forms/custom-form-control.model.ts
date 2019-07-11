@@ -2,7 +2,6 @@ import { FormControl, ValidatorFn, FormGroup } from "@angular/forms";
 
 import { EntityType } from '../enums/entity-type.enum';
 import { ModelErrors } from '../validation/model-errors.model';
-import { ErrorAttributes } from '../enums/error-attributes.enum';
 
 export class CustomFormControl extends FormControl {
     constructor(value: string | number | boolean, validator: ValidatorFn | ValidatorFn[],
@@ -26,16 +25,7 @@ export class CustomFormControl extends FormControl {
 
         if (this.errors) {
             for (let errorName in this.errors) {
-                switch (errorName) {
-                    case ErrorAttributes.required:
-                        messages.push(this._me.getValidationErrors(this._entityType,
-                            this.property, errorName));
-                        break;
-                    case ErrorAttributes.range:
-                        messages.push(this._me.getValidationErrors(this._entityType,
-                            this.property, errorName));
-                        break;
-                }
+                messages.push(this._me.getValidationErrors(this._entityType, this.property, errorName));
             }
         }
 

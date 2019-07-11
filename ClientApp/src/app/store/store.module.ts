@@ -59,9 +59,6 @@ import { BooksListComponent } from './books-list/books-list.component';
         OrderConfirmationComponent,
     ],
     providers: [
-        StoreService,
-        CartService,
-        Order
     ],
 })
 export class StoreModule { }

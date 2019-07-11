@@ -12,10 +12,13 @@ export class PaymentFormGroup extends CustomFormGroup {
         order: Order) {
 
         super();
+        let cardNumberRegExp: RegExp = new RegExp("^[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}$");
+        let cardExpiryRegExp: RegExp = new RegExp("^[0-9]{2}/[0-9]{2}$");
+        let securityCodeRegExp: RegExp = new RegExp("^[0-9]{3}$");
         this._me = new ModelErrors();
         this.addControl(nameof<Payment>("cardNumber"),
             new CustomFormControl(order.payment.cardNumber,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(cardNumberRegExp)]),
                 "Номер банковской карты",
                 nameof<Payment>("cardNumber"),
                 EntityType.Order,
@@ -23,7 +26,7 @@ export class PaymentFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<Payment>("cardExpiry"),
             new CustomFormControl(order.payment.cardExpiry,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(cardExpiryRegExp)]),
                 "Укажите срок действий карты",
                 nameof<Payment>("cardExpiry"),
                 EntityType.Order,
@@ -31,7 +34,7 @@ export class PaymentFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<Payment>("cardSecurityCode"),
             new CustomFormControl(order.payment.cardExpiry,
-                Validators.required,
+                Validators.compose([Validators.required, Validators.pattern(securityCodeRegExp)]),
                 "Код безопасности карты",
                 nameof<Payment>("cardSecurityCode"),
                 EntityType.Order,

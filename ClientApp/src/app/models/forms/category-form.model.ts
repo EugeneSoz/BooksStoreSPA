@@ -13,6 +13,7 @@ export class CategoryFormGroup extends CustomFormGroup {
 
         super();
 
+        let nameRegExp: RegExp = new RegExp("^[A-Za-zА-Яа-я0-9_ ]+$");
         this._me = new ModelErrors();
 
         this.addControl(nameof<CategoryDTO>("id"),
@@ -34,7 +35,8 @@ export class CategoryFormGroup extends CustomFormGroup {
 
         this.addControl(nameof<CategoryDTO>("name"),
             new CustomFormControl(category.name,
-                Validators.compose([Validators.required, RangeValidator.range(3, 100)]),
+                Validators.compose([Validators.required, Validators.pattern(nameRegExp),
+                RangeValidator.range(3, 100)]),
                 "Название категории",
                 nameof<CategoryDTO>("name"),
                 EntityType.Category,
