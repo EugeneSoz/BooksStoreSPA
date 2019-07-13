@@ -12,9 +12,12 @@ export class PaymentFormGroup extends CustomFormGroup {
         order: Order) {
 
         super();
-        let cardNumberRegExp: RegExp = new RegExp("^[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}$");
-        let cardExpiryRegExp: RegExp = new RegExp("^[0-9]{2}/[0-9]{2}$");
-        let securityCodeRegExp: RegExp = new RegExp("^[0-9]{3}$");
+        let today: Date = new Date();
+        let year: string = today.getFullYear().toString().slice(2);
+
+        let cardNumberRegExp: RegExp = new RegExp(/^(\d{4}\s){3}\d{4}$/);
+        let cardExpiryRegExp: RegExp = new RegExp(`^(0[1-9]|1[0-2])/[${year[0]}-9][${year[1]}-9]$`);
+        let securityCodeRegExp: RegExp = new RegExp(/^\d{3}$/);
         this._me = new ModelErrors();
         this.addControl(nameof<Payment>("cardNumber"),
             new CustomFormControl(order.payment.cardNumber,

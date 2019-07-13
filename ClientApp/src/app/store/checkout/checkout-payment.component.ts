@@ -8,7 +8,6 @@ import { OrderService } from '../shared/order.service';
 import { Payment } from '../../models/payment.model';
 import { PageLink } from '../../models/enums/page-link.enum';
 import { CustomFormControl } from '../../models/forms/custom-form-control.model';
-import { FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
     templateUrl: './checkout-payment.component.html',

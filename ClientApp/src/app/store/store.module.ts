@@ -9,9 +9,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { SharedModule } from '../shared/shared.module';
-import { StoreService } from './shared/store.service';
-import { CartService } from './shared/cart.service';
-import { Order } from '../models/domain/order.model';
 import { BookCardComponent } from './books-list/book-card.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BooksGridComponent } from './books-list/books-grid.component';
@@ -28,6 +25,9 @@ import { CartDetailsComponent } from './cart-detail/cart-details.component';
 import { CheckoutPaymentComponent } from './checkout/checkout-payment.component';
 import { OrderConfirmationComponent } from './checkout/order-confirmation.component';
 import { BooksListComponent } from './books-list/books-list.component';
+import { UpperCaseDirective } from './shared/uppercase.directive';
+import { CardExpiryDirective } from './shared/card-expiry.directive';
+import { CardNumberDirective } from './shared/card-number.directive';
 
 
 @NgModule({
@@ -57,6 +57,9 @@ import { BooksListComponent } from './books-list/books-list.component';
         CheckoutPaymentComponent,
         CheckoutSummaryComponent,
         OrderConfirmationComponent,
+        UpperCaseDirective,
+        CardExpiryDirective,
+        CardNumberDirective
     ],
     providers: [
     ],
